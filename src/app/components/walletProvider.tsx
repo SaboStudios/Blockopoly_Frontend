@@ -5,7 +5,6 @@ import React, {
   useContext,
   ReactNode,
   useCallback,
-  useEffect,
 } from "react";
 
 import {
@@ -38,6 +37,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
   const { connect, connectors, connectAsync } = useConnect();
   const { address } = useAccount();
   const { disconnect } = useDisconnect();
+
   // Accept a specific connector when connecting
   const connectWallet = useCallback(
     (connector: Connector) => {
@@ -46,14 +46,6 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
     [connect]
   );
 
-  // Save wallet address to localStorage when connected
-  useEffect(() => {
-    if (address) {
-      localStorage.setItem("walletAddress", address);
-    } else {
-      localStorage.removeItem("walletAddress");
-    }
-  }, [address]);
 
   return (
     <WalletContext.Provider

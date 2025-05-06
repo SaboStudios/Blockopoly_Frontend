@@ -4,15 +4,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useWalletContext } from "./walletProvider";
 import AnimationWrapper from "../motion/animation-wrapper";
 
-interface WalletOption {
-  id: string;
-  name: string;
-  icon: string;
-}
 
 interface WalletConnectModalProps {
   isOpen: boolean;
@@ -25,8 +19,7 @@ export default function WalletConnectModal({
   onClose,
 }: WalletConnectModalProps) {
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
-  const { connectors, connectAsync, account } = useWalletContext();
-  const router = useRouter();
+  const { connectors, connectAsync} = useWalletContext();
   const handleSelect = (walletId: string) => {
     setSelectedWallet(walletId);
   };
@@ -102,14 +95,14 @@ export default function WalletConnectModal({
           />
 
           <motion.div
-            className="relative w-full max-w-md rounded-2xl bg-[#0a0b1e] p-6 shadow-xl"
+            className="relative w-full max-w-md rounded-2xl bg-[#010F10] p-6 shadow-xl border-[#003B3E] border"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-white mx-auto font-orbitron">
                 Connect Wallet
               </h2>
 
@@ -122,7 +115,7 @@ export default function WalletConnectModal({
             </div>
 
             <p className="text-gray-300 mb-4 text-center">
-              Choose a wallet you want to connect to SkillNet
+              Choose your preferred wallet
             </p>
 
             <div className="space-y-3 mb-6">
@@ -133,9 +126,9 @@ export default function WalletConnectModal({
                   delay={index * 0.1}
                 >
                   <button
-                    className={`w-full flex items-center gap-3 p-3 rounded-full border border-gray-700 hover:border-gray-500 transition-colors ${
+                    className={`w-full flex justify-center items-center gap-3 p-3 rounded-md  hover:border-gray-500 bg-[#0D191B] transition-colors ${
                       selectedWallet === wallet.id
-                        ? "border-teal-500 bg-[#0d0e24]"
+                        ? "border-teal-500 border"
                         : ""
                     }`}
                     onClick={() => handleSelect(wallet.id)}

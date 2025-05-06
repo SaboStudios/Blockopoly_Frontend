@@ -3,22 +3,20 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, MoreVertical } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { MoreVertical, House, Volume2 } from "lucide-react";
 import { useWalletContext } from "./walletProvider";
 import AnimationWrapper from "../motion/animation-wrapper";
 import WalletConnectModal from "./wallet-connect-modal";
 import WalletDisconnectModal from "./wallet-disconnect-modal";
+import Logo from "./icons/logo";
 
 export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
   const [isDisconnectModalOpen, setIsDisconnectModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { account, connectWallet, disconnectWallet, connectors } =
     useWalletContext();
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -34,7 +32,6 @@ export default function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const handleWalletSelect = (walletId: string) => {
     const connector = connectors.find((c) => c.id === walletId);
@@ -53,53 +50,31 @@ export default function Navbar() {
     disconnectWallet(); // real Starknet-React disconnect :contentReference[oaicite:4]{index=4}
     setIsDisconnectModalOpen(false);
   };
-  const navLinks = [
-    { name: "Features", href: "/#features" },
-    { name: "How It Works", href: "/#how-it-works" },
-    { name: "Benefits", href: "/#benefits" },
-    { name: "FAQs", href: "/#faqs" },
-  ];
 
   return (
     <>
-      <header className="mt-5 fixed w-full z-40">
-        <div className="container mx-auto px-4 py-3 flex items-center justify-between bg-[#0A1330] rounded-[48px]">
+      <header className="fixed w-full z-40 to-[#083234]/50 from-[#010F10] bg-gradient-to-tl py-4 px-5">
+        <div className="flex items-center justify-between">
           <AnimationWrapper variant="slideRight">
             <Link href="/" className="flex items-center">
-              <Image
-                src="/Logo.png"
-                alt="blockopoly"
-                width={120}
-                height={32}
-                className="h-8 w-auto"
-              />
+              <Logo />
             </Link>
           </AnimationWrapper>
 
-          {/* Desktop Navigation */}
-
-          <nav className="hidden md:flex items-center space-x-8 text-[#FCFCFC]">
-            {navLinks.map((link) => (
-              <AnimationWrapper variant="slideRight">
-                <Link
-                  href={link.href}
-                  key={link.name}
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  {link.name}
-                </Link>
-              </AnimationWrapper>
-            ))}
-          </nav>
-
           {/* Wallet Connection Button or Connected Wallet */}
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-2 ">
+            <div className="border border-[#0E282A] p-2 rounded-[12px]">
+              <House />
+            </div>
+            <div className="border border-[#0E282A] p-2 rounded-[12px]">
+              <Volume2 />
+            </div>
             <AnimationWrapper variant="slideLeft">
               {!account ? (
                 <button
                   onClick={handleConnectWallet}
-                  className="px-5 py-2 rounded-full bg-teal-500 text-white font-medium hover:bg-teal-600 transition-colors"
+                  className="px-5 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron "
                 >
                   Connect Wallet
                 </button>
@@ -107,7 +82,7 @@ export default function Navbar() {
                 <div className="relative" ref={dropdownRef}>
                   <div
                     onClick={handleWalletClick}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0d0e24] border border-gray-800 cursor-pointer hover:border-gray-600 transition-colors"
+                    className="px-2 flex items-center gap-2 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron"
                   >
                     <div className="h-8 w-8 rounded-full border-2 border-teal-500 overflow-hidden">
                       <Image
@@ -138,7 +113,7 @@ export default function Navbar() {
                   {/* Custom Dropdown Menu */}
 
                   {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-[#0d0e24] border border-gray-800 overflow-hidden">
+                    <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-[#010F10] overflow-hidden border-[#003B3E] border">
                       <div className="py-1">
                         <button
                           onClick={handleWalletClick}
@@ -147,12 +122,11 @@ export default function Navbar() {
                           Disconnect
                         </button>
 
-                        <Link
-                          href="/dashboard"
+                        <button
                           className="w-full block text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-800 transition-colors"
                         >
                           View Profile
-                        </Link>
+                        </button>
 
                         <button className="w-full text-left px-4 py-2 text-sm text-gray-200 hover:bg-gray-800 transition-colors">
                           Settings
@@ -172,14 +146,14 @@ export default function Navbar() {
               {!account ? (
                 <button
                   onClick={handleConnectWallet}
-                  className="px-4 py-1.5 mr-4 rounded-full bg-teal-500 text-white text-sm font-medium hover:bg-teal-600 transition-colors"
+                  className="px-5 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron"
                 >
                   Connect Wallet
                 </button>
               ) : (
                 <div
                   onClick={handleWalletClick}
-                  className="flex items-center gap-2 px-2 py-1 mr-4 rounded-full bg-[#0d0e24] border border-gray-800 cursor-pointer"
+                  className="px-2 flex items-center gap-2 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron"
                 >
                   <div className="h-6 w-6 rounded-full border border-teal-500 overflow-hidden">
                     <Image
@@ -197,43 +171,8 @@ export default function Navbar() {
                 </div>
               )}
             </AnimationWrapper>
-
-            <button onClick={toggleMenu} className="text-white">
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden overflow-hidden bg-[#0a0b1e]"
-            >
-              <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-                {navLinks.map((link, index) => (
-                  <AnimationWrapper
-                    key={link.name}
-                    variant="slideRight"
-                    delay={index * 0.1}
-                  >
-                    <Link
-                      href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors block py-2"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  </AnimationWrapper>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </header>
 
       <WalletConnectModal

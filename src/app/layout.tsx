@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
+import { StarknetProvider } from "./components/provider";
+import { WalletProvider } from "./components/walletProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const orbitron = Orbitron({
+  variable: "--font-orbitron-sans",
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -25,9 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${orbitron.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <StarknetProvider>
+          < WalletProvider>
+            {children}
+          </WalletProvider>
+        </StarknetProvider>
       </body>
     </html>
   );

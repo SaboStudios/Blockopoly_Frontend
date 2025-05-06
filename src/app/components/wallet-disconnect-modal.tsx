@@ -74,19 +74,19 @@ export default function WalletDisconnectModal({
           />
 
           <motion.div
-            className="relative w-full max-w-sm rounded-2xl bg-[#0a0b1e] p-6 shadow-xl"
+            className="relative w-full max-w-sm rounded-2xl bg-[#010F10] p-6 shadow-xl border-[#003B3E] border"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
             <div className="flex items-center justify-between mb-8 px-10">
-              <h2 className="text-xl font-semibold text-white">
+              <h2 className="text-xl font-semibold text-white mx-auto font-orbitron">
                 Disconnect Wallet
               </h2>
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors absolute top-3 right-3"
               >
                 <X size={20} />
               </button>
