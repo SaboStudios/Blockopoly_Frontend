@@ -32,9 +32,7 @@ export default function RootLayout({
         className={`${orbitron.variable} ${geistMono.variable} antialiased`}
       >
         <StarknetProvider>
-          < WalletProvider>
-            {children}
-          </WalletProvider>
+          <WalletProvider>{children}</WalletProvider>
         </StarknetProvider>
       </body>
     </html>
