@@ -25,3 +25,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer utilities {
+  /* .block-image {
+    width: 766px !important; 
+    height: 120px !important;
+    object-fit: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  } */
+}
