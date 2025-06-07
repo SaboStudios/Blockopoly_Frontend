@@ -26,12 +26,33 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.butt-bg {
+  width: 260px;
+  height: 58px;
+  background: #00f6ff;
+  clip-path: polygon(-90% -10%, 90% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 20%);
+  border-radius: 8px;
+}
+
+
 @layer utilities {
-  /* .block-image {
-    width: 766px !important; 
-    height: 120px !important;
-    object-fit: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  } */
+   
+.bloc-color {
+  /* font-size: 80px; */
+  font-weight: bold;
+  font-family: 'Orbitron', sans-serif; /* Optional futuristic font */
+  background: linear-gradient(90deg, #20B2AA 0%, #086161 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+
+  /* Multiple box shadows stacked */
+  text-shadow:
+    -5px -5px 13px #077379e5 inset,
+     5px  5px 10px #17ffffe5 inset,
+    -5px  5px 10px #07737933 inset,
+     5px -5px 10px #07737933 inset,
+     1px  1px 2px  #07737980,
+    -1px -1px 2px  #17ffff4d;
+}
 }
