@@ -1,63 +1,77 @@
+"use client"
+
+import { Card } from "../components/ui/card"
+import { Building, Flag, Landmark, Plane, HelpCircle } from "lucide-react"
+
 interface PropertyCardProps {
   name: string
-  price?: string
-  color: string
-  type: "property" | "corner" | "chance" | "utility" | "tax"
-  icon?: string
-  rotation?: number
+  color?: string
+  price?: number
+  // rent?: number
+  type?: string
+  orientation: "top" | "right" | "bottom" | "left"
+  hasBuilding?: boolean
+  hasFlag?: boolean
+  hasLandmark?: boolean
+  hasPlane?: boolean
 }
 
-export function PropertyCard({ name, price, color, type, icon, rotation = 0 }: PropertyCardProps) {
-  const getColorClass = (color: string) => {
-    const colorMap: { [key: string]: string } = {
-      brown: "bg-amber-800",
-      lightblue: "bg-sky-300",
-      pink: "bg-pink-400",
-      orange: "bg-orange-500",
-      red: "bg-red-500",
-      yellow: "bg-yellow-400",
-      green: "bg-green-500",
-      blue: "bg-blue-600",
-      purple: "bg-purple-600",
-      cyan: "bg-cyan-400",
+export function PropertyCard({
+  name,
+  color,
+  price,
+  // rent,
+  type,
+  orientation,
+  hasBuilding,
+  hasFlag,
+  hasLandmark,
+  hasPlane,
+}: PropertyCardProps) {
+  const isVertical = orientation === "left" || orientation === "right"
+
+  const getIcon = () => {
+    if (hasBuilding) return <Building className="w-6 h-6 text-gray-600" />
+    if (hasFlag) return <Flag className="w-6 h-6 text-gray-600" />
+    if (hasLandmark) return <Landmark className="w-6 h-6 text-gray-600" />
+    if (hasPlane) return <Plane className="w-6 h-6 text-gray-600" />
+    return <HelpCircle className="w-6 h-6 text-cyan-400" />
+  }
+
+  const getCardContent = () => {
+    if (type === "chance" || type === "community") {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <HelpCircle className="w-8 h-8 text-cyan-400" />
+        </div>
+      )
     }
-    return colorMap[color] || "bg-gray-400"
-  }
 
-  if (type === "corner") {
     return (
-      <div
-        className="w-24 h-24 bg-white border-2 border-black flex items-center justify-center text-xs font-bold text-center p-1"
-        style={{ transform: `rotate(${rotation}deg)` }}
-      >
-        {icon && <span className="text-2xl ">{icon}</span>}
-        <span className="text-[8px] leading-tight">{name}</span>
-      </div>
-    )
-  }
+      <div className={`p-2 h-full flex flex-col ${isVertical ? "w-24" : "w-full"}`}>
+        {/* Color bar */}
+        {color && <div className={`${color} ${isVertical ? "h-full w-4 mb-2" : "h-4 w-full mb-2"}`}></div>}
 
-  if (type === "chance") {
-    return (
-      <div
-        className="w-16 h-24 bg-black border border-black flex flex-col items-center justify-center"
-        style={{ transform: `rotate(${rotation}deg)` }}
-      >
-        <div className="text-2xl text-cyan-500 font-bold ">?</div>
-        <div className="text-[8px] font-bold text-center px-1">{name}</div>
+        {/* Content */}
+        <div className="flex-1 flex flex-col items-center justify-center text-center">
+          <div className="mb-2">{getIcon()}</div>
+          <div className="text-xs font-bold mb-1">{name}</div>
+          {price && <div className="text-xs text-gray-600">⊕{price}</div>}
+        </div>
       </div>
     )
   }
 
   return (
-    <div
-      className="w-16 h-24 bg-white border border-black flex flex-col"
-      style={{ transform: `rotate(${rotation}deg)` }}
+    <Card
+      className={`
+      bg-white text-black border border-gray-300
+      ${isVertical ? "h-full w-24" : "w-full h-24"}
+      ${orientation === "left" ? "transform -rotate-90" : ""}
+      ${orientation === "right" ? "transform rotate-90" : ""}
+    `}
     >
-      <div className={`h-4 ${getColorClass(color)}`}></div>
-      <div className="flex-1 flex flex-col justify-between p-1">
-        <div className="text-[8px] font-bolder text-black text-center leading-tight">{name}</div>
-        {price && <div className="text-[7px] text-center font-semibold text-black">{price}</div>}
-      </div>
-    </div>
+      {getCardContent()}
+    </Card>
   )
 }
