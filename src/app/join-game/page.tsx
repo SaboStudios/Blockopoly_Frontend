@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowLeft, Plus, User } from "lucide-react";
+import Navbar from "../components/navbar";
 
 const shapes = {
   "arrow-right": "polygon(1rem 0%, 100% 0%, calc(100% - 1rem) 100%, 0% 100%)",
@@ -97,7 +98,9 @@ export default function JoinRoom() {
   };
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-center">
+    <>
+     <Navbar />
+        <main className="relative min-h-screen flex flex-col items-center justify-center">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-xs z-10"
         style={{
@@ -195,5 +198,7 @@ export default function JoinRoom() {
         </div>
       </div>
     </main>
+    </>
+ 
   );
 }

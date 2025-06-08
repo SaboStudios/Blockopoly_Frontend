@@ -1,11 +1,9 @@
-// import Navbar from "./components/navbar";
-import ColorSelection from "./playerselection/selection";
+import Navbar from "./components/navbar";
 
 export default function Home() {
   return (
     <div className="">
-{/* <Navbar/> */}
-<ColorSelection />
+      <Navbar />
     </div>
   );
 }
