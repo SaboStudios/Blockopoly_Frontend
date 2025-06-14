@@ -74,7 +74,7 @@ export default function Navbar() {
               {!account ? (
                 <button
                   onClick={handleConnectWallet}
-                  className="px-5 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron "
+                  className="px-5 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron"
                 >
                   Connect Wallet
                 </button>

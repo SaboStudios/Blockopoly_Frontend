@@ -3,6 +3,7 @@ import { Geist_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import { StarknetProvider } from "./components/provider";
 import { WalletProvider } from "./components/walletProvider";
+// import Navbar from "./components/navbar";
 
 const orbitron = Orbitron({
   variable: "--font-orbitron-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body
         className={`${orbitron.variable} ${geistMono.variable} antialiased`}
       >
+        {/* <Navbar /> */}
         <StarknetProvider>
           <WalletProvider>{children}</WalletProvider>
         </StarknetProvider>
