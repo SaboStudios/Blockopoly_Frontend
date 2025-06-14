@@ -5,9 +5,9 @@ import HowItWorks from "./components/landingpage/howItWorks";
 export default function Home() {
   return (
     <div className="">
-<Navbar/>
-<Homepage />
-<HowItWorks />
+      <Navbar />
+      <Homepage />
+      <HowItWorks />
     </div>
   );
 }
