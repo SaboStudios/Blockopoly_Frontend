@@ -25,3 +25,54 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.butt-bg {
+  width: 260px;
+  height: 58px;
+  background: #00f6ff;
+  clip-path: polygon(-90% -10%, 90% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 20%);
+  border-radius: 8px;
+}
+
+.join-room {
+  width: 140px;
+  height: 40px;
+  background: #0E1415;
+  border: 1px solid #003B3E;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 19%, 82% 100%, 0% 100%, 0% 0%);
+    /* clip-path: polygon(-90% -10%, 90% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 20%); */
+  border-radius: 8px;
+}
+
+.private-game {
+  width: 227px;
+  height: 40px;
+  background: #003B3E;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 75%, 10% 0%);
+    /* clip-path: polygon(-90% -10%, 100% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 20%); */
+  border-radius: 8px;
+}
+
+
+
+@layer utilities {
+   
+.bloc-color {
+  font-weight: bold;
+  font-family: 'Orbitron' sans-serif;
+  background: linear-gradient(90deg, #20B2AA 0%, #086161 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+
+  /* Multiple box shadows stacked */
+  text-shadow:
+    -5px -5px 13px #077379e5 inset,
+     5px  5px 10px #17ffffe5 inset,
+    -5px  5px 10px #07737933 inset,
+     5px -5px 10px #07737933 inset,
+     1px  1px 2px  #07737980,
+    -1px -1px 2px  #17ffff4d;
+}
+}
