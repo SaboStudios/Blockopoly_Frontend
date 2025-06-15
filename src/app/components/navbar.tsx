@@ -53,7 +53,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed w-full z-100 bg-linear-to-b from-[#010F10] to-[#083234] py-4 px-5">
+      <header className="fixed w-full z-40 to-[#083234]/50 from-[#010F10] bg-gradient-to-tl py-4 px-5">
         <div className="flex items-center justify-between">
           <AnimationWrapper variant="slideRight">
             <Link href="/" className="flex items-center">
@@ -74,7 +74,7 @@ export default function Navbar() {
               {!account ? (
                 <button
                   onClick={handleConnectWallet}
-                  className="px-5 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron cursor-pointer"
+                  className="px-5 py-2  border rounded-md border-[#0E282A]  bg-inherit text-[#0FF0FC] font-medium transition-colors font-orbitron"
                 >
                   Connect Wallet
                 </button>
