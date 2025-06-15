@@ -24,7 +24,7 @@ export default function Home() {
               </ul>
 
               <div className="">
-                  <h1 className="relative w-[47.875rem] font-[900] text-[7.25rem] font-[Orbitron] leading-[7.5rem] tracking-tight capitalize m-0 bloc-color text-shadow">THE BLOCK</h1>
+                  <h1 className="relative w-[47.875rem] font-black text-[7.5rem] leading-[7.5rem] tracking-[-2%] capitalize m-0 bloc-color text-shadow">THE BLOCK</h1>
                 <Link href="#">
                   <Image src="/questionmark.png" 
                     alt="block-image" width={27} height={27} 

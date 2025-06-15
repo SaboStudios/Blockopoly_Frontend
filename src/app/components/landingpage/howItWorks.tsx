@@ -24,8 +24,22 @@ export default function HowItWorks() {
               </div>
           </div>
         </div>
+         
          <div className="absolute top-[21.857rem]">
-            <Image src="/Vector 57.png" alt="vector-img" width={1440} height={856}/>
+            <Image src="/Vector 57.png" alt="vector-img" width={1440} height={856} className="z-0"/>
+            <div className="absolute w-[83.75rem] h-[47.4375rem] left-[3.125rem] top-[3rem] z-1">
+              <div className="w-[655px] h-[135px] gap-[16px] flex flex-col mx-auto text-center justify-center max-lg:flex-col whitespace-wrap">
+                <h1 className="font-orbitron font-black text-[3rem] text-[#F0F7F7] leading-[100%] tracking-[0%]">
+                  How it works
+                  </h1>
+                <p className="font-[DM Sans] font-400 text-[20px] leading-[30px] tracking-[0%] text-center align-middle text-[#F0F7F7]">
+                  It’s super simple how Blockopoly works. The flow has been designed to help you not to stress too much.
+                  </p>
+              </div>
+
+            </div>
+            <h1>vvjk</h1>
+
          </div>
          
         </div>
