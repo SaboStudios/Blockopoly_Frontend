@@ -8,7 +8,7 @@ import ButtonBg from "@/app/components/button";
 
 export default function Home() {
   return (
-    <section className="relative max-w-[90rem] h-[64rem]">
+    <section className="relative w-[90rem] h-[64rem]">
       <div>
         <Image src="/bg gradient.png" alt="bg-color" width={1440} height={1024} className="z-1 absolute top-0"/><Image src="/board.png" alt="bg-color" width={1440} height={1024} className="z-0" />
       </div>
@@ -24,7 +24,7 @@ export default function Home() {
               </ul>
 
               <div className="">
-                  <h1 className="relative w-[47.875rem] font-black text-[7.5rem] leading-[7.5rem] tracking-[-2%] capitalize m-0 bloc-color text-shadow">THE BLOCK</h1>
+                  <h1 className="relative w-[47.875rem] font-black text-[7rem] font-orbitron leading-[7.5rem] tracking-[-2%] capitalize m-0 bloc-color text-shadow">THE BLOCK</h1>
                 <Link href="#">
                   <Image src="/questionmark.png" 
                     alt="block-image" width={27} height={27} 

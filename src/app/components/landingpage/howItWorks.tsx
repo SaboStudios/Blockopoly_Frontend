@@ -1,17 +1,20 @@
 'use client';
 
 import Image from "next/image";
+import ConnectPlay from "@/app/components/landingpage/connectPlay"
+// import CarouselDemo from "ectAndPlay";
 
 export default function HowItWorks() {
   return (
-    <section>
-        <div className="z-0 relative">
-           <Image src="/Vector.png" 
+    <section className="z-0 relative">
+        <div className=" w-[83.75rem] ml-[3.125rem]">
+          <Image src="/Vector.png" 
             width={1340} 
             height={686}
             alt="vector-image" 
             className="top-[1024px] left-[50px] rounded-[8px] border-[1px] mx-auto"
-       />
+            />
+            </div>
         <div className="absolute w-full top-[6rem]">
           <div className="w-[61.9375rem] h-[8rem] flex gap-[8.75rem] z-2 mx-auto">
             <div className="w-96 h-32">
@@ -25,7 +28,7 @@ export default function HowItWorks() {
           </div>
         </div>
          
-         <div className="absolute top-[21.857rem]">
+         <div className="absolute w-[90rem] h-[53.5rem] top-[21.857rem]">
             <Image src="/Vector 57.png" alt="vector-img" width={1440} height={856} className="z-0"/>
             <div className="absolute w-[83.75rem] h-[47.4375rem] left-[3.125rem] top-[3rem] z-1">
               <div className="w-[655px] h-[135px] gap-[16px] flex flex-col mx-auto text-center justify-center max-lg:flex-col whitespace-wrap">
@@ -36,13 +39,11 @@ export default function HowItWorks() {
                   It’s super simple how Blockopoly works. The flow has been designed to help you not to stress too much.
                   </p>
               </div>
-
+                 <ConnectPlay />
             </div>
-            <h1>vvjk</h1>
-
          </div>
          
-        </div>
+       
     </section>
   )
 }

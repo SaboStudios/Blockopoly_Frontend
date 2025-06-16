@@ -13,7 +13,7 @@ export default function GameRoomPage() {
 
       <GameRoomProvider>
         <GameRoomContent />
-      </GameRoomProvider>
+      </GameRoomProvider >
     </>
   );
 }

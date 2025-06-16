@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import board from "@/app/assets/board.png";
+import board from '@/app/assets/board.png';
+
 // import { useGameRoom } from "@/app/contexts/GameRoomContext";
 
 export default function GameLoading() {

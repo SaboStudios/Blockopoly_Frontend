@@ -10,9 +10,9 @@ export default function GameRoomContent() {
   const { state } = useGameRoom();
 
   return (
-    <div className="relative min-h-screen ">
+    <div className="relative min-h-screen">
       {/* Board Background - Fixed positioning */}
-      
+
       {/* Content with proper spacing */}
       <div className="relative">
         <Navbar />

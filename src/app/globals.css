@@ -62,10 +62,15 @@ body {
   border-radius: 8px;
 }
 
+.connect-icon {
+  width: 24px;
+  height: 24px;
+}
+
 @layer utilities {
    
 .bloc-color {
-  font-family: var(--font-orbitron);
+  /* font-family: var(--font-orbitron); */
   letter-spacing: -50% !important;
   background: linear-gradient(90deg, #20B2AA 0%, #086161 100%);
   background-clip: linear-gradient(90deg, #20B2AA 0%, #086161 100%);
