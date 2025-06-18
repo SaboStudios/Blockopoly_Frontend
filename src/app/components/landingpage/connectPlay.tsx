@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect, useCallback } from 'react';
 // import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
@@ -104,7 +105,7 @@ const Carousel: React.FC<CarouselProps> = ({
         </div>
       </div>
       {/* Indicators */}
-      <div className='w-[38.75rem] h-[3.1875rem] mt-20 flex justify-between flex-row'>
+      <div className='w-[38.75rem] h-[3.1875rem] mt-20 flex justify-between flex-row mx-auto'>
          {showIndicators && items.length > 1 && (
         <div className="flex justify-center space-x-3 mt-4">
           {items.map((_, index) => (
