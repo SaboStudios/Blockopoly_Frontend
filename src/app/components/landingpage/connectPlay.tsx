@@ -7,8 +7,6 @@ interface CarouselItem {
   id: number;
   title: string;
   description: string;
-  // image: string;
-  // color: string;
 }
 
 interface CarouselProps {

@@ -28,7 +28,7 @@ export default function Home() {
                 <Link href="#">
                   <Image src="/questionmark.png" 
                     alt="block-image" width={27} height={27} 
-                    className="absolute top-[7.00125rem] left-[50.5rem] pt-[2.5px]
+                    className="absolute top-[7.00125rem] left-[53.2rem] pt-[2.5px]
                     pr-[5.8px] pb-[0.83px] pl-[5.8px] gap-[2.76px] font-[24.87px] rotate-[12deg]"
                   />
                 </Link>

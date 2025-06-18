@@ -50,9 +50,29 @@ body {
   height: 40px;
   background: #003B3E;
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 75%, 10% 0%);
-    /* clip-path: polygon(-90% -10%, 100% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 20%); */
+      /* clip-path: polygon(-90% -10%, 90% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 20%); */
   border-radius: 8px;
 }
+
+.telegram-channel {
+  width: 250px;
+  height: 45px;
+  background: #0E1415;
+  border: 1px solid #003B3E;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 20%, 90% 100%, 0% 100%, 0% 0%);
+    
+  border-radius: 8px;
+}
+
+.discord-channel {
+  width: 257px;
+  height: 45px;
+  background: #003B3E;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 75%, 10% 0%);
+  /* clip-path: polygon(-90% -10%, 90% 0%, 100% 0%, 100% 100%, 10% 100%, 0% 20%); */
+  border-radius: 8px;
+}
+
 
 .butt-bg {
   width: 260px;
