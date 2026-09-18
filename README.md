@@ -35,6 +35,8 @@
 - **Stellar wallet** (e.g. [Freighter](https://www.freighter.app/))
 - Access to **Tycoon on Stellar** Soroban contracts (see Contract repo)
 
+Before trying wallet connect, install the [Freighter](https://www.freighter.app/) browser extension so your wallet is available to the app.
+
 ### 1️⃣ Clone the repository
 
 ```bash
