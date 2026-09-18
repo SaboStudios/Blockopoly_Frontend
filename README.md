@@ -31,7 +31,7 @@
 ### Prerequisites
 
 - **Node.js** ≥ 18.0.0
-- **npm** or **yarn**
+- **pnpm** (preferred package manager) — or **npm** / **yarn**
 - **Stellar wallet** (e.g. [Freighter](https://www.freighter.app/))
 - Access to **Tycoon on Stellar** Soroban contracts (see Contract repo)
 
