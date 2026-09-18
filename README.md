@@ -40,3 +40,11 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+### 2️⃣ Install dependencies and run the dev server
+
+```bash
+npm install
+npm run dev
+```
