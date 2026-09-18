@@ -40,3 +40,8 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+### 2️⃣ Environment variables
+
+Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser — do not put secrets there.
