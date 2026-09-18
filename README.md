@@ -38,5 +38,5 @@
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
-cd tycoon-on-stellar-frontend
+git clone https://github.com/SaboStudios/Blockopoly_Frontend.git
+cd Blockopoly_Frontend
