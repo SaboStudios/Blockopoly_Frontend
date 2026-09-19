@@ -10,6 +10,10 @@
 
 This repository contains the Next.js frontend only; the Soroban smart contracts live in a separate repository.
 
+## ♿ Accessibility
+
+Primary navigation should remain keyboard reachable.
+
 ## ✨ Features
 
 - **Responsive Tycoon UI** — Game board, property cards, dice, and modals (Figma-driven), styled with Tailwind CSS.
