@@ -86,9 +86,16 @@ After running `pnpm dev`, the app runs at [http://localhost:3000](http://localho
 ### 5️⃣ Build for production
 
 ```bash
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
+
+## 📜 Scripts
+
+- `pnpm dev` — Start the development server.
+- `pnpm build` — Create a production build.
+- `pnpm start` — Start the production server.
+- `pnpm lint` — Run ESLint.
 
 ## 📝 Development Notes
 
