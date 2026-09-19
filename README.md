@@ -43,3 +43,9 @@ This repository contains the Next.js frontend only; the Soroban smart contracts 
 ```bash
 git clone https://github.com/SaboStudios/Blockopoly_Frontend.git
 cd Blockopoly_Frontend
+```
+
+## 🤝 Contributing
+
+Found a bug or have an idea? Please open a GitHub Issue so we can track it.
+We welcome contributions via pull requests once an issue is discussed.
