@@ -41,8 +41,8 @@ This repository contains the Next.js frontend only; the Soroban smart contracts 
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/SaboStudios/Blockopoly_Frontend.git
-cd Blockopoly_Frontend
+git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
+cd tycoon-on-stellar-frontend
 ```
 
 ### 2️⃣ Environment variables
@@ -53,3 +53,7 @@ Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser — do not put
 
 Found a bug or have an idea? Please open a GitHub Issue so we can track it.
 We welcome contributions via pull requests once an issue is discussed.
+
+## 📄 License
+
+See the [LICENSE](./LICENSE) file for details, or visit the [GitHub license tab](https://github.com/YOUR_ORG/tycoon-on-stellar-frontend/blob/main/LICENSE).
