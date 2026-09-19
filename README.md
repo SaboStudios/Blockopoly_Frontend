@@ -40,3 +40,45 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3️⃣ Configure environment variables
+
+Create a `.env.local` file in the project root and add the required variables (e.g. Stellar network, contract IDs, RPC URL). Refer to `.env.example` if provided.
+
+### 4️⃣ Run the development server
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.
+
+### 5️⃣ Build for production
+
+```bash
+npm run build
+npm run start
+```
+
+## 📝 Development Notes
+
+- **TypeScript-first:** This codebase is TypeScript-first. New pages and components should be written as `.tsx` (or `.ts`) files rather than plain JavaScript. Avoid adding `.js`/`.jsx` pages.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request. Ensure your changes follow the existing code style and pass linting before submitting.
+
+## 📄 License
+
+This project is licensed under the terms specified in the repository.
