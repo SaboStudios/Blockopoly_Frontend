@@ -6,6 +6,8 @@
 
 **Tycoon on Stellar** Frontend is the user interface for a decentralized board-game experience on **Stellar / Soroban**. Built with **Next.js**, **Tailwind CSS**, and Stellar wallet tooling, it delivers a modern, responsive UI that connects to on-chain game logic in **Rust (Soroban)**. Players can interact with the board, buy and sell properties, roll dice, and trade digital assets in a trustless, blockchain-powered environment—without leaving the Stellar ecosystem.
 
+The UI targets both **mobile and desktop** responsive layouts.
+
 > **Scope note:** Deploying on-chain smart contracts is out of scope for this repository. This repo is the frontend client only; contract deployment is handled elsewhere.
 
 This repository contains the Next.js frontend only; the Soroban smart contracts live in a separate repository.
