@@ -40,3 +40,25 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+pnpm install
+```
+
+### 3️⃣ Run the development server
+
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📜 Scripts
+
+- `pnpm dev` — Start the development server.
+- `pnpm build` — Create a production build.
+- `pnpm start` — Start the production server.
+- `pnpm lint` — Run ESLint.
