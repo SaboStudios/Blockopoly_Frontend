@@ -45,6 +45,10 @@ git clone https://github.com/SaboStudios/Blockopoly_Frontend.git
 cd Blockopoly_Frontend
 ```
 
+### 2️⃣ Environment variables
+
+Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser — do not put secrets there.
+
 ## 🤝 Contributing
 
 Found a bug or have an idea? Please open a GitHub Issue so we can track it.
