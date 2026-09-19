@@ -55,6 +55,10 @@ git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
 ```
 
+## ❓ FAQ
+
+**Wallet not connecting?** Refresh the page and unlock your wallet extension, then try connecting again.
+
 ### 🌐 Network
 
 Test gameplay targets **Starknet Sepolia** unless otherwise configured.
