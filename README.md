@@ -8,6 +8,8 @@
 
 > **Scope note:** Deploying on-chain smart contracts is out of scope for this repository. This repo is the frontend client only; contract deployment is handled elsewhere.
 
+This repository contains the Next.js frontend only; the Soroban smart contracts live in a separate repository.
+
 ## ✨ Features
 
 - **Responsive Tycoon UI** — Game board, property cards, dice, and modals (Figma-driven), styled with Tailwind CSS.
@@ -33,12 +35,27 @@
 ### Prerequisites
 
 - **Node.js** ≥ 18.0.0
-- **npm** or **yarn**
+- **pnpm** (preferred package manager) — or **npm** / **yarn**
 - **Stellar wallet** (e.g. [Freighter](https://www.freighter.app/))
 - Access to **Tycoon on Stellar** Soroban contracts (see Contract repo)
+- **Supported browsers** — latest **Chrome**, **Firefox**, and **Safari**
 
 ### 1️⃣ Clone the repository
 
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+### 2️⃣ Environment variables
+
+Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser — do not put secrets there.
+
+## 🤝 Contributing
+
+Found a bug or have an idea? Please open a GitHub Issue so we can track it.
+We welcome contributions via pull requests once an issue is discussed.
+
+## 📄 License
+
+See the [LICENSE](./LICENSE) file for details, or visit the [GitHub license tab](https://github.com/YOUR_ORG/tycoon-on-stellar-frontend/blob/main/LICENSE).
