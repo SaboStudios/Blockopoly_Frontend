@@ -40,3 +40,8 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+### 🌐 Network
+
+Test gameplay targets **Starknet Sepolia** unless otherwise configured.
