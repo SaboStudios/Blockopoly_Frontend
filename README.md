@@ -40,3 +40,8 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+## 🤝 Contributing
+
+> **Tip:** Before starting large refactors, please open a GitHub issue first to discuss the proposed changes.
