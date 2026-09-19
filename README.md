@@ -32,8 +32,8 @@ This repository contains the Next.js frontend only; the Soroban smart contracts 
 
 ### Prerequisites
 
-- **Node.js >= 18** (Node.js 18 or newer is required)
-- **npm** or **yarn**
+- **Node.js** ≥ 18.0.0
+- **pnpm** (preferred package manager) — or **npm** / **yarn**
 - **Stellar wallet** (e.g. [Freighter](https://www.freighter.app/))
 - Access to **Tycoon on Stellar** Soroban contracts (see Contract repo)
 - **Supported browsers** — latest **Chrome**, **Firefox**, and **Safari**
