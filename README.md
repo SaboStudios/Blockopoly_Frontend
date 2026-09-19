@@ -36,6 +36,7 @@ This repository contains the Next.js frontend only; the Soroban smart contracts 
 - **npm** or **yarn**
 - **Stellar wallet** (e.g. [Freighter](https://www.freighter.app/))
 - Access to **Tycoon on Stellar** Soroban contracts (see Contract repo)
+- **Supported browsers** — latest **Chrome**, **Firefox**, and **Safari**
 
 ### 1️⃣ Clone the repository
 
