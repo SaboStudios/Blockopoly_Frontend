@@ -71,6 +71,8 @@ After running `pnpm dev`, the app runs at [http://localhost:3000](http://localho
 
 ## 🤝 Contributing
 
+> **Tip:** Before starting large refactors, please open a GitHub issue first to discuss the proposed changes.
+
 Found a bug or have an idea? Please open a GitHub Issue so we can track it.
 We welcome contributions via pull requests once an issue is discussed.
 
