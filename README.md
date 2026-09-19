@@ -26,6 +26,10 @@
 - **ESLint** — Code quality, integrated with Next.js.
 - **Figma** — Source for board and component design.
 
+## 🔒 Security
+
+**Never paste your seed phrase or private keys into the app UI.** No legitimate interface—including this one—should ever ask for them. Wallet connections and transaction signing happen through your wallet extension (e.g. Freighter); your secret recovery phrase and private keys must stay offline and private at all times.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
