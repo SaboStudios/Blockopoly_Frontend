@@ -61,6 +61,8 @@ pnpm install
 
 Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser — do not put secrets there.
 
+Create a `.env.local` file in the project root and add the required variables (e.g. Stellar network, contract IDs, RPC URL). Refer to `.env.example` if provided.
+
 ### 4️⃣ Run the development server
 
 ```bash
@@ -69,12 +71,25 @@ pnpm dev
 
 After running `pnpm dev`, the app runs at [http://localhost:3000](http://localhost:3000).
 
+### 5️⃣ Build for production
+
+```bash
+npm run build
+npm run start
+```
+
+## 📝 Development Notes
+
+- **TypeScript-first:** This codebase is TypeScript-first. New pages and components should be written as `.tsx` (or `.ts`) files rather than plain JavaScript. Avoid adding `.js`/`.jsx` pages.
+
 ## 🤝 Contributing
 
 > **Tip:** Before starting large refactors, please open a GitHub issue first to discuss the proposed changes.
 
 Found a bug or have an idea? Please open a GitHub Issue so we can track it.
 We welcome contributions via pull requests once an issue is discussed.
+
+Contributions are welcome! Please open an issue or submit a pull request. Ensure your changes follow the existing code style and pass linting before submitting.
 
 ## 📄 License
 
