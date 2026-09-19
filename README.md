@@ -40,3 +40,18 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+pnpm install
+```
+
+### 3️⃣ Run the development server
+
+```bash
+pnpm dev
+```
+
+After running `pnpm dev`, the app runs at [http://localhost:3000](http://localhost:3000).
