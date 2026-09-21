@@ -38,6 +38,15 @@ Primary navigation should remain keyboard reachable.
 - **ESLint** — Code quality, integrated with Next.js.
 - **Figma** — Source for board and component design.
 
+## 🔤 Fonts
+
+Brand fonts are loaded via `next/font/google` in `app/layout.tsx` and exposed as CSS variables on the root layout:
+
+- **Orbitron** — display headings (hero title, section titles, logo wordmark). Exposed as `--font-orbitron` and applied through the `font-display` utility.
+- **DM Sans** — primary body text (paragraphs, buttons, form fields, navigation). Exposed as `--font-dm-sans` and applied through the `font-sans` utility.
+
+Use `font-display` for headings and `font-sans` for body copy so typography stays consistent across the app.
+
 ## 🔒 Security
 
 **Never paste your seed phrase or private keys into the app UI.** No legitimate interface—including this one—should ever ask for them. Wallet connections and transaction signing happen through your wallet extension (e.g. Freighter); your secret recovery phrase and private keys must stay offline and private at all times.
