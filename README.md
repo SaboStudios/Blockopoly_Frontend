@@ -57,6 +57,10 @@ git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
 ```
 
+## 📝 Changelog
+
+See the [GitHub Releases](https://github.com/YOUR_ORG/tycoon-on-stellar-frontend/releases) page for the latest changes.
+
 ## ❓ FAQ
 
 **Wallet not connecting?** Refresh the page and unlock your wallet extension, then try connecting again.
