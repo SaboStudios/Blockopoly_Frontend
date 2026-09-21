@@ -88,7 +88,7 @@ const HeroSection = () => {
 
                     <button
                         type="button"
-                        className="relative group w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                        className="relative group w-full sm:w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                     >
                         <svg
                             width="260"
@@ -111,11 +111,11 @@ const HeroSection = () => {
                     </button>
 
                     {/* join/create room */}
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="w-full sm:w-auto flex flex-col sm:flex-row justify-center items-center mt-2 gap-2 sm:gap-0">
                         <button
                             type="button"
                             onClick={handleRouteToJoinRoom}
-                            className="relative left-2 group w-[140px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                            className="relative sm:left-2 group w-full sm:w-[140px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                         >
                             <svg
                                 width="140"
@@ -142,7 +142,7 @@ const HeroSection = () => {
                         <button
                             type="button"
                             onClick={handleRouteToPrivateRoom}
-                            className="relative group w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                            className="relative group w-full sm:w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                         >
                             <svg
                                 width="227"
