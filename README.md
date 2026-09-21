@@ -8,6 +8,16 @@
 
 > **Note:** This README documents the Blockopoly web client only. Other components (e.g. Soroban contracts) live in separate repositories.
 
+The UI targets both **mobile and desktop** responsive layouts.
+
+> **Scope note:** Deploying on-chain smart contracts is out of scope for this repository. This repo is the frontend client only; contract deployment is handled elsewhere.
+
+This repository contains the Next.js frontend only; the Soroban smart contracts live in a separate repository.
+
+## ♿ Accessibility
+
+Primary navigation should remain keyboard reachable.
+
 ## ✨ Features
 
 - **Responsive Tycoon UI** — Game board, property cards, dice, and modals (Figma-driven), styled with Tailwind CSS.
@@ -28,17 +38,86 @@
 - **ESLint** — Code quality, integrated with Next.js.
 - **Figma** — Source for board and component design.
 
+## 🔒 Security
+
+**Never paste your seed phrase or private keys into the app UI.** No legitimate interface—including this one—should ever ask for them. Wallet connections and transaction signing happen through your wallet extension (e.g. Freighter); your secret recovery phrase and private keys must stay offline and private at all times.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - **Node.js** ≥ 18.0.0
-- **npm** or **yarn**
+- **pnpm** (preferred package manager) — or **npm** / **yarn**
 - **Stellar wallet** (e.g. [Freighter](https://www.freighter.app/))
 - Access to **Tycoon on Stellar** Soroban contracts (see Contract repo)
+- **Supported browsers** — latest **Chrome**, **Firefox**, and **Safari**
 
 ### 1️⃣ Clone the repository
 
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+## 📝 Changelog
+
+See the [GitHub Releases](https://github.com/YOUR_ORG/tycoon-on-stellar-frontend/releases) page for the latest changes.
+
+## ❓ FAQ
+
+**Wallet not connecting?** Refresh the page and unlock your wallet extension, then try connecting again.
+
+### 🌐 Network
+
+Test gameplay targets **Starknet Sepolia** unless otherwise configured.
+
+### 2️⃣ Install dependencies
+
+```bash
+pnpm install
+```
+
+### 3️⃣ Environment variables
+
+Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser — do not put secrets there.
+
+Create a `.env.local` file in the project root and add the required variables (e.g. Stellar network, contract IDs, RPC URL). Refer to `.env.example` if provided.
+
+### 4️⃣ Run the development server
+
+```bash
+pnpm dev
+```
+
+After running `pnpm dev`, the app runs at [http://localhost:3000](http://localhost:3000).
+
+### 5️⃣ Build for production
+
+```bash
+pnpm build
+pnpm start
+```
+
+## 📜 Scripts
+
+- `pnpm dev` — Start the development server.
+- `pnpm build` — Create a production build.
+- `pnpm start` — Start the production server.
+- `pnpm lint` — Run ESLint.
+
+## 📝 Development Notes
+
+- **TypeScript-first:** This codebase is TypeScript-first. New pages and components should be written as `.tsx` (or `.ts`) files rather than plain JavaScript. Avoid adding `.js`/`.jsx` pages.
+
+## 🤝 Contributing
+
+> **Tip:** Before starting large refactors, please open a GitHub issue first to discuss the proposed changes.
+
+Found a bug or have an idea? Please open a GitHub Issue so we can track it.
+We welcome contributions via pull requests once an issue is discussed.
+
+Contributions are welcome! Please open an issue or submit a pull request. Ensure your changes follow the existing code style and pass linting before submitting.
+
+## 📄 License
+
+See the [LICENSE](./LICENSE) file for details, or visit the [GitHub license tab](https://github.com/YOUR_ORG/tycoon-on-stellar-frontend/blob/main/LICENSE).
