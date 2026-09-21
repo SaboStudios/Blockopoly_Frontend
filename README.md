@@ -40,3 +40,8 @@
 ```bash
 git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
+```
+
+## 🧪 Testing
+
+Unit tests are welcome! If you'd like to contribute tests, please open a pull request with your additions. This section is a stub and will be expanded as the test suite grows.
