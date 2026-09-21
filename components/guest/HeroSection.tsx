@@ -73,7 +73,9 @@ const HeroSection = () => {
                     />
                 </div>
 
-                <h1 className="block-text font-[900] font-orbitron lg:text-[116px] md:text-[98px] text-[54px] lg:leading-[120px] md:leading-[100px] leading-[60px] tracking-[-0.02em] uppercase text-[#17ffff] relative">
+                {/* Reserve vertical space for the hero title so the Orbitron font swap
+                    does not cause a visible layout shift (CLS) on load. */}
+                <h1 className="block-text font-[900] font-orbitron lg:text-[116px] md:text-[98px] text-[54px] lg:leading-[120px] md:leading-[100px] leading-[60px] tracking-[-0.02em] uppercase text-[#17ffff] relative min-h-[60px] md:min-h-[100px] lg:min-h-[120px]">
                     THE BLOCK
                     <span className='absolute top-0 left-[69%] text-[#0FF0FC] font-dmSans font-[700] md:text-[27px] text-[18px] rotate-12 animate-pulse'>?</span>
                 </h1>
@@ -96,6 +98,8 @@ const HeroSection = () => {
                             viewBox="0 0 260 52"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                            focusable="false"
                             className="absolute top-0 left-0 w-full h-full transform scale-x-[-1]"
                         >
                             <path
@@ -123,6 +127,8 @@ const HeroSection = () => {
                                 viewBox="0 0 140 40"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                focusable="false"
                                 className="absolute top-0 left-0 w-full h-full"
                             >
                                 <path
@@ -134,7 +140,7 @@ const HeroSection = () => {
                                 />
                             </svg>
                             <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[12px] font-dmSans font-medium z-10">
-                                <Dices className="mr-1.5 w-[16px] h-[16px]" />
+                                <Dices className="mr-1.5 w-[16px] h-[16px]" aria-hidden="true" />
                                 Join Room
                             </span>
                         </button>
@@ -150,6 +156,8 @@ const HeroSection = () => {
                                 viewBox="0 0 227 40"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                focusable="false"
                                 className="absolute top-0 left-0 w-full h-full transform scale-x-[-1] scale-y-[-1]"
                             >
                                 <path
@@ -161,7 +169,7 @@ const HeroSection = () => {
                                 />
                             </svg>
                             <span className="absolute inset-0 flex items-center justify-center text-[#00F0FF] capitalize text-[12px] font-dmSans font-medium z-10">
-                                <KeyRound className="mr-1.5 w-[16px] h-[16px]" />
+                                <KeyRound className="mr-1.5 w-[16px] h-[16px]" aria-hidden="true" />
                                 Create A Private Game
                             </span>
                         </button>
