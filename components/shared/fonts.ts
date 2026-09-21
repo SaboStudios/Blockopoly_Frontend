@@ -12,9 +12,12 @@ export const kronaOne = Krona_One({
   display: "swap",
 });
 
+// adjustFontFallback generates a size-adjusted local fallback so the swap to
+// Orbitron does not visibly reflow the hero title (reduces CLS).
 export const orbitron = Orbitron({
   variable: "--font-orbitron-sans",
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
+  adjustFontFallback: true,
 });
