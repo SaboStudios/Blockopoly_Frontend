@@ -59,6 +59,10 @@ git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
 ```
 
+### Branch naming
+
+When creating a branch, use a short, descriptive name in the format `feature/short-description` (for example, `feature/wallet-connect`).
+
 ## 📝 Changelog
 
 See the [GitHub Releases](https://github.com/YOUR_ORG/tycoon-on-stellar-frontend/releases) page for the latest changes.
