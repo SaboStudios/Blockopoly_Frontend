@@ -26,6 +26,15 @@
 - **ESLint** — Code quality, integrated with Next.js.
 - **Figma** — Source for board and component design.
 
+## 🔤 Fonts
+
+Brand fonts are loaded via `next/font/google` in `app/layout.tsx` and exposed as CSS variables on the root layout:
+
+- **Orbitron** — display headings (hero title, section titles, logo wordmark). Exposed as `--font-orbitron` and applied through the `font-display` utility.
+- **DM Sans** — primary body text (paragraphs, buttons, form fields, navigation). Exposed as `--font-dm-sans` and applied through the `font-sans` utility.
+
+Use `font-display` for headings and `font-sans` for body copy so typography stays consistent across the app.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
