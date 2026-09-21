@@ -68,6 +68,10 @@ git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
 ```
 
+## 🧪 Testing
+
+Unit tests are welcome! If you'd like to contribute tests, please open a pull request with your additions. This section is a stub and will be expanded as the test suite grows.
+
 ### Branch naming
 
 When creating a branch, use a short, descriptive name in the format `feature/short-description` (for example, `feature/wallet-connect`).
