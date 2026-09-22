@@ -70,6 +70,8 @@ cd tycoon-on-stellar-frontend
 
 ## 🧪 Testing
 
+- No test suite is configured yet; tests are not run as part of this project.
+
 Unit tests are welcome! If you'd like to contribute tests, please open a pull request with your additions. This section is a stub and will be expanded as the test suite grows.
 
 ### Branch naming
