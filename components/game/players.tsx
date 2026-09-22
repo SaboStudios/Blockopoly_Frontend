@@ -53,7 +53,7 @@ const Players = () => {
                         {/* Example Player Item */}
                         <div className="flex items-center gap-2">
                             <div className="size-[32px] rounded-full bg-[#FFBE04]" />
-                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>Aji <span className='text-[10px]'>(Me)</span></span>
+                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px] truncate' title='Aji (Me)'>Aji <span className='text-[10px]'>(Me)</span></span>
                         </div>
 
                         <button type="button" className='w-[118px] h-[29px] border-[1px] border-[#003B3E] rounded-[20px] bg-transparent text-[#869298] hover:text-[#F0F7F7] self-end text-[10px] cursor-pointer'>Change appearance</button>
@@ -68,7 +68,7 @@ const Players = () => {
                         {/* Example Player Item */}
                         <div className="flex items-center gap-2">
                             <div className="size-[32px] rounded-full bg-[#0E8AED]" />
-                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>Signor </span>
+                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px] truncate' title='Signor'>Signor </span>
                         </div>
                     </div>
 
