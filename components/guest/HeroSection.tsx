@@ -154,3 +154,27 @@ const HeroSection = () => {
                                 height="40"
                                 viewBox="0 0 227 40"
                                 fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="absolute top-0 left-0 w-full h-full"
+                            >
+                                <path
+                                    d="M6 1H221C225.373 1 227.996 5.85486 225.601 9.5127L207.167 37.5127C206.151 39.0646 204.42 40 202.565 40H6C2.96244 40 0.5 37.5376 0.5 34.5V6.5C0.5 3.46243 2.96243 1 6 1Z"
+                                    fill="#0E1415"
+                                    stroke="#003B3E"
+                                    strokeWidth={1}
+                                    className='group-hover:stroke-[#00F0FF] transition-all duration-300 ease-in-out'
+                                />
+                            </svg>
+                            <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[12px] font-dmSans font-medium z-10">
+                                <KeyRound className="mr-1.5 w-[16px] h-[16px]" />
+                                Create Room
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </section>
+    )
+}
+
+export default HeroSection
