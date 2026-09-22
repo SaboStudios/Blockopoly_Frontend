@@ -12,7 +12,7 @@ const ChatRoom = () => {
             </div>
             {/* content */}
             <main className="w-full h-[calc(100%-89px)] overflow-y-auto no-scrollbar flex justify-center items-center">
-                <p className="text-[#AFBAC0] text-center text-[14px] font-dmSan font-[500]">No messages yet</p>
+                <p className="text-[#AFBAC0] text-center text-[14px] font-dmSan font-[500]">No messages yet — start the conversation below.</p>
             </main>
 
             {/* bottom */}

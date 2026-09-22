@@ -135,37 +135,6 @@ const JoinRoom = () => {
                             <RxDotFilled className='w-5 h-5' />
                         </span>
                     </div>
-
-
-                    <div className="w-full h-[52px] flex  mt-8">
-                        <input type='text' placeholder='Input room code' className='w-full h-full px-4 text-[#73838B] border-[1px] border-[#0E282A] rounded-[12px] flex-1 outline-none focus:border-[#00F0FF]' />
-
-                        <button
-                            type="button"
-                            onClick={() => router.push('/game-settings')}
-                            className="relative group w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
-                        >
-                            <svg
-                                width="260"
-                                height="52"
-                                viewBox="0 0 260 52"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="absolute top-0 left-0 w-full h-full transform scale-x-[-1]"
-                            >
-                                <path
-                                    d="M10 1H250C254.373 1 256.996 6.85486 254.601 10.5127L236.167 49.5127C235.151 51.0646 233.42 52 231.565 52H10C6.96244 52 4.5 49.5376 4.5 46.5V9.5C4.5 6.46243 6.96243 4 10 4Z"
-                                    fill="#00F0FF"
-                                    stroke="#0E282A"
-                                    strokeWidth={1}
-                                />
-                            </svg>
-                            <span className="absolute inset-0 flex items-center justify-center text-[#010F10] capitalize text-[18px] -tracking-[2%] font-orbitron font-[700] z-10">
-                                Join Room
-                            </span>
-                        </button>
-                    </div>
-
                 </div>
             </main>
         </section>
