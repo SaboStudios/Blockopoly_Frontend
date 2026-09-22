@@ -40,6 +40,16 @@ const GameSettings = () => {
         return null
     }, [walletReady, isConfigured, isMock, error, stake, status])
 
+    const [roomName, setRoomName] = useState('')
+    const [color, setColor] = useState('')
+
+    const trimmedName = roomName.trim()
+    const canStart = trimmedName.length > 0 && color.length > 0
+
+    const missingFields: string[] = []
+    if (trimmedName.length === 0) missingFields.push('room name')
+    if (color.length === 0) missingFields.push('color')
+
     return (
         <section className={`w-full min-h-screen bg-settings bg-cover bg-fixed bg-center`}>
             <main className="w-full h-auto py-20 flex flex-col items-center justify-start bg-[#010F101F] backdrop-blur-[12px] px-4">
@@ -50,6 +60,35 @@ const GameSettings = () => {
 
                 {/* First Setting */}
                 <div className='w-full max-w-[792px] bg-[#010F10] rounded-[12px] border-[1px] border-[#003B3E] md:p-[40px] p-[20px] flex flex-col gap-4'>
+                    {/* room name */}
+                    <div className='w-full flex flex-col gap-2'>
+                        <label htmlFor="room-name" className='text-[#F0F7F7] md:text-[22px] text-[20px] font-dmSans font-[600]'>Room Name</label>
+                        <input
+                            id="room-name"
+                            type="text"
+                            value={roomName}
+                            onChange={(e) => setRoomName(e.target.value)}
+                            placeholder="Enter a room name"
+                            className="w-full h-[40px] px-3 rounded-[8px] bg-transparent text-[#F0F7F7] font-dmSans text-[16px] border-[1px] border-[#263238] outline-none focus:border-[#00FFFF]"
+                        />
+                    </div>
+
+                    {/* color */}
+                    <div className='w-full flex flex-col gap-2'>
+                        <label htmlFor="room-color" className='text-[#F0F7F7] md:text-[22px] text-[20px] font-dmSans font-[600]'>Color</label>
+                        <Select value={color} onValueChange={setColor}>
+                            <SelectTrigger id="room-color" className="w-full data-[size=default]:h-[40px] text-[#73838B] border-[1px] border-[#263238]">
+                                <SelectValue placeholder="Select a color" className='text-[#F0F7F7]' />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="red">Red</SelectItem>
+                                <SelectItem value="blue">Blue</SelectItem>
+                                <SelectItem value="green">Green</SelectItem>
+                                <SelectItem value="yellow">Yellow</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
+
                     {/* maximum players */}
                     <div className='w-full flex justify-between items-center'>
                         <div className="flex items-start md:gap-3 gap-2">
@@ -210,6 +249,23 @@ const GameSettings = () => {
                         </div>
                         <Switch id="randomize-order" />
                     </div>
+                </div>
+
+                {/* Primary CTA */}
+                <div className='w-full max-w-[792px] flex flex-col items-center gap-2 mt-10'>
+                    <button
+                        type="button"
+                        disabled={!canStart}
+                        onClick={() => router.push('/game')}
+                        className="w-full md:w-auto md:px-16 h-[48px] rounded-[8px] bg-[#00FFFF] text-[#010F10] font-orbitron font-[700] text-[16px] transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        Start Game
+                    </button>
+                    {!canStart && (
+                        <p className='text-[#869298] text-[14px] font-dmSans text-center'>
+                            {`Please set the ${missingFields.join(' and ')} to start the game.`}
+                        </p>
+                    )}
                 </div>
             </main>
         </section>

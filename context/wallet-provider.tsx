@@ -6,6 +6,7 @@ import React, {
     ReactNode,
     useCallback,
     useMemo,
+    useState,
 } from "react";
 
 import {
@@ -45,6 +46,7 @@ interface WalletContextProps {
     clearError: () => void;
     /** True while a connect request is in flight. */
     isConnecting: boolean;
+    isDisconnecting: boolean;
 }
 
 const WalletContext = createContext<WalletContextProps>({
@@ -56,6 +58,7 @@ const WalletContext = createContext<WalletContextProps>({
     error: null,
     clearError: () => { },
     isConnecting: false,
+    isDisconnecting: false,
 });
 
 /**
@@ -122,6 +125,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
 
     const [error, setError] = React.useState<WalletError | null>(null);
     const [isConnecting, setIsConnecting] = React.useState(false);
+    const [isDisconnecting, setIsDisconnecting] = useState(false);
 
     const clearError = useCallback(() => setError(null), []);
 
@@ -157,9 +161,14 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
         [connectAsync]
     );
 
+    // Guard against double-submit: only the first call while idle disconnects.
     const disconnectWallet = useCallback(() => {
         setError(null);
-        disconnect();
+        setIsDisconnecting((pending) => {
+            if (pending) return pending;
+            disconnect();
+            return true;
+        });
     }, [disconnect]);
 
     const value = useMemo<WalletContextProps>(
@@ -172,6 +181,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
             error,
             clearError,
             isConnecting,
+            isDisconnecting,
         }),
         [
             address,
@@ -182,6 +192,7 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
             error,
             clearError,
             isConnecting,
+            isDisconnecting,
         ]
     );
 

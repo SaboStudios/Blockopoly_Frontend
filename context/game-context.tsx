@@ -9,8 +9,12 @@ export function GameProvider({ children }: { children: ReactNode }) {
     const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(true); // Open by default
     const [players, setPlayers] = useState<any[]>([]);
     const [selectedColor, setSelectedColor] = useState('');
+    const [playerName, setPlayerName] = useState('');
 
     // TODO: Add useEffect hooks here to fetch initial game state from Dojo
+
+    // Required fields must be set before the game can be started.
+    const canStart = playerName.trim().length > 0 && selectedColor.trim().length > 0;
 
     const value = {
         isAppearanceModalOpen,
@@ -19,6 +23,9 @@ export function GameProvider({ children }: { children: ReactNode }) {
         setPlayers,
         selectedColor,
         setSelectedColor,
+        playerName,
+        setPlayerName,
+        canStart,
     };
 
     return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
