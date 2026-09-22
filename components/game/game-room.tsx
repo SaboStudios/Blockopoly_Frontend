@@ -10,6 +10,9 @@ import { useEconomy } from '@/lib/game/economy/use-economy';
 const GameRoom = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isTradeOpen, setIsTradeOpen] = useState(false);
+    const [roomId] = useState('gameroom10qd');
+    const [currentUser] = useState('You');
+    const [isHost] = useState(true);
 
     const {
         players,
@@ -127,7 +130,11 @@ const GameRoom = () => {
                     {/* chat room */}
                     {isSidebarOpen ? (
                         <div className="flex-1 min-h-0 flex flex-col">
-                            <ChatRoom />
+                            <ChatRoom
+                                roomId={roomId}
+                                currentUser={currentUser}
+                                isHost={isHost}
+                            />
                         </div>
                     ) : (
                         <p className="text-[#869298] text-[12px] font-dmSans font-medium text-center px-2">
