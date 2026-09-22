@@ -15,17 +15,17 @@ const Footer = () => {
                 <p className='text-[#F0F7F7] text-[12px] font-dmSans font-[400]'>© 2023 All rights reserved. Blockopoly {new Date().getFullYear()}</p>
 
                 <div className='flex items-center gap-5'>
-                    <Link href="/" className='text-[#F0F7F7] hover:text-[#00F0FF] transition-colors duration-300 ease-in-out text-[20px]'>
-                        <FiFacebook />
+                    <Link href="/" aria-label="Facebook" className='text-[#F0F7F7] hover:text-[#00F0FF] focus-visible:text-[#00F0FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B191A] rounded transition-colors duration-300 ease-in-out text-[20px]'>
+                        <FiFacebook aria-hidden="true" />
                     </Link>
-                    <Link href="/" className='text-[#F0F7F7] hover:text-[#00F0FF] transition-colors duration-300 ease-in-out text-[20px]'>
-                        <RiTwitterXFill />
+                    <Link href="/" aria-label="X (Twitter)" className='text-[#F0F7F7] hover:text-[#00F0FF] focus-visible:text-[#00F0FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B191A] rounded transition-colors duration-300 ease-in-out text-[20px]'>
+                        <RiTwitterXFill aria-hidden="true" />
                     </Link>
-                    <Link href="/" className='text-[#F0F7F7] hover:text-[#00F0FF] transition-colors duration-300 ease-in-out text-[20px]'>
-                        <FiGithub />
+                    <Link href="/" aria-label="GitHub" className='text-[#F0F7F7] hover:text-[#00F0FF] focus-visible:text-[#00F0FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B191A] rounded transition-colors duration-300 ease-in-out text-[20px]'>
+                        <FiGithub aria-hidden="true" />
                     </Link>
-                    <Link href="/" className='text-[#F0F7F7] hover:text-[#00F0FF] transition-colors duration-300 ease-in-out text-[20px]'>
-                        <RxDiscordLogo />
+                    <Link href="/" aria-label="Discord" className='text-[#F0F7F7] hover:text-[#00F0FF] focus-visible:text-[#00F0FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F0FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B191A] rounded transition-colors duration-300 ease-in-out text-[20px]'>
+                        <RxDiscordLogo aria-hidden="true" />
                     </Link>
                 </div>
             </div>
