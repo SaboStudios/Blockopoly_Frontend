@@ -4,6 +4,8 @@ This repository is used for Handsoff load testing.
 
 <!-- TODO: Remove unused console.log near feature 66 (issue #161) -->
 
+<!-- TODO: Remove unused console.log near feature 56 (issue #151) -->
+
 ## Handsoff notes
 
 <!-- handsoff-issue-156 -->
