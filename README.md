@@ -59,3 +59,6 @@ npm install
 
 <!-- handsoff-issue-176 -->
 - #176: [Handsoff test 081] Fix typo in README section 81
+
+<!-- handsoff-issue-174 -->
+- #174: [Handsoff test 079] Improve meta description fragment 79
