@@ -66,7 +66,13 @@ const GameRoom = () => {
                     </div>
 
                     {/* chat room */}
-                    {isSidebarOpen && <ChatRoom />}
+                    {isSidebarOpen ? (
+                        <ChatRoom />
+                    ) : (
+                        <p className="text-[#869298] text-[12px] font-dmSans font-medium text-center px-2">
+                            Open the sidebar to view and send chat messages.
+                        </p>
+                    )}
 
                 </div>
             </aside>
