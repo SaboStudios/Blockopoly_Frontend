@@ -1,176 +1,118 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
-import { X } from "lucide-react";
-import Image from "next/image";
-import { useWalletContext } from "@/context/wallet-provider";
-import AnimationWrapper from "@/animation/animation-wrapper";
+import { useWallet } from "@/context/wallet-provider";
+import { useStarknetMatch } from "@/lib/starknet/match";
 
 interface WalletConnectModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onSelect: (wallet: string) => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function WalletConnectModal({
-    isOpen,
-    onClose,
-}: WalletConnectModalProps) {
-    const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
-    const { connectors, connectAsync } = useWalletContext();
+export function WalletConnectModal({ isOpen, onClose }: WalletConnectModalProps) {
+  const { address, isConnected, connect, disconnect, chainId, expectedChainId, switchNetwork } = useWallet();
+  const { isConfigured, pendingTx } = useStarknetMatch();
+  const [error, setError] = useState<string | null>(null);
+  const [isConnecting, setIsConnecting] = useState(false);
 
-    const handleSelect = (walletId: string) => {
-        setSelectedWallet(walletId);
-    };
+  if (!isOpen) return null;
 
-    const handleConfirm = async () => {
-        if (!selectedWallet) return;
-        const connector = connectors.find((c) => c.id === selectedWallet);
-        if (!connector) {
-            console.error("Connector not found:", selectedWallet);
-            return;
-        }
+  const wrongNetwork = isConnected && chainId !== expectedChainId;
 
-        try {
-            await connectAsync({ connector }); // ■ await the wallet prompt
-            //router.push("/dashboard"); // ■ now safe to navigate
-            onClose();
-        } catch (err) {
-            console.error("Wallet connection failed:", err); // ■ handle rejections
-        }
-    };
-
-    const modalVariants: Variants = {
-        hidden: { opacity: 0, scale: 0.9 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            transition: {
-                duration: 0.2,
-                ease: [0.25, 0.1, 0.25, 1],
-            },
-        },
-
-        exit: {
-            opacity: 0,
-            scale: 0.9,
-            transition: {
-                duration: 0.2,
-                ease: [0.42, 0, 1, 1],
-            },
-        },
-    };
-
-    const backdropVariants = {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 },
-        exit: { opacity: 0 },
-    };
-
-    // helper to get icon source
-    function getIconSource(
-        icon: string | { dark: string; light: string }
-    ): string {
-        if (typeof icon === "string") {
-            // If it's a string, use it directly
-            return icon;
-        } else {
-            // If it's an object, use the dark variant (or light, as needed)
-            return icon.dark; // Or icon.light, depending on your theme
-        }
+  const handleConnect = async () => {
+    setError(null);
+    setIsConnecting(true);
+    try {
+      await connect();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to connect wallet");
+    } finally {
+      setIsConnecting(false);
     }
+  };
 
-    return (
-        <AnimatePresence>
-            {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center">
-                    <motion.div
-                        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
-                        variants={backdropVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        onClick={onClose}
-                    />
+  const handleSwitchNetwork = async () => {
+    setError(null);
+    try {
+      await switchNetwork(expectedChainId);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to switch network");
+    }
+  };
 
-                    <motion.div
-                        className="relative w-full max-w-md rounded-[12px] bg-[#010F10] p-[32px] border-[#003B3E] border-[1px]"
-                        variants={modalVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                    >
-                        <div className="w-full flex items-center justify-center relative mb-8">
-                            <div className="w-full flex flex-col items-center">
-                                <h2 className="text-[24px] font-[600] text-[#F0F7F7] text-center font-orbitron">
-                                    Connect Wallet
-                                </h2>
-                                <p className="text-[#F0F7F7] text-[14px] text-center">
-                                    Choose your preferred wallet
-                                </p>
-                            </div>
+  const handleDisconnect = async () => {
+    setError(null);
+    try {
+      await disconnect();
+      onClose();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to disconnect wallet");
+    }
+  };
 
-                            <button
-                                onClick={onClose}
-                                className="text-gray-400 hover:text-white absolute top-2 right-2 transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+      <div className="w-full max-w-md rounded-lg bg-slate-900 p-6 text-slate-100 shadow-xl">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Wallet</h2>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-200" aria-label="Close">
+            ×
+          </button>
+        </div>
 
+        {!isConfigured && (
+          <div className="mb-4 rounded border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-200">
+            Contract not configured. Set the Starknet match address to enable on-chain play.
+          </div>
+        )}
 
-                        {/* Wallet options */}
-                        <div className="space-y-3 mb-6">
-                            {connectors.map((wallet, index) => (
-                                <AnimationWrapper
-                                    key={wallet?.id}
-                                    variant="slideRight"
-                                    delay={index * 0.1}
-                                >
-                                    <button
-                                        className={`w-full flex justify-center items-center gap-3 p-3 rounded-[12px] bg-[#0D191B] border-[1px] border-[#0D191B] cursor-pointer hover:border-[#0FF0FC] transition-all ${selectedWallet === wallet.id
-                                            ? "border-[#0FF0FC]"
-                                            : ""
-                                            }`}
-                                        onClick={() => handleSelect(wallet.id)}
-                                    >
-                                        <div
-                                            className={`w-8 h-8 rounded-full flex items-center justify-center`}
-                                        >
-                                            <div className="">
-                                                <Image
-                                                    src={getIconSource(wallet.icon)}
-                                                    alt={wallet.name}
-                                                    width={30}
-                                                    height={30}
-                                                    className="object-contain"
-                                                />
-                                            </div>
-                                        </div>
+        {wrongNetwork && (
+          <div className="mb-4 rounded border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+            <p className="mb-2">Wrong network. Please switch to the expected chain.</p>
+            <button
+              onClick={handleSwitchNetwork}
+              className="rounded bg-red-500 px-3 py-1 text-xs font-medium text-white hover:bg-red-400"
+            >
+              Switch network
+            </button>
+          </div>
+        )}
 
-                                        <span className="text-white">{wallet.name}</span>
-                                    </button>
-                                </AnimationWrapper>
-                            ))}
-                        </div>
+        {error && (
+          <div className="mb-4 rounded border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+            {error}
+          </div>
+        )}
 
-                        {/* Confirmation button */}
-                        <AnimationWrapper variant="slideUp" delay={0.3}>
-                            <button
-                                onClick={handleConfirm}
-                                disabled={!selectedWallet}
-                                className={`w-full py-3 rounded-[12px] font-medium transition-colors ${selectedWallet
-                                    ? "bg-[#0FF0FC]/80 hover:bg-[#0FF0FC]/40 text-[#0D191B]"
-                                    : "bg-gray-700 cursor-not-allowed text-white"
-                                    }`}
-                            >
-                                Connect
-                            </button>
-                        </AnimationWrapper>
-                    </motion.div>
-                </div>
-            )}
-        </AnimatePresence>
-    );
+        {pendingTx && (
+          <div className="mb-4 rounded border border-sky-500/40 bg-sky-500/10 p-3 text-sm text-sky-200">
+            Pending transaction: {pendingTx.slice(0, 10)}…
+          </div>
+        )}
+
+        {isConnected ? (
+          <div className="space-y-4">
+            <div className="rounded bg-slate-800 p-3 text-sm">
+              <span className="text-slate-400">Connected: </span>
+              <span className="font-mono">{address ? `${address.slice(0, 6)}…${address.slice(-4)}` : "unknown"}</span>
+            </div>
+            <button
+              onClick={handleDisconnect}
+              className="w-full rounded bg-slate-700 px-4 py-2 text-sm font-medium hover:bg-slate-600"
+            >
+              Disconnect
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={handleConnect}
+            disabled={isConnecting}
+            className="w-full rounded bg-indigo-600 px-4 py-2 text-sm font-medium hover:bg-indigo-500 disabled:opacity-50"
+          >
+            {isConnecting ? "Connecting…" : "Connect wallet"}
+          </button>
+        )}
+      </div>
+    </div>
+  );
 }
