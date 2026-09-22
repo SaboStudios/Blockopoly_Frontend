@@ -1,7 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useWallet } from "@/hooks/use-wallet";
-import { useEffect, useState } from "react";
+import { useWallet } from "@/context/wallet-provider";
 
 interface WalletConnectModalProps {
   isOpen: boolean;

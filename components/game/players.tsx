@@ -3,11 +3,25 @@ import { Check, ChevronLeft, ChevronRight, CircleAlert, Flag, MoveLeft, MoveRigh
 import React, { useState } from 'react'
 import { PiUsersThree } from 'react-icons/pi';
 
+interface TradeProposal {
+    id: string;
+    from: string;
+    to: string;
+    offer: string;
+    request: string;
+    status: 'pending' | 'accepted' | 'rejected';
+}
+
 const Players = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [proposals, setProposals] = useState<TradeProposal[]>([]);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleProposal = (id: string, status: 'accepted' | 'rejected') => {
+        setProposals((prev) => prev.map((p) => (p.id === id ? { ...p, status } : p)));
     };
 
     return (
@@ -93,6 +107,42 @@ const Players = () => {
                                     Got it
                                 </button>
                             </div>
+                        </div>
+
+                        {/* Pending proposals inbox */}
+                        <div className="w-full flex flex-col gap-2" aria-live="polite">
+                            <h5 className='font-[700] font-dmSans text-[12px] text-[#F0F7F7]'>Pending Proposals</h5>
+                            {proposals.length === 0 ? (
+                                <p className='text-[#73838B] text-[11px] text-center'>No pending trade proposals.</p>
+                            ) : (
+                                proposals.map((proposal) => (
+                                    <div key={proposal.id} className="w-full p-[10px] bg-[#0B191A] rounded-[8px] flex flex-col gap-2">
+                                        <p className='text-[#F0F7F7] text-[11px]'>
+                                            {proposal.from} → {proposal.to}
+                                        </p>
+                                        <p className='text-[#73838B] text-[10px]'>Offer: {proposal.offer}</p>
+                                        <p className='text-[#73838B] text-[10px]'>Request: {proposal.request}</p>
+                                        {proposal.status === 'pending' ? (
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => handleProposal(proposal.id, 'accepted')}
+                                                    className='text-[#869298] hover:text-[#F0F7F7] px-[10px] py-[4px] rounded-[20px] bg-[#263238] text-[10px] cursor-pointer'
+                                                >
+                                                    Accept
+                                                </button>
+                                                <button
+                                                    onClick={() => handleProposal(proposal.id, 'rejected')}
+                                                    className='text-[#869298] hover:text-[#F0F7F7] px-[10px] py-[4px] rounded-[20px] bg-[#263238] text-[10px] cursor-pointer'
+                                                >
+                                                    Reject
+                                                </button>
+                                            </div>
+                                        ) : (
+                                            <p className='text-[#73838B] text-[10px] capitalize'>{proposal.status}</p>
+                                        )}
+                                    </div>
+                                ))
+                            )}
                         </div>
                     </div>
 

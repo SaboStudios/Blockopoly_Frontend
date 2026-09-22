@@ -5,6 +5,7 @@ import React, {
     useContext,
     ReactNode,
     useCallback,
+    useMemo,
     useState,
 } from "react";
 
@@ -16,12 +17,35 @@ import {
     ConnectVariables,
 } from "@starknet-react/core";
 
+/**
+ * Normalized wallet error surfaced to the UI so wrong-network / rejected /
+ * account-switch states render a recoverable message instead of a blank screen.
+ */
+export type WalletErrorCode =
+    | "wrong_network"
+    | "user_rejected"
+    | "account_switch"
+    | "not_connected"
+    | "unknown";
+
+export interface WalletError {
+    code: WalletErrorCode;
+    message: string;
+    recoverable: boolean;
+}
+
 interface WalletContextProps {
     account: string | null;
     connectors: Connector[]; // ← Exposed connectors
     connectWallet: (connector: Connector) => void; // ← Takes connector arg
     disconnectWallet: () => void;
     connectAsync: (args?: ConnectVariables) => Promise<void>;
+    /** Last normalized wallet error, or null when healthy. */
+    error: WalletError | null;
+    /** Clear the current error (e.g. after the user retries). */
+    clearError: () => void;
+    /** True while a connect request is in flight. */
+    isConnecting: boolean;
     isDisconnecting: boolean;
 }
 
@@ -31,8 +55,66 @@ const WalletContext = createContext<WalletContextProps>({
     connectWallet: () => { },
     disconnectWallet: () => { },
     connectAsync: () => Promise.resolve(),
+    error: null,
+    clearError: () => { },
+    isConnecting: false,
     isDisconnecting: false,
 });
+
+/**
+ * Map raw wallet/connector failures to a typed, recoverable error. Keeps the
+ * public API strongly typed (no `any`) and lets modals branch on `code`.
+ */
+export function normalizeWalletError(err: unknown): WalletError {
+    const raw =
+        err instanceof Error
+            ? err.message
+            : typeof err === "string"
+                ? err
+                : "";
+    const lower = raw.toLowerCase();
+
+    if (
+        lower.includes("chain") ||
+        lower.includes("network") ||
+        lower.includes("wrong") ||
+        lower.includes("unsupported")
+    ) {
+        return {
+            code: "wrong_network",
+            message:
+                "Wrong network. Switch your wallet to the configured Starknet network and retry.",
+            recoverable: true,
+        };
+    }
+
+    if (
+        lower.includes("reject") ||
+        lower.includes("denied") ||
+        lower.includes("cancel")
+    ) {
+        return {
+            code: "user_rejected",
+            message: "Request rejected in wallet. You can try again anytime.",
+            recoverable: true,
+        };
+    }
+
+    if (lower.includes("account") || lower.includes("switch")) {
+        return {
+            code: "account_switch",
+            message:
+                "Account changed. Reconnect your wallet to continue the match.",
+            recoverable: true,
+        };
+    }
+
+    return {
+        code: "unknown",
+        message: raw || "Wallet request failed. Please retry.",
+        recoverable: true,
+    };
+}
 
 export const WalletProvider: React.FC<{ children: ReactNode }> = ({
     children,
@@ -41,18 +123,47 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
     const { address } = useAccount();
     const { disconnect } = useDisconnect();
 
+    const [error, setError] = React.useState<WalletError | null>(null);
+    const [isConnecting, setIsConnecting] = React.useState(false);
     const [isDisconnecting, setIsDisconnecting] = useState(false);
+
+    const clearError = useCallback(() => setError(null), []);
 
     // Accept a specific connector when connecting
     const connectWallet = useCallback(
         (connector: Connector) => {
-            connect({ connector });
+            setError(null);
+            setIsConnecting(true);
+            try {
+                connect({ connector });
+            } catch (err) {
+                setError(normalizeWalletError(err));
+            } finally {
+                setIsConnecting(false);
+            }
         },
         [connect]
     );
 
+    const connectAsyncSafe = useCallback(
+        async (args?: ConnectVariables) => {
+            setError(null);
+            setIsConnecting(true);
+            try {
+                await connectAsync(args);
+            } catch (err) {
+                setError(normalizeWalletError(err));
+                throw err;
+            } finally {
+                setIsConnecting(false);
+            }
+        },
+        [connectAsync]
+    );
+
     // Guard against double-submit: only the first call while idle disconnects.
     const disconnectWallet = useCallback(() => {
+        setError(null);
         setIsDisconnecting((pending) => {
             if (pending) return pending;
             disconnect();
@@ -60,17 +171,33 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
         });
     }, [disconnect]);
 
+    const value = useMemo<WalletContextProps>(
+        () => ({
+            account: address ?? null,
+            connectors, // ← Now available to consumers
+            connectWallet, // ← Can specify which connector
+            disconnectWallet,
+            connectAsync: connectAsyncSafe,
+            error,
+            clearError,
+            isConnecting,
+            isDisconnecting,
+        }),
+        [
+            address,
+            connectors,
+            connectWallet,
+            disconnectWallet,
+            connectAsyncSafe,
+            error,
+            clearError,
+            isConnecting,
+            isDisconnecting,
+        ]
+    );
+
     return (
-        <WalletContext.Provider
-            value={{
-                account: address ?? null,
-                connectors, // ← Now available to consumers
-                connectWallet, // ← Can specify which connector
-                disconnectWallet,
-                connectAsync,
-                isDisconnecting,
-            }}
-        >
+        <WalletContext.Provider value={value}>
             {children}
         </WalletContext.Provider>
     );

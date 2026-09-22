@@ -3,9 +3,24 @@ import { ChevronRight, Copy, Settings } from 'lucide-react';
 import React, { useState } from 'react'
 import ChatRoom from './chat-room';
 import { PiChatsCircle } from 'react-icons/pi';
+import TradeModal from './trade-modal';
+import AuctionOverlay from './auction-overlay';
+import { useEconomy } from '@/lib/game/economy/use-economy';
 
 const GameRoom = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isTradeOpen, setIsTradeOpen] = useState(false);
+
+    const {
+        players,
+        proposals,
+        auction,
+        acceptProposal,
+        rejectProposal,
+        counterProposal,
+        placeBid,
+        closeAuction,
+    } = useEconomy();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -65,6 +80,50 @@ const GameRoom = () => {
                         </button>
                     </div>
 
+                    {/* trade + auction actions */}
+                    <div className={`w-full flex gap-2 ${!isSidebarOpen && 'hidden'}`}>
+                        <button
+                            onClick={() => setIsTradeOpen(true)}
+                            className="flex-1 bg-[#0E282A] text-[#F0F7F7] text-[12px] font-dmSans font-medium py-[8px] rounded-[8px] hover:bg-[#123638]"
+                        >
+                            Propose Trade
+                        </button>
+                    </div>
+
+                    {/* pending proposals inbox */}
+                    {isSidebarOpen && proposals.length > 0 && (
+                        <div className="w-full flex flex-col gap-2" aria-live="polite">
+                            <h5 className="text-[#AFBAC0] text-[12px] font-dmSans font-medium">Pending Proposals</h5>
+                            {proposals.map((p) => (
+                                <div key={p.id} className="bg-[#0B191A] rounded-[8px] p-2 flex flex-col gap-1">
+                                    <span className="text-[#F0F7F7] text-[12px] font-dmSans">
+                                        {p.fromPlayer} → {p.toPlayer}
+                                    </span>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => acceptProposal(p.id)}
+                                            className="flex-1 bg-[#0E282A] text-[#F0F7F7] text-[11px] rounded-[6px] py-[4px]"
+                                        >
+                                            Accept
+                                        </button>
+                                        <button
+                                            onClick={() => rejectProposal(p.id)}
+                                            className="flex-1 bg-[#1A0E0E] text-[#F0F7F7] text-[11px] rounded-[6px] py-[4px]"
+                                        >
+                                            Reject
+                                        </button>
+                                        <button
+                                            onClick={() => counterProposal(p.id)}
+                                            className="flex-1 bg-[#0B191A] text-[#AFBAC0] text-[11px] rounded-[6px] py-[4px]"
+                                        >
+                                            Counter
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     {/* chat room */}
                     {isSidebarOpen ? (
                         <div className="flex-1 min-h-0 flex flex-col">
@@ -78,6 +137,21 @@ const GameRoom = () => {
 
                 </div>
             </aside>
+
+            {isTradeOpen && (
+                <TradeModal
+                    players={players}
+                    onClose={() => setIsTradeOpen(false)}
+                />
+            )}
+
+            {auction && (
+                <AuctionOverlay
+                    auction={auction}
+                    onBid={placeBid}
+                    onClose={closeAuction}
+                />
+            )}
         </>
     )
 }
