@@ -18,10 +18,12 @@ export default function WalletConnectModal({
     onClose,
 }: WalletConnectModalProps) {
     const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const { connectors, connectAsync } = useWalletContext();
 
     const handleSelect = (walletId: string) => {
         setSelectedWallet(walletId);
+        setError(null);
     };
 
     const handleConfirm = async () => {
@@ -29,15 +31,18 @@ export default function WalletConnectModal({
         const connector = connectors.find((c) => c.id === selectedWallet);
         if (!connector) {
             console.error("Connector not found:", selectedWallet);
+            setError("Wallet connector not found. Please try another wallet.");
             return;
         }
 
         try {
+            setError(null);
             await connectAsync({ connector }); // ■ await the wallet prompt
             //router.push("/dashboard"); // ■ now safe to navigate
             onClose();
         } catch (err) {
             console.error("Wallet connection failed:", err); // ■ handle rejections
+            setError("Wallet connection failed. Please try again.");
         }
     };
 
@@ -113,64 +118,6 @@ export default function WalletConnectModal({
 
                             <button
                                 onClick={onClose}
-                                className="text-gray-400 hover:text-white absolute top-2 right-2 transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
-                        </div>
+                                className="text-gray-400 hover:text-white absolute
 
-
-                        {/* Wallet options */}
-                        <div className="space-y-3 mb-6">
-                            {connectors.map((wallet, index) => (
-                                <AnimationWrapper
-                                    key={wallet?.id}
-                                    variant="slideRight"
-                                    delay={index * 0.1}
-                                >
-                                    <button
-                                        className={`w-full flex justify-center items-center gap-3 p-3 rounded-[12px] bg-[#0D191B] border-[1px] border-[#0D191B] cursor-pointer hover:border-[#0FF0FC] transition-all ${selectedWallet === wallet.id
-                                            ? "border-[#0FF0FC]"
-                                            : ""
-                                            }`}
-                                        onClick={() => handleSelect(wallet.id)}
-                                    >
-                                        <div
-                                            className={`w-8 h-8 rounded-full flex items-center justify-center`}
-                                        >
-                                            <div className="">
-                                                <Image
-                                                    src={getIconSource(wallet.icon)}
-                                                    alt={wallet.name}
-                                                    width={30}
-                                                    height={30}
-                                                    className="object-contain"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <span className="text-white">{wallet.name}</span>
-                                    </button>
-                                </AnimationWrapper>
-                            ))}
-                        </div>
-
-                        {/* Confirmation button */}
-                        <AnimationWrapper variant="slideUp" delay={0.3}>
-                            <button
-                                onClick={handleConfirm}
-                                disabled={!selectedWallet}
-                                className={`w-full py-3 rounded-[12px] font-medium transition-colors ${selectedWallet
-                                    ? "bg-[#0FF0FC]/80 hover:bg-[#0FF0FC]/40 text-[#0D191B]"
-                                    : "bg-gray-700 cursor-not-allowed text-white"
-                                    }`}
-                            >
-                                Connect
-                            </button>
-                        </AnimationWrapper>
-                    </motion.div>
-                </div>
-            )}
-        </AnimatePresence>
-    );
-}
+/* … truncated 3119 chars — edit only what you need near the top … */
