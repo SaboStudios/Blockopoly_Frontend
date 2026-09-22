@@ -6,7 +6,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
-    const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(true); // Open by default
+    const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(false);
     const [players, setPlayers] = useState<any[]>([]);
     const [selectedColor, setSelectedColor] = useState('');
 
