@@ -46,3 +46,7 @@ cd Blockopoly_Frontend
 ```bash
 npm install
 ```
+
+## 🧪 Testing
+
+- Unit tests are not set up yet; add a shallow test for a pure helper (e.g. a util function) when a test runner is introduced.
