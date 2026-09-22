@@ -6,6 +6,9 @@ import { PiChatsCircle } from 'react-icons/pi';
 
 const GameRoom = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [roomId] = useState('gameroom10qd');
+    const [currentUser] = useState('You');
+    const [isHost] = useState(true);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -66,7 +69,13 @@ const GameRoom = () => {
                     </div>
 
                     {/* chat room */}
-                    {isSidebarOpen && <ChatRoom />}
+                    {isSidebarOpen && (
+                        <ChatRoom
+                            roomId={roomId}
+                            currentUser={currentUser}
+                            isHost={isHost}
+                        />
+                    )}
 
                 </div>
             </aside>
