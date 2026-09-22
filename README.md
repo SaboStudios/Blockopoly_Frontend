@@ -50,6 +50,7 @@ npm install
 ## 🧪 Testing
 
 - Unit tests are not set up yet; add a shallow test for a pure helper (e.g. a util function) when a test runner is introduced.
+- Add a shallow unit test for util 80 once a test runner is available.
 
 ## Handsoff notes
 
