@@ -55,3 +55,6 @@ npm install
 
 <!-- handsoff-issue-181 -->
 - #181: [Handsoff test 086] Remove unused console.log near feature 86
+
+<!-- handsoff-issue-176 -->
+- #176: [Handsoff test 081] Fix typo in README section 81
