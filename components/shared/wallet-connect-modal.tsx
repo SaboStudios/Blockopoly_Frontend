@@ -19,11 +19,18 @@ export default function WalletConnectModal({
     onSelect,
 }: WalletConnectModalProps) {
     const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const { connectors, connectAsync } = useWalletContext();
 
     const handleSelect = (walletId: string) => {
         setSelectedWallet(walletId);
+        setError(null);
         onSelect(walletId);
+    };
+
+    const handleClose = () => {
+        setError(null);
+        onClose();
     };
 
     const handleConfirm = async () => {
@@ -31,8 +38,11 @@ export default function WalletConnectModal({
         const connector = connectors.find((c) => c.id === selectedWallet);
         if (!connector) {
             console.error("Connector not found:", selectedWallet);
+            setError("Selected wallet is unavailable. Please choose another wallet.");
             return;
         }
+
+        setError(null);
 
         try {
             await connectAsync({ connector }); // ■ await the wallet prompt
@@ -40,6 +50,11 @@ export default function WalletConnectModal({
             onClose();
         } catch (err) {
             console.error("Wallet connection failed:", err); // ■ handle rejections
+            setError(
+                err instanceof Error && err.message
+                    ? err.message
+                    : "Failed to connect wallet. Please try again."
+            );
         }
     };
 
@@ -93,7 +108,7 @@ export default function WalletConnectModal({
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        onClick={onClose}
+                        onClick={handleClose}
                     />
 
                     <motion.div
@@ -114,7 +129,7 @@ export default function WalletConnectModal({
                             </div>
 
                             <button
-                                onClick={onClose}
+                                onClick={handleClose}
                                 className="text-gray-400 hover:text-white absolute top-2 right-2 transition-colors"
                             >
                                 <X size={20} />
@@ -156,6 +171,17 @@ export default function WalletConnectModal({
                                 </AnimationWrapper>
                             ))}
                         </div>
+
+                        {/* Error feedback */}
+                        {error && (
+                            <p
+                                role="alert"
+                                aria-live="assertive"
+                                className="mb-4 text-[13px] text-[#FF6B6B] text-center"
+                            >
+                                {error}
+                            </p>
+                        )}
 
                         {/* Confirmation button */}
                         <AnimationWrapper variant="slideUp" delay={0.3}>
