@@ -1,6 +1,6 @@
 'use client'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Send, Users, Pencil, Trash2, Smile, Flag, VolumeX, Volume2, ShieldAlert } from 'lucide-react';
+import { Send, Users, Pencil, Trash2, Smile, Flag, VolumeX, Volume2 } from 'lucide-react';
 
 // ---------------------------------------------------------------------------
 // Message model
@@ -191,9 +191,9 @@ const ChatRoom = ({
         status === 'connected' ? 'bg-[#00E5FF]' : status === 'connecting' ? 'bg-[#FFC107]' : 'bg-[#FF5252]';
 
     return (
-        <div className="w-full h-[685px] border-[1px] border-[#263238] flex flex-col mt-4 rounded-[12px]">
+        <div className="w-full h-full min-h-[320px] max-h-[685px] border-[1px] border-[#263238] flex flex-col mt-4 rounded-[12px]">
             {/* top */}
-            <div className="w-full h-[37px] flex justify-between items-center border-b-[1px] border-[#263238] px-4">
+            <div className="w-full h-[37px] shrink-0 flex justify-between items-center border-b-[1px] border-[#263238] px-4">
                 <h4 className="font-[700] font-dmSans text-[#F0F7F7] text-[14px]">Chat</h4>
                 <div className="flex items-center gap-2">
                     <span className="flex items-center gap-1 text-[10px] font-dmSans text-[#AFBAC0]">
@@ -208,7 +208,7 @@ const ChatRoom = ({
                     >
                         Filter
                     </button>
-                    <Users className='w-4 h-4 text-[#F0F7F7]' />
+                    <Users className='w-4 h-4 text-[#F0F7F7]' aria-hidden="true" />
                 </div>
             </div>
 
@@ -216,7 +216,7 @@ const ChatRoom = ({
             <main ref={listRef} className="w-full h-[calc(100%-89px)] overflow-y-auto no-scrollbar flex flex-col px-3 py-2 gap-2">
                 {messages.length === 0 ? (
                     <div className="flex-1 flex justify-center items-center">
-                        <p className="text-[#AFBAC0] text-center text-[14px] font-dmSans font-[500]">No messages yet</p>
+                        <p className="text-[#AFBAC0] text-center text-[14px] font-dmSans font-[500]">No messages yet — start the conversation by sending the first one.</p>
                     </div>
                 ) : (
                     messages.map((m, i) => {
@@ -333,13 +333,14 @@ const ChatRoom = ({
             </main>
 
             {/* bottom */}
-            <div className="w-full border-t-[1px] border-[#263238] h-[52px] flex items-stretch gap-2 p-2">
+            <div className="w-full border-t-[1px] border-[#263238] h-[52px] shrink-0 flex items-stretch gap-2 p-2">
                 <input
                     type="text"
                     className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3"
                     name="chat"
                     id="chat"
                     placeholder={muted.includes(currentUser) ? 'You are muted by the host' : 'Type a message...'}
+                    aria-label="Chat message"
                     value={draft}
                     disabled={muted.includes(currentUser)}
                     onChange={(e) => setDraft(e.target.value)}
@@ -349,11 +350,12 @@ const ChatRoom = ({
                 {/* send btn */}
                 <button
                     type="button"
+                    aria-label="Send message"
                     onClick={handleSend}
                     disabled={muted.includes(currentUser)}
                     className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0] disabled:opacity-40'
                 >
-                    <Send className="w-5 h-5" />
+                    <Send className="w-5 h-5" aria-hidden="true" />
                 </button>
             </div>
         </div>

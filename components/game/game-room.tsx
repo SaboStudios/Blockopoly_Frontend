@@ -3,12 +3,27 @@ import { ChevronRight, Copy, Settings } from 'lucide-react';
 import React, { useState } from 'react'
 import ChatRoom from './chat-room';
 import { PiChatsCircle } from 'react-icons/pi';
+import TradeModal from './trade-modal';
+import AuctionOverlay from './auction-overlay';
+import { useEconomy } from '@/lib/game/economy/use-economy';
 
 const GameRoom = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isTradeOpen, setIsTradeOpen] = useState(false);
     const [roomId] = useState('gameroom10qd');
     const [currentUser] = useState('You');
     const [isHost] = useState(true);
+
+    const {
+        players,
+        proposals,
+        auction,
+        acceptProposal,
+        rejectProposal,
+        counterProposal,
+        placeBid,
+        closeAuction,
+    } = useEconomy();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -27,7 +42,7 @@ const GameRoom = () => {
             )}
             <aside
                 className={`
-                            h-full overflow-y-auto no-scrollbar bg-[#010F10] p-4 rounded-s-[12px] border-l-[1px] border-white/10
+                            h-full min-h-0 overflow-hidden bg-[#010F10] p-4 rounded-s-[12px] border-l-[1px] border-white/10
                             transition-all duration-300 ease-in-out
                             fixed z-20 top-0 right-0 
                             transform ${isSidebarOpen ? 'translate-x-0 lg:translate-x-0' : 'translate-x-full lg:translate-x-0'}
@@ -35,7 +50,7 @@ const GameRoom = () => {
                             ${isSidebarOpen ? 'lg:w-[272px] md:w-1/2 w-full' : 'lg:w-[60px] w-full'}
                         `}
             >
-                <div className="w-full h-full flex flex-col gap-3">
+                <div className="w-full h-full min-h-0 flex flex-col gap-3">
                     {/* Toggle button with changing icon */}
                     <button onClick={toggleSidebar} className="text-[#869298] hover:text-[#F0F7F7] lg:hidden">
                         {isSidebarOpen ? <ChevronRight /> : <PiChatsCircle className="size-[25px]" />}
@@ -68,17 +83,82 @@ const GameRoom = () => {
                         </button>
                     </div>
 
+                    {/* trade + auction actions */}
+                    <div className={`w-full flex gap-2 ${!isSidebarOpen && 'hidden'}`}>
+                        <button
+                            onClick={() => setIsTradeOpen(true)}
+                            className="flex-1 bg-[#0E282A] text-[#F0F7F7] text-[12px] font-dmSans font-medium py-[8px] rounded-[8px] hover:bg-[#123638]"
+                        >
+                            Propose Trade
+                        </button>
+                    </div>
+
+                    {/* pending proposals inbox */}
+                    {isSidebarOpen && proposals.length > 0 && (
+                        <div className="w-full flex flex-col gap-2" aria-live="polite">
+                            <h5 className="text-[#AFBAC0] text-[12px] font-dmSans font-medium">Pending Proposals</h5>
+                            {proposals.map((p) => (
+                                <div key={p.id} className="bg-[#0B191A] rounded-[8px] p-2 flex flex-col gap-1">
+                                    <span className="text-[#F0F7F7] text-[12px] font-dmSans">
+                                        {p.fromPlayer} → {p.toPlayer}
+                                    </span>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => acceptProposal(p.id)}
+                                            className="flex-1 bg-[#0E282A] text-[#F0F7F7] text-[11px] rounded-[6px] py-[4px]"
+                                        >
+                                            Accept
+                                        </button>
+                                        <button
+                                            onClick={() => rejectProposal(p.id)}
+                                            className="flex-1 bg-[#1A0E0E] text-[#F0F7F7] text-[11px] rounded-[6px] py-[4px]"
+                                        >
+                                            Reject
+                                        </button>
+                                        <button
+                                            onClick={() => counterProposal(p.id)}
+                                            className="flex-1 bg-[#0B191A] text-[#AFBAC0] text-[11px] rounded-[6px] py-[4px]"
+                                        >
+                                            Counter
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
                     {/* chat room */}
-                    {isSidebarOpen && (
-                        <ChatRoom
-                            roomId={roomId}
-                            currentUser={currentUser}
-                            isHost={isHost}
-                        />
+                    {isSidebarOpen ? (
+                        <div className="flex-1 min-h-0 flex flex-col">
+                            <ChatRoom
+                                roomId={roomId}
+                                currentUser={currentUser}
+                                isHost={isHost}
+                            />
+                        </div>
+                    ) : (
+                        <p className="text-[#869298] text-[12px] font-dmSans font-medium text-center px-2">
+                            Open the sidebar to view and send chat messages.
+                        </p>
                     )}
 
                 </div>
             </aside>
+
+            {isTradeOpen && (
+                <TradeModal
+                    players={players}
+                    onClose={() => setIsTradeOpen(false)}
+                />
+            )}
+
+            {auction && (
+                <AuctionOverlay
+                    auction={auction}
+                    onBid={placeBid}
+                    onClose={closeAuction}
+                />
+            )}
         </>
     )
 }

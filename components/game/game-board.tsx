@@ -1,3 +1,5 @@
+"use client";
+
 import { BoardSquare } from '@/types/game';
 import React, { useMemo } from 'react';
 import PropertyCard from './property-card';

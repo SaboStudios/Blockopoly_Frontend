@@ -25,6 +25,8 @@ const JoinOurCommunity = () => {
                             viewBox="0 0 227 40"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                            focusable="false"
                             className="absolute top-0 left-0 w-full h-full"
                         >
                             <path
@@ -36,7 +38,7 @@ const JoinOurCommunity = () => {
                             />
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[13px] font-dmSans font-medium z-10">
-                            <PiTelegramLogoLight className="mr-1 w-[14px] h-[14px]" />
+                            <PiTelegramLogoLight className="mr-1 w-[14px] h-[14px]" aria-hidden="true" />
                             Join our Telegram
                         </span>
                     </button>
@@ -51,6 +53,8 @@ const JoinOurCommunity = () => {
                             viewBox="0 0 227 40"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                            focusable="false"
                             className="absolute top-0 left-0 w-full h-full transform scale-x-[-1] scale-y-[-1]"
                         >
                             <path
@@ -62,7 +66,7 @@ const JoinOurCommunity = () => {
                             />
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center text-[#00F0FF] capitalize text-[12px] font-dmSans font-medium z-10">
-                            <RxDiscordLogo className="mr-1 w-[14px] h-[14px]" />
+                            <RxDiscordLogo className="mr-1 w-[14px] h-[14px]" aria-hidden="true" />
                             Join our Discord Server
                         </span>
                     </button>
