@@ -87,7 +87,7 @@ const Players = () => {
                         <div className="w-full p-[12px] bg-[#0B191A] rounded-[12px]">
                             <div className="bg-[#131F25] w-full flex flex-col items-center p-[12px] rounded-[8px] gap-4">
                                 <p className='text-[#73838B] text-[11px] text-center'>
-                                    <CircleAlert className='w-3 h-3 inline mr-1' />Make trades with other players to exchange properties, money, and bonus cards. Use the &quot;Create Trade&quot; button to create a new trade.</p>
+                                    <CircleAlert className='w-3 h-3 inline mr-1' />No trades yet. Create a trade to exchange properties, money, and bonus cards with other players.</p>
                                 <button className='text-[#869298] hover:text-[#F0F7F7] px-[10px] py-[6px] rounded-[20px] bg-[#263238] flex justify-center cursor-pointer items-center gap-[6px] text-[10px]'>
                                     <Check className='w-3 h-3' />
                                     Got it

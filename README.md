@@ -68,6 +68,12 @@ git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
 ```
 
+### 2️⃣ Install Dependencies
+
+```bash
+pnpm install
+```
+
 ## 🧪 Testing
 
 - No test suite is configured yet; tests are not run as part of this project.
@@ -89,12 +95,6 @@ See the [GitHub Releases](https://github.com/YOUR_ORG/tycoon-on-stellar-frontend
 ### 🌐 Network
 
 Test gameplay targets **Starknet Sepolia** unless otherwise configured.
-
-### 2️⃣ Install dependencies
-
-```bash
-pnpm install
-```
 
 ### 3️⃣ Environment variables
 

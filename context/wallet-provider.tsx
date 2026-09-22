@@ -5,6 +5,7 @@ import React, {
     useContext,
     ReactNode,
     useCallback,
+    useState,
 } from "react";
 
 import {
@@ -21,6 +22,7 @@ interface WalletContextProps {
     connectWallet: (connector: Connector) => void; // ← Takes connector arg
     disconnectWallet: () => void;
     connectAsync: (args?: ConnectVariables) => Promise<void>;
+    isDisconnecting: boolean;
 }
 
 const WalletContext = createContext<WalletContextProps>({
@@ -29,6 +31,7 @@ const WalletContext = createContext<WalletContextProps>({
     connectWallet: () => { },
     disconnectWallet: () => { },
     connectAsync: () => Promise.resolve(),
+    isDisconnecting: false,
 });
 
 export const WalletProvider: React.FC<{ children: ReactNode }> = ({
@@ -38,6 +41,8 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
     const { address } = useAccount();
     const { disconnect } = useDisconnect();
 
+    const [isDisconnecting, setIsDisconnecting] = useState(false);
+
     // Accept a specific connector when connecting
     const connectWallet = useCallback(
         (connector: Connector) => {
@@ -46,6 +51,14 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
         [connect]
     );
 
+    // Guard against double-submit: only the first call while idle disconnects.
+    const disconnectWallet = useCallback(() => {
+        setIsDisconnecting((pending) => {
+            if (pending) return pending;
+            disconnect();
+            return true;
+        });
+    }, [disconnect]);
 
     return (
         <WalletContext.Provider
@@ -53,8 +66,9 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({
                 account: address ?? null,
                 connectors, // ← Now available to consumers
                 connectWallet, // ← Can specify which connector
-                disconnectWallet: disconnect,
+                disconnectWallet,
                 connectAsync,
+                isDisconnecting,
             }}
         >
             {children}

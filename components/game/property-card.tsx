@@ -1,9 +1,9 @@
-import React from 'react';
-import Image from 'next/image';
 import { BoardSquare } from "@/types/game";
+import { cn, formatCurrency } from "@/lib/utils";
 
 interface PropertyCardProps {
-    square: BoardSquare;
+  square: BoardSquare;
+  className?: string;
 }
 
 const PropertyCard = ({ square }: PropertyCardProps) => {
