@@ -21,10 +21,10 @@ const ChatRoom = () => {
 
             {/* bottom */}
             <div className="w-full border-t-[1px] border-[#263238] h-[52px] shrink-0 flex items-stretch gap-2 p-2">
-                <input type="text" className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3" name="chat" id="chat" placeholder='Type a message...' />
+                <input type="text" className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3" name="chat" id="chat" placeholder='Type a message...' aria-label="Chat message" />
 
                 {/* send btn */}
-                <button className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'>
+                <button aria-label="Send message" className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'>
                     <Send className="w-5 h-5" />
                 </button>
             </div>
