@@ -17,6 +17,7 @@ const NavBar = () => {
 
     const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
     const [isDisconnectModalOpen, setIsDisconnectModalOpen] = useState(false);
+    const [isDisconnecting, setIsDisconnecting] = useState(false);
     const { account, connectWallet, disconnectWallet, connectors } =
         useWalletContext();
 
@@ -35,7 +36,17 @@ const NavBar = () => {
         setIsDisconnectModalOpen(true);
     };
     const handleDisconnect = () => {
-        disconnectWallet();
+        if (isDisconnecting) return;
+        setIsDisconnecting(true);
+        try {
+            disconnectWallet();
+        } finally {
+            setIsDisconnecting(false);
+            setIsDisconnectModalOpen(false);
+        }
+    };
+    const handleCancelDisconnect = () => {
+        if (isDisconnecting) return;
         setIsDisconnectModalOpen(false);
     };
 
@@ -143,7 +154,7 @@ const NavBar = () => {
                                             fill="#011112"
                                             stroke="#0E282A"
                                             strokeWidth={1}
-                                            className="group-hover:stroke-[#003B3E] transition-all duration-300 ease-in-out"
+                                            className='group-hover:stroke-[#003B3E] transition-all duration-300 ease-in-out'
                                         />
                                     </svg>
                                     <div className="absolute inset-0 flex items-center ml-5 text-[#00F0FF] font-orbitron font-medium z-10">
@@ -153,10 +164,19 @@ const NavBar = () => {
                                                 alt="Wallet Avatar"
                                                 width={200}
                                                 height={200}
-                                                quality={100}
+                                                className="w-full h-full object-cover"
                                             />
                                         </div>
+                                        <span className="ml-2 text-[12px]">
+                                            {account.slice(0, 6)}...{account.slice(-4)}
+                                        </span>
                                     </div>
+                                    <button
+                                        type="button"
+                                        onClick={handleWalletClick}
+                                        aria-label="Disconnect wallet"
+                                        className="absolute inset-0 w-full h-full bg-transparent border-none cursor-pointer"
+                                    />
                                 </div>
                             </div>
                         )
@@ -169,10 +189,12 @@ const NavBar = () => {
                 onClose={() => setIsConnectModalOpen(false)}
                 onWalletSelect={handleWalletSelect}
             />
+
             <WalletDisconnectModal
                 isOpen={isDisconnectModalOpen}
-                onClose={() => setIsDisconnectModalOpen(false)}
-                onDisconnect={handleDisconnect}
+                onClose={handleCancelDisconnect}
+                onConfirm={handleDisconnect}
+                isConfirming={isDisconnecting}
             />
         </>
     );
