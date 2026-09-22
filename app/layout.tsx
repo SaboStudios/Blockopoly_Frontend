@@ -10,7 +10,7 @@ import { getMetadata } from "@/utils/getMeatadata";
 export const metadata = getMetadata({
   title: "Blockopoly",
   description:
-    "Blockopoly is a decentralized on-chain game inspired by the classic Monopoly game, built on Starknet. It allows players to buy, sell, and trade digital properties in a trustless gaming environment.",
+    "Blockopoly is a decentralized on-chain game inspired by the classic Monopoly board game, built on Starknet. Players can buy, sell, and trade digital properties in a trustless gaming environment.",
 })
 
 export default function RootLayout({
