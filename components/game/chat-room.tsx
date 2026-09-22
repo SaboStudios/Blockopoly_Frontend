@@ -1,9 +1,19 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Send, Users } from 'lucide-react';
 import EmptyState from '@/components/shared/empty-state';
 
 const ChatRoom = () => {
+    const [messages, setMessages] = useState<string[]>([]);
+    const [input, setInput] = useState('');
+
+    const handleSend = () => {
+        const trimmed = input.trim();
+        if (!trimmed) return;
+        setMessages((prev) => [...prev, trimmed]);
+        setInput('');
+    };
+
     return (
         <div className="w-full h-full min-h-[400px] border-[1px] border-[#263238] flex flex-col mt-4 rounded-[12px]">
             {/* top */}
@@ -12,19 +22,29 @@ const ChatRoom = () => {
                 <Users className='w-4 h-4 text-[#F0F7F7]' />
             </div>
             {/* content */}
-            <main className="w-full flex-1 overflow-y-auto no-scrollbar flex justify-center items-center">
-                <EmptyState
-                    title="No messages yet"
-                    description="Be the first to say something in this room."
-                />
+            <main className="w-full flex-1 overflow-y-auto no-scrollbar flex flex-col gap-2 p-3">
+                {messages.length === 0 ? (
+                    <div className="w-full h-full flex justify-center items-center">
+                        <EmptyState
+                            title="No messages yet"
+                            description="Be the first to say something in this room."
+                        />
+                    </div>
+                ) : (
+                    messages.map((message, index) => (
+                        <div key={index} className="self-start max-w-[80%] bg-[#0B191A] rounded-[12px] px-3 py-2 text-[12px] text-[#F0F7F7] font-dmSans break-words">
+                            {message}
+                        </div>
+                    ))
+                )}
             </main>
 
             {/* bottom */}
             <div className="w-full border-t-[1px] border-[#263238] h-[52px] shrink-0 flex items-stretch gap-2 p-2">
-                <input type="text" className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3" name="chat" id="chat" placeholder='Type a message...' aria-label="Chat message" />
+                <input type="text" className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3" name="chat" id="chat" placeholder='Type a message...' aria-label="Chat message" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }} />
 
                 {/* send btn */}
-                <button aria-label="Send message" className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'>
+                <button aria-label="Send message" onClick={handleSend} className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'>
                     <Send className="w-5 h-5" />
                 </button>
             </div>
