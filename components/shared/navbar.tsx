@@ -4,7 +4,7 @@ import Logo from './logo';
 import LogoIcon from '@/public/logo.png';
 import Link from 'next/link';
 import { House, LogOut, Volume2, VolumeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSound from 'use-sound'
 import { useWalletContext } from '@/context/wallet-provider';
 import Image from 'next/image';
@@ -52,6 +52,13 @@ const NavBar = () => {
         volume: 0.5,
         loop: true,
     })
+
+    useEffect(() => {
+        return () => {
+            pause()
+            setIsSoundPlaying(false)
+        }
+    }, [pause])
 
     const toggleSound = () => {
         if (isSoundPlaying) {
@@ -154,21 +161,10 @@ const NavBar = () => {
                                                 width={200}
                                                 height={200}
                                                 quality={100}
-                                                className="w-full h-full object-cover"
                                             />
                                         </div>
-                                        <span className="ml-2 text-[12px]">
-                                            {account.slice(0, 6)}...{account.slice(-4)}
-                                        </span>
                                     </div>
                                 </div>
-                                <button
-                                    type="button"
-                                    onClick={handleWalletClick}
-                                    className="ml-2 w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] flex justify-center items-center bg-[#011112] text-white cursor-pointer"
-                                >
-                                    <LogOut className='w-[16px] h-[16px]' />
-                                </button>
                             </div>
                         )
                     }
