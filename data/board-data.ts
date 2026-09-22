@@ -371,3 +371,72 @@ export const boardData: BoardSquare[] = [
     icon: "/game/brasilia.svg",
   },
 ];
+
+export type BoardSquareRule =
+  | "go"
+  | "property"
+  | "chance"
+  | "community"
+  | "tax"
+  | "jail"
+  | "go-to-jail"
+  | "free-parking"
+  | "reward";
+
+export interface BoardSquareRuleInfo {
+  rule: BoardSquareRule;
+  taxAmount?: number;
+  rewardAmount?: number;
+}
+
+/**
+ * Maps every square in `boardData` to a deterministic rule handler key.
+ * The engine (`lib/game/engine`) consumes this map so board layout stays
+ * presentational while rules stay framework-agnostic.
+ */
+export const boardRules: Record<number, BoardSquareRuleInfo> = {
+  1: { rule: "go" },
+  2: { rule: "property" },
+  3: { rule: "property" },
+  4: { rule: "chance" },
+  5: { rule: "property" },
+  6: { rule: "community" },
+  7: { rule: "property" },
+  8: { rule: "chance" },
+  9: { rule: "property" },
+  10: { rule: "property" },
+  11: { rule: "jail" },
+  12: { rule: "property" },
+  13: { rule: "property" },
+  14: { rule: "community" },
+  15: { rule: "property" },
+  16: { rule: "chance" },
+  17: { rule: "property" },
+  18: { rule: "community" },
+  19: { rule: "property" },
+  20: { rule: "property" },
+  21: { rule: "reward", rewardAmount: 200 },
+  22: { rule: "property" },
+  23: { rule: "chance" },
+  24: { rule: "property" },
+  25: { rule: "property" },
+  26: { rule: "community" },
+  27: { rule: "property" },
+  28: { rule: "property" },
+  29: { rule: "tax", taxAmount: 100 },
+  30: { rule: "property" },
+  31: { rule: "go-to-jail" },
+  32: { rule: "property" },
+  33: { rule: "property" },
+  34: { rule: "chance" },
+  35: { rule: "property" },
+  36: { rule: "community" },
+  37: { rule: "property" },
+  38: { rule: "tax", taxAmount: 100 },
+  39: { rule: "property" },
+  40: { rule: "property" },
+};
+
+export function getBoardRule(squareId: number): BoardSquareRuleInfo {
+  return boardRules[squareId] ?? { rule: "free-parking" };
+}
