@@ -13,6 +13,7 @@ const CornerCard = ({ square }: CornerCardProps) => {
                 <Image
                     src={square.icon}
                     alt={square.name}
+                    title={square.name}
                     width={48}
                     height={48}
                     className="w-full h-full"
