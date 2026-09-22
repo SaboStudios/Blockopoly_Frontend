@@ -43,3 +43,7 @@ cd Blockopoly_Frontend
 bash
 npm install
 ```
+
+## 🧪 Testing
+
+- No test suite is configured yet; tests are not run as part of this project.
