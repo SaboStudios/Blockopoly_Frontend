@@ -3,7 +3,11 @@ import { Check, ChevronLeft, ChevronRight, CircleAlert, Flag, MoveLeft, MoveRigh
 import React, { useState } from 'react'
 import { PiUsersThree } from 'react-icons/pi';
 
-const Players = () => {
+interface PlayersProps {
+    className?: string;
+}
+
+const Players = ({ className }: PlayersProps) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
@@ -29,6 +33,7 @@ const Players = () => {
                     transform ${isSidebarOpen ? 'translate-x-0 lg:translate-x-0' : '-translate-x-full lg:translate-x-0'}
                     lg:static lg:transform-none
                     ${isSidebarOpen ? 'lg:w-[272px] md:w-1/2 w-full' : 'lg:w-[60px] w-full'}
+                    ${className ?? ''}
                 `}
             >
                 <div className="w-full h-full flex flex-col gap-4 ">
