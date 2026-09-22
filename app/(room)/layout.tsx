@@ -12,7 +12,9 @@ export default function RoomLayout({
         <GameProvider>
             <main className="w-full h-screen overflow-x-hidden relative flex flex-row lg:gap-2">
                 <Players />
-                {children}
+                <div className="flex-1 min-h-0 flex flex-col">
+                    {children}
+                </div>
                 <GameRoom />
             </main>
         </GameProvider>
