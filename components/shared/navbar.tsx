@@ -4,7 +4,7 @@ import Logo from './logo';
 import LogoIcon from '@/public/logo.png';
 import Link from 'next/link';
 import { House, LogOut, Volume2, VolumeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSound from 'use-sound'
 import { useWalletContext } from '@/context/wallet-provider';
 import Image from 'next/image';
@@ -73,6 +73,15 @@ const NavBar = () => {
             setIsSoundPlaying(true)
         }
     }
+
+    // Pause theme music and reset toggle state when the navbar unmounts
+    // (e.g. navigating away) to avoid leaked audio.
+    useEffect(() => {
+        return () => {
+            pause()
+            setIsSoundPlaying(false)
+        }
+    }, [pause])
 
     return (
         <>
@@ -158,26 +167,22 @@ const NavBar = () => {
                                         />
                                     </svg>
                                     <div className="absolute inset-0 flex items-center ml-5 text-[#00F0FF] font-orbitron font-medium z-10">
-                                        <div className="h-6 w-6 rounded-full border-[1px] border-[#0FF0FC] overflow-hidden">
-                                            <Image
-                                                src={avatar}
-                                                alt="Wallet Avatar"
-                                                width={200}
-                                                height={200}
-                                                className="w-full h-full object-cover"
-                                            />
+                                        <div className="flex items-center gap-2">
+                                            <Image src={avatar} alt="avatar" width={24} height={24} className="rounded-full" />
+                                            <span className="text-[12px]">
+                                                {account.slice(0, 6)}...{account.slice(-4)}
+                                            </span>
                                         </div>
-                                        <span className="ml-2 text-[12px]">
-                                            {account.slice(0, 6)}...{account.slice(-4)}
-                                        </span>
                                     </div>
-                                    <button
-                                        type="button"
-                                        onClick={handleWalletClick}
-                                        aria-label="Disconnect wallet"
-                                        className="absolute inset-0 w-full h-full bg-transparent border-none cursor-pointer"
-                                    />
                                 </div>
+                                <button
+                                    type="button"
+                                    onClick={handleWalletClick}
+                                    aria-label="Disconnect wallet"
+                                    className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] flex justify-center items-center bg-[#011112] text-white cursor-pointer"
+                                >
+                                    <LogOut className='w-[16px] h-[16px]' />
+                                </button>
                             </div>
                         )
                     }
@@ -187,17 +192,16 @@ const NavBar = () => {
             <WalletConnectModal
                 isOpen={isConnectModalOpen}
                 onClose={() => setIsConnectModalOpen(false)}
-                onWalletSelect={handleWalletSelect}
+                onSelect={handleWalletSelect}
             />
-
             <WalletDisconnectModal
                 isOpen={isDisconnectModalOpen}
                 onClose={handleCancelDisconnect}
                 onConfirm={handleDisconnect}
-                isConfirming={isDisconnecting}
+                isDisconnecting={isDisconnecting}
             />
         </>
-    );
-};
+    )
+}
 
-export default NavBar;
+export default NavBar
