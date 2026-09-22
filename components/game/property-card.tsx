@@ -41,7 +41,7 @@ const PropertyCard = ({ square }: PropertyCardProps) => {
                 {/* You will need to provide the images for each property */}
                 {icon && <Image src={icon} alt={name} width={25} height={25} className={`my-1 transform ${imageOrientationClasses[position]}`} />}
             </div>
-            <p className={`text-[5px] md:text-[6px] absolute font-semibold bg-[#F0F7F7] shadow-sm p-0.5 rounded-[3px] ${priceOrientationClasses[position]}`}>${price}</p>
+            <p className={`text-[5px] md:text-[6px] absolute font-semibold bg-[#F0F7F7] shadow-sm p-0.5 rounded-[3px] ${priceOrientationClasses[position]}`}>{formatCurrency(price)}</p>
         </div>
     );
 };
