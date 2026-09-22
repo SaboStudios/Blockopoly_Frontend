@@ -6,11 +6,12 @@ import { WalletProvider } from "@/context/wallet-provider";
 import "@/styles/globals.css";
 import { getMetadata } from "@/utils/getMeatadata";
 
+const SITE_DESCRIPTION =
+  "Blockopoly is a decentralized on-chain game inspired by the classic Monopoly, built on Starknet. Buy, sell, and trade digital properties in a trustless gaming environment.";
 
 export const metadata = getMetadata({
   title: "Blockopoly",
-  description:
-    "Blockopoly is a decentralized on-chain game inspired by the classic Monopoly, built on Starknet. Buy, sell, and trade digital properties in a trustless gaming environment.",
+  description: SITE_DESCRIPTION,
 })
 
 export default function RootLayout({
