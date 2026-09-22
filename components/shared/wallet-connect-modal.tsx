@@ -16,12 +16,14 @@ interface WalletConnectModalProps {
 export default function WalletConnectModal({
     isOpen,
     onClose,
+    onSelect,
 }: WalletConnectModalProps) {
     const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
     const { connectors, connectAsync } = useWalletContext();
 
     const handleSelect = (walletId: string) => {
         setSelectedWallet(walletId);
+        onSelect(walletId);
     };
 
     const handleConfirm = async () => {
@@ -95,7 +97,7 @@ export default function WalletConnectModal({
                     />
 
                     <motion.div
-                        className="relative w-full max-w-md rounded-[12px] bg-[#010F10] p-[32px] border-[#003B3E] border-[1px]"
+                        className="relative w-full max-w-md rounded-[12px] bg-[#010F13] p-[32px] border-[#003B3E] border-[1px]"
                         variants={modalVariants}
                         initial="hidden"
                         animate="visible"
