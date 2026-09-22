@@ -3,12 +3,74 @@ import { Check, ChevronLeft, ChevronRight, CircleAlert, Flag, MoveLeft, MoveRigh
 import React, { useState } from 'react'
 import { PiUsersThree } from 'react-icons/pi';
 
+interface PlayerCard {
+    id: string;
+    displayName: string;
+    avatarId: string;
+    cash: number;
+    propertiesCount: number;
+    inJail: boolean;
+    isMe?: boolean;
+}
+
+const AVATAR_COLORS: Record<string, string> = {
+    default: '#FFBE04',
+    blue: '#0E8AED',
+    green: '#22C55E',
+    purple: '#A855F7',
+    red: '#EF4444',
+    pink: '#EC4899',
+};
+
 const Players = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+
+    const players: PlayerCard[] = [
+        { id: 'me', displayName: 'Aji', avatarId: 'default', cash: 1500, propertiesCount: 3, inJail: false, isMe: true },
+        { id: 'p2', displayName: 'Signor', avatarId: 'blue', cash: 1200, propertiesCount: 2, inJail: true },
+    ];
+
+    const renderPlayerCard = (player: PlayerCard) => (
+        <div
+            key={player.id}
+            className={`
+                w-full flex flex-col gap-3 bg-[#0B191A] p-3 rounded-[12px]
+                transition-opacity duration-200
+                ${isSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+            `}
+        >
+            <div className="flex items-center gap-2">
+                <div
+                    className="size-[32px] rounded-full flex items-center justify-center text-[#010F10] font-bold text-[14px]"
+                    style={{ backgroundColor: AVATAR_COLORS[player.avatarId] ?? AVATAR_COLORS.default }}
+                >
+                    {player.displayName.charAt(0).toUpperCase()}
+                </div>
+                <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>
+                    {player.displayName}
+                    {player.isMe && <span className='text-[10px]'> (Me)</span>}
+                </span>
+                {player.inJail && (
+                    <span className='ml-auto text-[9px] px-[8px] py-[2px] rounded-[20px] bg-[#EF4444]/20 text-[#EF4444] border-[1px] border-[#EF4444]/40'>
+                        In Jail
+                    </span>
+                )}
+            </div>
+
+            <div className="flex items-center gap-4 text-[11px] text-[#869298] font-dmSans">
+                <span>Cash: <span className='text-[#F0F7F7] font-medium'>${player.cash}</span></span>
+                <span>Properties: <span className='text-[#F0F7F7] font-medium'>{player.propertiesCount}</span></span>
+            </div>
+
+            {player.isMe && (
+                <button type="button" className='w-[118px] h-[29px] border-[1px] border-[#003B3E] rounded-[20px] bg-transparent text-[#869298] hover:text-[#F0F7F7] self-end text-[10px] cursor-pointer'>Change appearance</button>
+            )}
+        </div>
+    );
 
     return (
         <>
@@ -44,33 +106,8 @@ const Players = () => {
                         </button>
                     </div>
 
-                    {/* Player */}
-                    <div className={`
-                        w-full flex flex-col gap-3 bg-[#0B191A] p-3 rounded-[12px]
-                        transition-opacity duration-200
-                        ${isSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                    `}>
-                        {/* Example Player Item */}
-                        <div className="flex items-center gap-2">
-                            <div className="size-[32px] rounded-full bg-[#FFBE04]" />
-                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>Aji <span className='text-[10px]'>(Me)</span></span>
-                        </div>
-
-                        <button type="button" className='w-[118px] h-[29px] border-[1px] border-[#003B3E] rounded-[20px] bg-transparent text-[#869298] hover:text-[#F0F7F7] self-end text-[10px] cursor-pointer'>Change appearance</button>
-                    </div>
-
-                    {/* Another player */}
-                    <div className={`
-                        w-full flex flex-col gap-3 bg-[#0B191A] p-3 rounded-[12px]
-                        transition-opacity duration-200
-                        ${isSidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-                    `}>
-                        {/* Example Player Item */}
-                        <div className="flex items-center gap-2">
-                            <div className="size-[32px] rounded-full bg-[#0E8AED]" />
-                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>Signor </span>
-                        </div>
-                    </div>
+                    {/* Player cards */}
+                    {players.map(renderPlayerCard)}
 
 
                     {/* Trade */}
