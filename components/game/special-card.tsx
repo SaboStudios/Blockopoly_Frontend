@@ -9,7 +9,7 @@ interface SpecialCardProps {
 const SpecialCard = ({ square }: SpecialCardProps) => {
     const { position } = square;
 
-    const orientationClasses = {
+    const orientationClasses: Record<BoardSquare['position'], string> = {
         bottom: '',
         left: 'rotate-90',
         top: '',

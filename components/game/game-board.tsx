@@ -31,7 +31,7 @@ const GameBoard = () => {
                     </div>
 
                     {/* Render all 40 squares from the data file */}
-                    {boardData.map((square) => (
+                    {boardData.map((square: BoardSquare) => (
                         <div key={square.id} style={getGridPosition(square)}>
                             {square.type === 'property' && <PropertyCard square={square} />}
                             {square.type === 'special' && <SpecialCard square={square} />}

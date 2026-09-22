@@ -35,15 +35,15 @@ const PropertyCard = ({ square }: PropertyCardProps) => {
 
     return (
         <div
-            className={`relative w-full h-full bg-[#F0F7F7] text-[#0B191A] p-1 flex flex-col justify-between rounded-[2.5px] ${orientationClasses[position]}`}
+            className={`relative w-full h-full bg-[#F0F7F7] text-[#0B191A] p-1 flex flex-col justify-between rounded-[2.5px] ${orientationClasses[position as Orientation]}`}
             style={{ borderColor: color }}
         >
             <div className={`flex flex-col items-center `}>
                 <p className="text-[5px] md:text-[5px] font-bold uppercase text-center">{name}</p>
                 {/* You will need to provide the images for each property */}
-                {icon && <Image src={icon} alt={name} width={25} height={25} className={`my-1 transform ${imageOrientationClasses[position]}`} />}
+                {icon && <Image src={icon} alt={name} width={25} height={25} className={`my-1 transform ${imageOrientationClasses[position as Orientation]}`} />}
             </div>
-            <p className={`text-[5px] md:text-[6px] absolute font-semibold bg-[#F0F7F7] shadow-sm p-0.5 rounded-[3px] ${priceOrientationClasses[position]}`}>${price}</p>
+            <p className={`text-[5px] md:text-[6px] absolute font-semibold bg-[#F0F7F7] shadow-sm p-0.5 rounded-[3px] ${priceOrientationClasses[position as Orientation]}`}>${price}</p>
         </div>
     );
 };
