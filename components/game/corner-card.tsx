@@ -12,7 +12,7 @@ const CornerCard = ({ square }: CornerCardProps) => {
             {square.icon && (
                 <Image
                     src={square.icon}
-                    alt={square.name}
+                    alt={square.name ? `${square.name} corner tile icon` : "Corner tile icon"}
                     width={48}
                     height={48}
                     className="w-full h-full"

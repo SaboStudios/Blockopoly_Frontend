@@ -9,6 +9,7 @@ export const boardData: BoardSquare[] = [
     position: "bottom",
     gridPosition: { row: 11, col: 11 },
     icon: "/game/go.svg",
+    iconAlt: "GO corner tile icon",
   },
   {
     id: 2,
@@ -100,6 +101,7 @@ export const boardData: BoardSquare[] = [
     position: "left",
     gridPosition: { row: 11, col: 1 },
     icon: "/game/injailjustvisiting.svg",
+    iconAlt: "In Jail / Just Visiting corner tile icon",
   },
 
   // Left Row
@@ -193,6 +195,7 @@ export const boardData: BoardSquare[] = [
     position: "top",
     gridPosition: { row: 1, col: 1 },
     icon: "/game/rewardrealm.svg",
+    iconAlt: "Reward Realm corner tile icon",
   },
 
   // Top Row
@@ -286,6 +289,7 @@ export const boardData: BoardSquare[] = [
     position: "right",
     gridPosition: { row: 1, col: 11 },
     icon: "/game/gotojail.svg",
+    iconAlt: "Go To Jail corner tile icon",
   },
 
   // Right Row
