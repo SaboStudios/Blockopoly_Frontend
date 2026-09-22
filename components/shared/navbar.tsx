@@ -97,17 +97,35 @@ const NavBar = () => {
                         <House className='w-[16px] h-[16px]' />
                     </Link>
                     {/* Sound/Audio icon */}
-                    <button type='button' onClick={toggleSound} className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] hidden md:flex justify-center items-center bg-[#011112] text-white cursor-pointer">
-                        {isSoundPlaying ? (
-                            <Volume2 className='w-[16px] h-[16px]' />
-                        ) : (
-                            <VolumeOff className='w-[16px] h-[16px]' />
-                        )}
+                    <button type='button' onClick={toggleSound} className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] flex justify-center items-center bg-[#011112] text-white cursor-pointer">
+                        {isSoundPlaying ? <Volume2 className='w-[16px] h-[16px]' /> : <VolumeOff className='w-[16px] h-[16px]' />}
                     </button>
+                    {/* Connect/Disconnect */}
+                    {account ? (
+                        <button type="button" onClick={handleWalletClick} className="h-[40px] px-4 border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] flex justify-center items-center gap-2 bg-[#011112] text-white cursor-pointer">
+                            <Image src={avatar} alt="avatar" width={20} height={20} className="rounded-full" />
+                            <span className="text-[12px] font-[400] font-dmSans">{account.slice(0, 6)}...{account.slice(-4)}</span>
+                        </button>
+                    ) : (
+                        <button type="button" onClick={handleConnectWallet} className="h-[40px] px-4 border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] flex justify-center items-center bg-[#011112] text-white cursor-pointer">
+                            <span className="text-[12px] font-[400] font-dmSans">Connect Wallet</span>
+                        </button>
+                    )}
                 </div>
             </header>
-        </>
-    )
-}
 
-export default NavBar
+            <WalletConnectModal
+                isOpen={isConnectModalOpen}
+                onClose={() => setIsConnectModalOpen(false)}
+                onSelect={handleWalletSelect}
+            />
+            <WalletDisconnectModal
+                isOpen={isDisconnectModalOpen}
+                onClose={() => setIsDisconnectModalOpen(false)}
+                onDisconnect={handleDisconnect}
+            />
+        </>
+    );
+};
+
+export default NavBar;

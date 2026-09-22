@@ -16,6 +16,7 @@ interface WalletConnectModalProps {
 export default function WalletConnectModal({
     isOpen,
     onClose,
+    onSelect,
 }: WalletConnectModalProps) {
     const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -24,6 +25,7 @@ export default function WalletConnectModal({
     const handleSelect = (walletId: string) => {
         setSelectedWallet(walletId);
         setError(null);
+        onSelect(walletId);
     };
 
     const handleConfirm = async () => {
@@ -100,7 +102,7 @@ export default function WalletConnectModal({
                     />
 
                     <motion.div
-                        className="relative w-full max-w-md rounded-[12px] bg-[#010F10] p-[32px] border-[#003B3E] border-[1px]"
+                        className="relative w-full max-w-md rounded-[12px] bg-[#010F3E] p-[32px] border-[#003B3E] border-[1px]"
                         variants={modalVariants}
                         initial="hidden"
                         animate="visible"
@@ -112,12 +114,61 @@ export default function WalletConnectModal({
                                     Connect Wallet
                                 </h2>
                                 <p className="text-[#F0F7F7] text-[14px] text-center">
-                                    Choose your preferred wallet
+                                    Choose your preferred wallet to connect
                                 </p>
                             </div>
-
                             <button
                                 onClick={onClose}
-                                className="text-gray-400 hover:text-white absolute
+                                className="absolute right-0 top-0 text-[#F0F7F7] hover:text-[#00F0FF] transition-colors"
+                                aria-label="Close"
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
 
-/* … truncated 3119 chars — edit only what you need near the top … */
+                        <div className="space-y-3">
+                            {connectors.map((connector) => (
+                                <button
+                                    key={connector.id}
+                                    onClick={() => handleSelect(connector.id)}
+                                    className={`w-full flex items-center gap-3 p-4 rounded-[8px] border transition-colors ${
+                                        selectedWallet === connector.id
+                                            ? "border-[#00F0FF] bg-[#003B3E]"
+                                            : "border-[#003B3E] hover:border-[#00F0FF]"
+                                    }`}
+                                >
+                                    {connector.icon && (
+                                        <Image
+                                            src={getIconSource(connector.icon)}
+                                            alt={connector.name}
+                                            width={32}
+                                            height={32}
+                                            className="rounded"
+                                        />
+                                    )}
+                                    <span className="text-[#F0F7F7] font-[500]">
+                                        {connector.name}
+                                    </span>
+                                </button>
+                            ))}
+                        </div>
+
+                        {error && (
+                            <p className="mt-4 text-[#FF4D4D] text-[14px] text-center">
+                                {error}
+                            </p>
+                        )}
+
+                        <button
+                            onClick={handleConfirm}
+                            disabled={!selectedWallet}
+                            className="mt-6 w-full py-3 rounded-[8px] bg-[#00F0FF] text-[#010F3E] font-[600] disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Connect
+                        </button>
+                    </motion.div>
+                </div>
+            )}
+        </AnimatePresence>
+    );
+}
