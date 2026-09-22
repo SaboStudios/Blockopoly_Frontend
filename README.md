@@ -39,7 +39,10 @@ Blockopoly Frontend is the user interface for the decentralized Monopoly game bu
 ```bash
 git clone https://github.com/SaboStudios/blockopoly-frontend-v1.git
 cd Blockopoly_Frontend
-2️⃣ Install Dependencies
-bash
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
 npm install
 ```
