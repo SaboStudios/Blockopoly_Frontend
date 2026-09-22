@@ -151,5 +151,6 @@ const HeroSection = () => {
                                 height="40"
                                 viewBox="0 0 227 40"
                                 fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                c
+                                xmlns="http://www.w3.
+
+/* … truncated 47 chars — edit only what you need near the top … */
