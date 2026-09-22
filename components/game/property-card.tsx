@@ -6,25 +6,27 @@ interface PropertyCardProps {
     square: BoardSquare;
 }
 
+type Orientation = 'bottom' | 'left' | 'top' | 'right';
+
 const PropertyCard = ({ square }: PropertyCardProps) => {
     const { name, price, color, position, icon } = square;
 
     // Define classes for different orientations
-    const orientationClasses = {
+    const orientationClasses: Record<Orientation, string> = {
         bottom: 'border-t-8',
         left: 'border-t-8 rotate-90',
         top: 'border-b-8',
         right: 'border-t-8 -rotate-90',
     };
 
-    const priceOrientationClasses = {
+    const priceOrientationClasses: Record<Orientation, string> = {
         bottom: 'bottom-0.5 right-0.5',
         left: 'bottom-[30%] -right-0.5 transform -rotate-90',
         top: 'bottom-0.5 right-0.5',
         right: 'transform rotate-90 bottom-[30%] -left-0.5',
     }
 
-    const imageOrientationClasses = {
+    const imageOrientationClasses: Record<Orientation, string> = {
         bottom: '',
         left: '-rotate-90',
         top: '',

@@ -7,7 +7,7 @@ import { boardData } from '@/data/board-data';
 
 const GameBoard = () => {
 
-    const getGridPosition = (square: BoardSquare) => {
+    const getGridPosition = (square: BoardSquare): React.CSSProperties => {
         return {
             gridRowStart: square.gridPosition.row,
             gridColumnStart: square.gridPosition.col,
@@ -18,7 +18,7 @@ const GameBoard = () => {
         <div className="w-full h-full flex justify-center items-center"
         >
             {/* Aspect ratio container to keep the board square and responsive */}
-            <div className="w-full max-w-[670px] bg-[#010F10] aspect-square relative shadow-2xl shadow-cyan-500/10">
+            <div className="w-full max-w-[670px] bg-[#010F13] aspect-square relative shadow-2xl shadow-cyan-500/10">
                 {/* The main board grid */}
                 <div className="grid grid-cols-11 grid-rows-11 w-full h-full">
 
