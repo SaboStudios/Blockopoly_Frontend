@@ -10,29 +10,29 @@ const SPECIAL_LABELS: Record<string, string> = {
     '?': 'Chance',
     chance: 'Chance',
     'community chest': 'Community Chest',
+    community_chest: 'Community Chest',
     communitychest: 'Community Chest',
-    chest: 'Community Chest',
 };
 
-const getAccessibleLabel = (square: BoardSquare): string => {
-    const name = (square.name ?? '').trim();
-    const type = (square.type ?? '').trim();
+const getAccessibleName = (square: BoardSquare): string => {
+    const candidates = [square.name, square.type]
+        .filter((value): value is string => typeof value === 'string')
+        .map((value) => value.trim());
 
-    const byName = SPECIAL_LABELS[name.toLowerCase()];
-    if (byName) return byName;
+    for (const candidate of candidates) {
+        const label = SPECIAL_LABELS[candidate.toLowerCase()];
+        if (label) {
+            return label;
+        }
+    }
 
-    const byType = SPECIAL_LABELS[type.toLowerCase()];
-    if (byType) return byType;
-
-    if (name && name !== '?') return name;
-    if (type && type !== '?') return type;
-
-    return 'Chance';
+    const readable = candidates.find((value) => value !== '?' && value.length > 0);
+    return readable ?? 'Chance';
 };
 
 const SpecialCard = ({ square }: SpecialCardProps) => {
     const { position } = square;
-    const accessibleLabel = getAccessibleLabel(square);
+    const accessibleName = getAccessibleName(square);
 
     const orientationClasses = {
         bottom: '',
@@ -45,11 +45,11 @@ const SpecialCard = ({ square }: SpecialCardProps) => {
         <div
             className={`w-full h-full bg-[#0B191A] flex flex-col justify-center gap-0.5 items-center rounded-[2.5px] ${orientationClasses[position]}`}
             role="img"
-            aria-label={accessibleLabel}
-            title={accessibleLabel}
+            aria-label={accessibleName}
+            title={accessibleName}
         >
             <GrHelp className="text-[#0FF0FC] size-4 md:size-6" aria-hidden="true" />
-            <p className={`text-[4px] md:text-[5px] text-[#55656D] uppercase font-semibold`}>{accessibleLabel}</p>
+            <p className={`text-[4px] md:text-[5px] text-[#55656D] uppercase font-semibold`}>{accessibleName}</p>
         </div>
     );
 };

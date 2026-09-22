@@ -4,7 +4,7 @@ import Logo from './logo';
 import LogoIcon from '@/public/logo.png';
 import Link from 'next/link';
 import { House, LogOut, Volume2, VolumeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSound from 'use-sound'
 import { useWalletContext } from '@/context/wallet-provider';
 import Image from 'next/image';
@@ -17,6 +17,7 @@ const NavBar = () => {
 
     const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
     const [isDisconnectModalOpen, setIsDisconnectModalOpen] = useState(false);
+    const [isDisconnecting, setIsDisconnecting] = useState(false);
     const { account, connectWallet, disconnectWallet, connectors } =
         useWalletContext();
 
@@ -35,7 +36,17 @@ const NavBar = () => {
         setIsDisconnectModalOpen(true);
     };
     const handleDisconnect = () => {
-        disconnectWallet();
+        if (isDisconnecting) return;
+        setIsDisconnecting(true);
+        try {
+            disconnectWallet();
+        } finally {
+            setIsDisconnecting(false);
+            setIsDisconnectModalOpen(false);
+        }
+    };
+    const handleCancelDisconnect = () => {
+        if (isDisconnecting) return;
         setIsDisconnectModalOpen(false);
     };
 
@@ -63,6 +74,15 @@ const NavBar = () => {
         }
     }
 
+    // Pause theme music and reset toggle state when the navbar unmounts
+    // (e.g. navigating away) to avoid leaked audio.
+    useEffect(() => {
+        return () => {
+            pause()
+            setIsSoundPlaying(false)
+        }
+    }, [pause])
+
     return (
         <>
             <motion.div
@@ -86,11 +106,11 @@ const NavBar = () => {
                     }
 
                     {/* home icon */}
-                    <Link href="/" className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] hidden md:flex justify-center items-center bg-[#011112] text-white cursor-pointer">
+                    <Link href="/" aria-label="Go to home" className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] hidden md:flex justify-center items-center bg-[#011112] text-white cursor-pointer">
                         <House className='w-[16px] h-[16px]' />
                     </Link>
                     {/* Sound/Audio icon */}
-                    <button type='button' onClick={toggleSound} className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] hidden md:flex justify-center items-center bg-[#011112] text-white cursor-pointer">
+                    <button type='button' onClick={toggleSound} aria-label={isSoundPlaying ? 'Mute background music' : 'Play background music'} className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] hidden md:flex justify-center items-center bg-[#011112] text-white cursor-pointer">
                         {isSoundPlaying ? (
                             <Volume2 className='w-[16px] h-[16px]' />
                         ) : (
@@ -143,50 +163,30 @@ const NavBar = () => {
                                             fill="#011112"
                                             stroke="#0E282A"
                                             strokeWidth={1}
-                                            className="group-hover:stroke-[#003B3E] transition-all duration-300 ease-in-out"
+                                            className='group-hover:stroke-[#003B3E] transition-all duration-300 ease-in-out'
                                         />
                                     </svg>
                                     <div className="absolute inset-0 flex items-center ml-5 text-[#00F0FF] font-orbitron font-medium z-10">
-                                        <div className="h-6 w-6 rounded-full border-[1px] border-[#0FF0FC] overflow-hidden">
-                                            <Image
-                                                src={avatar}
-                                                alt="Wallet Avatar"
-                                                width={200}
-                                                height={200}
-                                                quality={100}
-                                                priority
-                                                className="object-cover w-full h-full"
-                                            />
+                                        <div className="flex items-center gap-2">
+                                            <Image src={avatar} alt="avatar" width={24} height={24} className="rounded-full" />
+                                            <span className="text-[12px]">
+                                                {account.slice(0, 6)}...{account.slice(-4)}
+                                            </span>
                                         </div>
-                                        <span className="text-[14px] font-medium ml-2">
-                                            {account.slice(0, 4)}…{account.slice(-4)}
-                                        </span>
                                     </div>
                                 </div>
-
-                                {/* disconnect btn */}
                                 <button
                                     type="button"
                                     onClick={handleWalletClick}
-                                    className="relative right-3 group w-[62px] h-[41px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                                    aria-label="Disconnect wallet"
+                                    className="w-[40px] h-[40px] border-[1px] border-[#0E282A] hover:border-[#003B3E] transition-all duration-300 ease-in-out rounded-[12px] flex justify-center items-center bg-[#011112] text-white cursor-pointer"
                                 >
-                                    <svg width="62" height="41" viewBox="0 0 62 41" fill="none" className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M62 34.5C62 37.8137 59.3137 40.5 56 40.5L6.16273 40.5C1.38034 40.5 -1.47997 35.1785 1.15847 31.1898L19.6798 3.1898C20.7908 1.51023 22.6703 0.5 24.684 0.5H56C59.3137 0.5 62 3.18629 62 6.5V34.5Z" fill="#003B3E"
-                                            stroke="#003B3E"
-                                            strokeWidth={1}
-                                        />
-                                    </svg>
-
-                                    <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] z-10">
-                                        <LogOut className="w-[16px] h-[16px]" />
-                                    </span>
+                                    <LogOut className='w-[16px] h-[16px]' />
                                 </button>
                             </div>
                         )
                     }
-
                 </div>
-
             </header>
 
             <WalletConnectModal
@@ -194,11 +194,11 @@ const NavBar = () => {
                 onClose={() => setIsConnectModalOpen(false)}
                 onSelect={handleWalletSelect}
             />
-
             <WalletDisconnectModal
                 isOpen={isDisconnectModalOpen}
-                onClose={() => setIsDisconnectModalOpen(false)}
-                onDisconnect={handleDisconnect}
+                onClose={handleCancelDisconnect}
+                onConfirm={handleDisconnect}
+                isDisconnecting={isDisconnecting}
             />
         </>
     )

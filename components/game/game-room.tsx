@@ -24,7 +24,7 @@ const GameRoom = () => {
             )}
             <aside
                 className={`
-                            h-full overflow-y-auto no-scrollbar bg-[#010F10] p-4 rounded-s-[12px] border-l-[1px] border-white/10
+                            h-full min-h-0 overflow-hidden bg-[#010F10] p-4 rounded-s-[12px] border-l-[1px] border-white/10
                             transition-all duration-300 ease-in-out
                             fixed z-20 top-0 right-0 
                             transform ${isSidebarOpen ? 'translate-x-0 lg:translate-x-0' : 'translate-x-full lg:translate-x-0'}
@@ -32,7 +32,7 @@ const GameRoom = () => {
                             ${isSidebarOpen ? 'lg:w-[272px] md:w-1/2 w-full' : 'lg:w-[60px] w-full'}
                         `}
             >
-                <div className="w-full h-full flex flex-col gap-3">
+                <div className="w-full h-full min-h-0 flex flex-col gap-3">
                     {/* Toggle button with changing icon */}
                     <button onClick={toggleSidebar} className="text-[#869298] hover:text-[#F0F7F7] lg:hidden">
                         {isSidebarOpen ? <ChevronRight /> : <PiChatsCircle className="size-[25px]" />}
@@ -66,7 +66,15 @@ const GameRoom = () => {
                     </div>
 
                     {/* chat room */}
-                    {isSidebarOpen && <ChatRoom />}
+                    {isSidebarOpen ? (
+                        <div className="flex-1 min-h-0 flex flex-col">
+                            <ChatRoom />
+                        </div>
+                    ) : (
+                        <p className="text-[#869298] text-[12px] font-dmSans font-medium text-center px-2">
+                            Open the sidebar to view and send chat messages.
+                        </p>
+                    )}
 
                 </div>
             </aside>
