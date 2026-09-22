@@ -1,13 +1,13 @@
 'use client';
 
-import { GameContextProps } from '@/types/game';
+import { GameContextProps, Player } from '@/types/game';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
     const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(false);
-    const [players, setPlayers] = useState<any[]>([]);
+    const [players, setPlayers] = useState<Player[]>([]);
     const [selectedColor, setSelectedColor] = useState('');
 
     // TODO: Add useEffect hooks here to fetch initial game state from Dojo
