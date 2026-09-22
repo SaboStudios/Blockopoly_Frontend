@@ -14,3 +14,6 @@ This repository is used for Handsoff load testing.
 ## Testing
 
 - Tests are not yet set up in this repository; to add a shallow unit test for a pure helper, create a `__tests__` folder next to the util/component and add a small test file (e.g. `util.test.ts`) that imports the helper and asserts its output.
+
+<!-- handsoff-issue-149 -->
+- #149: [Handsoff test 054] Add title attribute to truncated text 54
