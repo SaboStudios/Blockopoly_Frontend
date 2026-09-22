@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { Send, Users } from 'lucide-react';
+import EmptyState from '@/components/shared/empty-state';
 
 const ChatRoom = () => {
     return (
@@ -12,7 +13,10 @@ const ChatRoom = () => {
             </div>
             {/* content */}
             <main className="w-full flex-1 overflow-y-auto no-scrollbar flex justify-center items-center">
-                <p className="text-[#AFBAC0] text-center text-[14px] font-dmSan font-[500]">No messages yet</p>
+                <EmptyState
+                    title="No messages yet"
+                    description="Be the first to say something in this room."
+                />
             </main>
 
             {/* bottom */}
