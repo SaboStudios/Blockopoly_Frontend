@@ -37,7 +37,7 @@ const PropertyCard = ({ square }: PropertyCardProps) => {
             style={{ borderColor: color }}
         >
             <div className={`flex flex-col items-center `}>
-                <p className="text-[5px] md:text-[5px] font-bold uppercase text-center">{name}</p>
+                <p className="text-[5px] md:text-[5px] font-bold uppercase text-center" title={name}>{name}</p>
                 {/* You will need to provide the images for each property */}
                 {icon && <Image src={icon} alt={name} width={25} height={25} className={`my-1 transform ${imageOrientationClasses[position]}`} />}
             </div>
