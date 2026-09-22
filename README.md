@@ -50,3 +50,8 @@ npm install
 ## 🧪 Testing
 
 - Unit tests are not set up yet; add a shallow test for a pure helper (e.g. a util function) when a test runner is introduced.
+
+## Handsoff notes
+
+<!-- handsoff-issue-181 -->
+- #181: [Handsoff test 086] Remove unused console.log near feature 86
