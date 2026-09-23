@@ -1,7 +1,8 @@
 "use client";
 
 import { BoardSquare } from '@/types/game';
-import React, { useMemo } from 'react';
+import React, { useMemo } from 'react'
+import Link from 'next/link';
 import PropertyCard from './property-card';
 import SpecialCard from './special-card';
 import CornerCard from './corner-card';

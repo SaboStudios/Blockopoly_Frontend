@@ -68,6 +68,11 @@ git clone https://github.com/YOUR_ORG/tycoon-on-stellar-frontend.git
 cd tycoon-on-stellar-frontend
 ```
 
+## Handsoff notes
+
+<!-- handsoff-issue-322 -->
+- #322: GameSettings: merge duplicate canStart gates (wallet + room fields)
+
 ### 2️⃣ Install Dependencies
 
 ```bash
