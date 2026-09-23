@@ -49,11 +49,13 @@ const ChatRoom = () => {
 
             {/* bottom */}
             <div className="w-full border-t-[1px] border-[#263238] h-[52px] flex items-stretch gap-2 p-2">
+                <label htmlFor="chat" className="sr-only">Chat message</label>
                 <input
                     type="text"
                     className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3"
                     name="chat"
                     id="chat"
+                    aria-label="Chat message"
                     placeholder='Type a message...'
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
@@ -64,9 +66,10 @@ const ChatRoom = () => {
                 <button
                     type="button"
                     onClick={handleSend}
+                    aria-label="Send message"
                     className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'
                 >
-                    <Send className="w-5 h-5" />
+                    <Send className="w-5 h-5" aria-hidden="true" />
                 </button>
             </div>
         </div>
