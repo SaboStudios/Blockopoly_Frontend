@@ -4,13 +4,14 @@ import ScrollToTopBtn from "@/components/shared/scroll-to-top-btn";
 import { StarknetProvider } from "@/config/starknet-provider";
 import { WalletProvider } from "@/context/wallet-provider";
 import "@/styles/globals.css";
-import { getMetadata } from "@/utils/getMeatadata";
+import { getMetadata } from "@/utils/getMetadata";
 
 
 export const metadata = getMetadata({
   title: "Blockopoly",
   description:
     "Blockopoly is a decentralized on-chain game inspired by the classic Monopoly game, built on Starknet. It allows players to buy, sell, and trade digital properties in a trustless gaming environment.",
+  image: "/thumbnail.png",
 })
 
 export default function RootLayout({

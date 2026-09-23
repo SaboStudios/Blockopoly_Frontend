@@ -1,204 +1,102 @@
-'use client'
-import { House } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import React from 'react'
-import { FaUser } from 'react-icons/fa6'
-import { IoIosAddCircle } from 'react-icons/io'
-import { IoKey } from 'react-icons/io5'
-import { RxDotFilled } from 'react-icons/rx'
+"use client";
 
-const ROOM_CODE_PATTERN = /^[A-Za-z0-9]{4,8}$/
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-const JoinRoom = () => {
+const ROOM_CODE_MIN_LENGTH = 4;
+const ROOM_CODE_MAX_LENGTH = 12;
+const ROOM_CODE_PATTERN = /^[A-Za-z0-9]+$/;
 
-    const router = useRouter()
-    const [roomCode, setRoomCode] = React.useState('')
-    const [error, setError] = React.useState('')
+function validateRoomCode(rawCode: string): string | null {
+    const code = rawCode.trim();
 
-    const validateRoomCode = (code: string) => {
-        const trimmed = code.trim()
-        if (!trimmed) {
-            return 'Please enter a room code.'
-        }
-        if (!ROOM_CODE_PATTERN.test(trimmed)) {
-            return 'Room code must be 4-8 letters or numbers.'
-        }
-        return ''
+    if (!code) {
+        return "Please enter a room code.";
     }
 
-    const handleJoinRoom = (e: React.FormEvent) => {
-        e.preventDefault()
-        const validationError = validateRoomCode(roomCode)
-        setError(validationError)
+    if (code.length < ROOM_CODE_MIN_LENGTH) {
+        return `Room code must be at least ${ROOM_CODE_MIN_LENGTH} characters.`;
+    }
+
+    if (code.length > ROOM_CODE_MAX_LENGTH) {
+        return `Room code must be at most ${ROOM_CODE_MAX_LENGTH} characters.`;
+    }
+
+    if (!ROOM_CODE_PATTERN.test(code)) {
+        return "Room code can only contain letters and numbers.";
+    }
+
+    return null;
+}
+
+export default function JoinRoom() {
+    const router = useRouter();
+    const [roomCode, setRoomCode] = useState("");
+    const [error, setError] = useState<string | null>(null);
+
+    const trimmedCode = roomCode.trim();
+    const isInvalid = validateRoomCode(trimmedCode) !== null;
+
+    const handleChange = (value: string) => {
+        setRoomCode(value);
+        if (error) {
+            setError(null);
+        }
+    };
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const validationError = validateRoomCode(roomCode);
         if (validationError) {
-            return
+            setError(validationError);
+            return;
         }
-        router.push(`/join-room/${roomCode.trim().toUpperCase()}`)
-    }
 
-    const isInvalid = Boolean(validateRoomCode(roomCode))
+        setError(null);
+        router.push(`/game-room?room=${encodeURIComponent(trimmedCode)}`);
+    };
 
     return (
-        <section className='w-full min-h-screen bg-settings bg-cover bg-fixed bg-center'>
-            <main className="w-full min-h-screen py-20 flex flex-col items-center justify-start bg-[#010F101F] backdrop-blur-[12px] px-4">
-                <div className='w-full flex flex-col items-center'>
-                    <h2 className="text-[#F0F7F7] font-orbitron md:text-[24px] text-[20px] font-[700] text-center">Join Room</h2>
-                    <p className='text-[#869298] text-[16px] font-dmSans text-center'>Select the room you would like to join</p>
-                </div>
-                {/* buttons */}
-                <div className='w-full max-w-[792px] mt-10 flex justify-between items-center'>
-                    {/* Home button */}
-                    <button
-                        type="button"
-                        onClick={() => router.push("/")}
-                        className="relative group w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
-                    >
-                        <svg
-                            width="227"
-                            height="40"
-                            viewBox="0 0 227 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="absolute top-0 left-0 w-full h-full"
-                        >
-                            <path
-                                d="M6 1H221C225.373 1 227.996 5.85486 225.601 9.5127L207.167 37.5127C206.151 39.0646 204.42 40 202.565 40H6C2.96244 40 0.5 37.5376 0.5 34.5V6.5C0.5 3.46243 2.96243 1 6 1Z"
-                                fill="#0E1415"
-                                stroke="#003B3E"
-                                strokeWidth={1}
-                                className="group-hover:stroke-[#00F0FF] transition-all duration-300 ease-in-out"
-                            />
-                        </svg>
-                        <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[13px] font-dmSans font-medium z-10">
-                            <House className="mr-1 w-[14px] h-[14px]" />
-                            Go Back Home
-                        </span>
-                    </button>
+        <div className="flex min-h-screen w-full items-center justify-center px-4">
+            <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="flex w-full max-w-md flex-col gap-4"
+            >
+                <h1 className="text-2xl font-bold">Join a Room</h1>
 
-                    {/* Create New Room */}
-                    <button
-                        type="button"
-                        className="relative group w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
-                    >
-                        <svg
-                            width="227"
-                            height="40"
-                            viewBox="0 0 227 40"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="absolute top-0 left-0 w-full h-full transform scale-x-[-1] scale-y-[-1]"
-                        >
-                            <path
-                                d="M6 1H221C225.373 1 227.996 5.85486 225.601 9.5127L207.167 37.5127C206.151 39.0646 204.42 40 202.565 40H6C2.96244 40 0.5 37.5376 0.5 34.5V6.5C0.5 3.46243 2.96243 1 6 1Z"
-                                fill="#003B3E"
-                                stroke="#003B3E"
-                                strokeWidth={1}
-                                className="group-hover:stroke-[#00F0FF] transition-all duration-300 ease-in-out"
-                            />
-                        </svg>
-                        <span className="absolute inset-0 flex items-center justify-center text-[#00F0FF] capitalize text-[12px] font-dmSans font-medium z-10">
-                            <IoIosAddCircle className="mr-1 w-[14px] h-[14px]" />
-                            Create New Room
-                        </span>
-                    </button>
-                </div>
-
-                {/* join by code */}
-                <form
-                    onSubmit={handleJoinRoom}
-                    className='w-full max-w-[792px] mt-10 flex flex-col gap-2'
-                >
-                    <div className='w-full flex flex-col sm:flex-row gap-3'>
-                        <input
-                            type="text"
-                            value={roomCode}
-                            onChange={(e) => {
-                                setRoomCode(e.target.value)
-                                if (error) setError('')
-                            }}
-                            placeholder="Enter room code"
-                            aria-label="Room code"
-                            aria-invalid={Boolean(error)}
-                            className="flex-1 h-[40px] px-4 rounded-[8px] bg-[#0E1415] border-[1px] border-[#003B3E] text-[#F0F7F7] font-dmSans text-[14px] outline-none focus:border-[#00F0FF]"
-                        />
-                        <button
-                            type="submit"
-                            disabled={isInvalid}
-                            className="h-[40px] px-6 rounded-[8px] bg-[#003B3E] text-[#00F0FF] font-dmSans font-medium text-[13px] capitalize transition-all duration-300 ease-in-out hover:border-[#00F0FF] disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            Join Room
-                        </button>
-                    </div>
+                <div className="flex flex-col gap-2">
+                    <label htmlFor="room-code" className="text-sm font-medium">
+                        Room Code
+                    </label>
+                    <Input
+                        id="room-code"
+                        name="roomCode"
+                        value={roomCode}
+                        onChange={(event) => handleChange(event.target.value)}
+                        placeholder="Enter room code"
+                        autoComplete="off"
+                        aria-invalid={Boolean(error)}
+                        aria-describedby={error ? "room-code-error" : undefined}
+                    />
                     {error && (
-                        <p role="alert" className="text-[#FF6B6B] text-[13px] font-dmSans">
+                        <p
+                            id="room-code-error"
+                            role="alert"
+                            className="text-sm text-red-500"
+                        >
                             {error}
                         </p>
                     )}
-                </form>
-
-                {/* rooms */}
-                <div className='w-full max-w-[792px] mt-10 bg-[#010F10] rounded-[12px] border-[1px] border-[#003B3E] md:px-20 px-6 py-12 flex flex-col gap-4'>
-
-                    {/* room */}
-                    <div className="w-full p-4 border-[1px] flex flex-col items-start border-[#0E282A] rounded-[12px] cursor-pointer hover:border-[#00F0FF]">
-                        <div className="w-full flex justify-between items-center">
-                            <h4 className="text-[#F0F7F7] text-[20px] uppercase font-dmSans font-[800]">QVN46A</h4>
-                            <span className="flex gap-1.5 text-[#263238]">
-                                <RxDotFilled className='w-5 h-5' />
-                                <RxDotFilled className='w-5 h-5' />
-                                <RxDotFilled className='w-5 h-5' />
-                                <FaUser className="text-[#F0F7F7]" />
-                            </span>
-                        </div>
-                        <span className="flex gap-1.5 text-[#263238] mt-2">
-                            <IoKey className="text-[#F0F7F7] w-5 h-5" />
-                            <RxDotFilled className='w-5 h-5' />
-                            <RxDotFilled className='w-5 h-5' />
-                            <RxDotFilled className='w-5 h-5' />
-                        </span>
-                    </div>
-
-                    {/* room */}
-                    <div className="w-full p-4 border-[1px] flex flex-col items-start border-[#0E282A] rounded-[12px] cursor-pointer hover:border-[#00F0FF]">
-                        <div className="w-full flex justify-between items-center">
-                            <h4 className="text-[#F0F7F7] text-[20px] uppercase font-dmSans font-[800]">QKM46C</h4>
-                            <span className="flex gap-1.5 text-[#263238]">
-                                <RxDotFilled className='w-5 h-5' />
-                                <RxDotFilled className='w-5 h-5' />
-                                <RxDotFilled className='w-5 h-5' />
-                                <FaUser className="text-[#F0F7F7]" />
-                            </span>
-                        </div>
-                        <span className="flex gap-1.5 text-[#263238] mt-2">
-                            <IoKey className="text-[#F0F7F7] w-5 h-5" />
-                            <RxDotFilled className='w-5 h-5' />
-                            <RxDotFilled className='w-5 h-5' />
-                            <RxDotFilled className='w-5 h-5' />
-                        </span>
-                    </div>
-
-                    {/* room */}
-                    <div className="w-full p-4 border-[1px] flex flex-col items-start border-[#0E282A] rounded-[12px] cursor-pointer hover:border-[#00F0FF]">
-                        <div className="w-full flex justify-between items-center">
-                            <h4 className="text-[#F0F7F7] text-[20px] uppercase font-dmSans font-[800]">QYF91U</h4>
-                            <span className="flex gap-1.5 text-[#263238]">
-                                <RxDotFilled className='w-5 h-5' />
-                                <RxDotFilled className='w-5 h-5' />
-                                <RxDotFilled className='w-5 h-5' />
-                                <FaUser className="text-[#F0F7F7]" />
-                            </span>
-                        </div>
-                        <span className="flex gap-1.5 text-[#263238] mt-2">
-                            <IoKey className="text-[#F0F7F7] w-5 h-5" />
-                            <RxDotFilled className='w-5 h-5' />
-                            <RxDotFilled className='w-5 h-5' />
-                            <RxDotFilled className='w-5 h-5' />
-                        </span>
-                    </div>
                 </div>
-            </main>
-        </section>
-    )
-}
 
-export default JoinRoom
+                <Button type="submit" disabled={isInvalid}>
+                    Join Room
+                </Button>
+            </form>
+        </div>
+    );
+}
