@@ -1,27 +1,45 @@
-import React from 'react';
-import { BoardSquare } from "@/types/game";
-import { GrHelp } from 'react-icons/gr';
+import type { BoardSquare } from "@/types/game"
+import { cn } from "@/lib/utils"
 
 interface SpecialCardProps {
-    square: BoardSquare;
+  square: BoardSquare
+  className?: string
 }
 
-const SpecialCard = ({ square }: SpecialCardProps) => {
-    const { position } = square;
+function getSpecialLabel(square: BoardSquare) {
+  const name = square.name?.trim()
+  if (name && name !== "?") return name
+  if (square.type === "special") return "Special"
+  return "Special"
+}
 
-    const orientationClasses = {
-        bottom: '',
-        left: 'rotate-90',
-        top: '',
-        right: '-rotate-90',
-    };
+export function SpecialCard({ square, className }: SpecialCardProps) {
+  const label = getSpecialLabel(square)
 
-    return (
-        <div className={`w-full h-full bg-[#0B191A] flex flex-col justify-center gap-0.5 items-center rounded-[2.5px] ${orientationClasses[position]}`}>
-            <GrHelp className="text-[#0FF0FC] size-4 md:size-6" />
-            <p className={`text-[4px] md:text-[5px] text-[#55656D] uppercase font-semibold`}>Chance</p>
-        </div>
-    );
-};
+  return (
+    <div
+      className={cn(
+        "flex h-full w-full flex-col items-center justify-center gap-1 rounded-sm bg-[#010F10] p-1 text-center text-[#00FFFF]",
+        className,
+      )}
+      role="img"
+      aria-label={label}
+    >
+      <span
+        className="text-[0.75rem] font-bold leading-none"
+        style={{ fontFamily: "Orbitron, sans-serif" }}
+        aria-hidden="true"
+      >
+        ?
+      </span>
+      <span
+        className="line-clamp-2 text-[0.45rem] font-semibold uppercase leading-tight tracking-wide"
+        style={{ fontFamily: "'DM Sans', sans-serif" }}
+      >
+        {label}
+      </span>
+    </div>
+  )
+}
 
-export default SpecialCard;
+export default SpecialCard
