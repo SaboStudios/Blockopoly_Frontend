@@ -1,8 +1,14 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const WhatIsBlockopoly = () => {
+    const { t } = useTranslation('guest')
+
     return (
-        <section className="w-full lg:h-[400px] md:h-[300px] h-[400px] relative px-4">
+        <section
+            aria-labelledby="what-is-blockopoly-heading"
+            className="w-full lg:h-[400px] md:h-[300px] h-[400px] relative px-4"
+        >
             <div className="w-full max-w-[1200px] min-w-[300px] mx-auto">
                 <svg
                     viewBox="0 0 1200 400"
@@ -27,8 +33,18 @@ const WhatIsBlockopoly = () => {
 
             <main className="w-full h-full absolute top-0 left-0 flex flex-col justify-center items-center">
                 <div className='lg:w-[80%] md:w-[70%] w-[80%] flex lg:flex-row items-center flex-col gap-4'>
-                    <h1 className="flex-1 text-[#F0F7F7] font-orbitron lg:text-[64px] text-[42px] leading-[42px] lg:leading-[64px] font-[700]">What is Blockopoly</h1>
-                    <p className="flex-1 font-dmSans font-[400] text-[18px] text-[#F0F7F7] -tracking-[2%]">Blockopoly is a fun digital board game where you collect tokens, trade with others, and complete challenges to win, all powered by blockchain.</p>
+                    <h1
+                        id="what-is-blockopoly-heading"
+                        className="flex-1 text-[#F0F7F7] font-orbitron lg:text-[64px] text-[42px] leading-[42px] lg:leading-[64px] font-[700]"
+                    >
+                        {t('whatIsBlockopoly.heading', 'What is Blockopoly')}
+                    </h1>
+                    <p className="flex-1 font-dmSans font-[400] text-[18px] text-[#F0F7F7] -tracking-[2%]">
+                        {t(
+                            'whatIsBlockopoly.body',
+                            'Blockopoly is a fun digital board game where you collect tokens, trade with others, and complete challenges to win, all powered by blockchain.'
+                        )}
+                    </p>
                 </div>
             </main>
         </section>
