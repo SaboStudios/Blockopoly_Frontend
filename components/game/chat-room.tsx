@@ -1,8 +1,23 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Send, Users } from 'lucide-react';
 
 const ChatRoom = () => {
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState<string[]>([]);
+
+    const handleSend = () => {
+        if (!message.trim()) return;
+        setMessages((prev) => [...prev, message.trim()]);
+        setMessage('');
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSend();
+        }
+    };
+
     return (
         <div className="w-full h-[685px] border-[1px] border-[#263238] flex flex-col mt-4 rounded-[12px]">
             {/* top */}
@@ -11,16 +26,41 @@ const ChatRoom = () => {
                 <Users className='w-4 h-4 text-[#F0F7F7]' />
             </div>
             {/* content */}
-            <main className="w-full h-[calc(100%-89px)] overflow-y-auto no-scrollbar flex justify-center items-center">
-                <p className="text-[#AFBAC0] text-center text-[14px] font-dmSan font-[500]">No messages yet</p>
+            <main className="w-full h-[calc(100%-89px)] overflow-y-auto no-scrollbar flex flex-col justify-center items-center">
+                {messages.length === 0 ? (
+                    <p className="text-[#AFBAC0] text-center text-[14px] font-dmSans font-[500]">No messages yet</p>
+                ) : (
+                    <ul className="w-full flex flex-col gap-2 p-3">
+                        {messages.map((msg, index) => (
+                            <li
+                                key={index}
+                                className="self-end max-w-[80%] bg-[#0B191A] border-[1px] border-[#263238] rounded-[12px] px-3 py-2 text-[12px] text-[#F0F7F7] font-dmSans break-words"
+                            >
+                                {msg}
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </main>
 
             {/* bottom */}
             <div className="w-full border-t-[1px] border-[#263238] h-[52px] flex items-stretch gap-2 p-2">
-                <input type="text" className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3" name="chat" id="chat" placeholder='Type a message...' />
+                <input
+                    type="text"
+                    className="outline-none flex-1 bg-[#0B191A] rounded-[20px] text-[12px] text-[#AFBAC0] font-dmSans px-3"
+                    name="chat"
+                    id="chat"
+                    placeholder='Type a message...'
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                />
 
                 {/* send btn */}
-                <button className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'>
+                <button
+                    className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'
+                    onClick={handleSend}
+                >
                     <Send className="w-5 h-5" />
                 </button>
             </div>
