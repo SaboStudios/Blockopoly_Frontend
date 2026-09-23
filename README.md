@@ -54,3 +54,6 @@ npm install
 
 <!-- handsoff-issue-218 -->
 - #218: Add aria-label to ChatRoom send icon button (23)
+
+<!-- handsoff-issue-222 -->
+- #222: Extract GameBoard as client component if using interactive Play (27)
