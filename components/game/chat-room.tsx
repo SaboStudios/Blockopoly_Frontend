@@ -36,7 +36,7 @@ const ChatRoom = () => {
             <main className="w-full h-[calc(100%-89px)] overflow-y-auto no-scrollbar flex flex-col gap-2 p-3">
                 {messages.length === 0 ? (
                     <div className="w-full h-full flex justify-center items-center">
-                        <p className="text-[#AFBAC0] text-center text-[14px] font-dmSan font-[500]">No messages yet</p>
+                        <p className="text-[#AFBAC0] text-center text-[14px] font-dmSans font-[500]">No messages yet</p>
                     </div>
                 ) : (
                     messages.map((message) => (
