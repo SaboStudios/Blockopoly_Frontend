@@ -43,3 +43,8 @@ cd Blockopoly_Frontend
 bash
 npm install
 ```
+
+## Handsoff notes
+
+<!-- handsoff-issue-216 -->
+- #216: Wire ChatRoom send button to local message state (21)
