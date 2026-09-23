@@ -84,7 +84,13 @@ export default function WalletConnectModal({
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center">
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center"
+                    data-testid="wallet-connect-modal"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Connect Wallet"
+                >
                     <motion.div
                         className="fixed inset-0 bg-black/50 backdrop-blur-sm"
                         variants={backdropVariants}
@@ -92,10 +98,11 @@ export default function WalletConnectModal({
                         animate="visible"
                         exit="exit"
                         onClick={onClose}
+                        data-testid="wallet-connect-backdrop"
                     />
 
                     <motion.div
-                        className="relative w-full max-w-md rounded-[12px] bg-[#010F10] p-[32px] border-[#003B3E] border-[1px]"
+                        className="relative w-full max-w-md rounded-[12px] bg-[#010F13] p-[32px] border-[#003B3E] border-[1px]"
                         variants={modalVariants}
                         initial="hidden"
                         animate="visible"
@@ -114,6 +121,8 @@ export default function WalletConnectModal({
                             <button
                                 onClick={onClose}
                                 className="text-gray-400 hover:text-white absolute top-2 right-2 transition-colors"
+                                data-testid="wallet-connect-close"
+                                aria-label="Close wallet connect modal"
                             >
                                 <X size={20} />
                             </button>
@@ -134,6 +143,8 @@ export default function WalletConnectModal({
                                             : ""
                                             }`}
                                         onClick={() => handleSelect(wallet.id)}
+                                        data-testid={`wallet-option-${wallet.id}`}
+                                        aria-pressed={selectedWallet === wallet.id}
                                     >
                                         <div
                                             className={`w-8 h-8 rounded-full flex items-center justify-center`}
@@ -160,6 +171,7 @@ export default function WalletConnectModal({
                             <button
                                 onClick={handleConfirm}
                                 disabled={!selectedWallet}
+                                data-testid="wallet-connect-confirm"
                                 className={`w-full py-3 rounded-[12px] font-medium transition-colors ${selectedWallet
                                     ? "bg-[#0FF0FC]/80 hover:bg-[#0FF0FC]/40 text-[#0D191B]"
                                     : "bg-gray-700 cursor-not-allowed text-white"
