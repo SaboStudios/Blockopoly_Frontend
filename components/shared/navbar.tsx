@@ -4,7 +4,7 @@ import Logo from './logo';
 import LogoIcon from '@/public/logo.png';
 import Link from 'next/link';
 import { House, LogOut, Volume2, VolumeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSound from 'use-sound'
 import { useWalletContext } from '@/context/wallet-provider';
 import Image from 'next/image';
@@ -62,6 +62,13 @@ const NavBar = () => {
             setIsSoundPlaying(true)
         }
     }
+
+    useEffect(() => {
+        return () => {
+            pause()
+            setIsSoundPlaying(false)
+        }
+    }, [pause])
 
     return (
         <>
@@ -154,12 +161,8 @@ const NavBar = () => {
                                                 width={200}
                                                 height={200}
                                                 quality={100}
-                                                className="w-full h-full object-cover"
                                             />
                                         </div>
-                                        <span className="ml-2 text-[12px] font-[400] font-dmSans">
-                                            {account.slice(0, 6)}...{account.slice(-4)}
-                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +174,7 @@ const NavBar = () => {
             <WalletConnectModal
                 isOpen={isConnectModalOpen}
                 onClose={() => setIsConnectModalOpen(false)}
-                onSelect={handleWalletSelect}
+                onWalletSelect={handleWalletSelect}
             />
             <WalletDisconnectModal
                 isOpen={isDisconnectModalOpen}
@@ -179,7 +182,7 @@ const NavBar = () => {
                 onDisconnect={handleDisconnect}
             />
         </>
-    );
-};
+    )
+}
 
-export default NavBar;
+export default NavBar
