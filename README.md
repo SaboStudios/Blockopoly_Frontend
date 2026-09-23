@@ -43,3 +43,8 @@ cd Blockopoly_Frontend
 bash
 npm install
 ```
+
+## Handsoff notes
+
+<!-- handsoff-issue-322 -->
+- #322: GameSettings: merge duplicate canStart gates (wallet + room fields)
