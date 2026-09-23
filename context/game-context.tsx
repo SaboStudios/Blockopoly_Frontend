@@ -1,33 +1,27 @@
 'use client'
-
 import React, { createContext, useContext, useState } from 'react'
-import { GameContextProps, Player } from '@/types/game'
 
-const GameContext = createContext<GameContextProps | undefined>(undefined)
-
-export const GameProvider = ({ children }: { children: React.ReactNode }) => {
-  const [players, setPlayers] = useState<Player[]>([])
-  const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(false)
-
-  const canStart =
-    players.length > 0 &&
-    players.every(
-      (player) => player.name.trim().length > 0 && player.color.trim().length > 0
-    )
-
-  return (
-    <GameContext.Provider
-      value={{ players, setPlayers, isAppearanceModalOpen, setAppearanceModalOpen, canStart }}
-    >
-      {children}
-    </GameContext.Provider>
-  )
+interface GameContextType {
+    isAppearanceModalOpen: boolean
+    setAppearanceModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const useGame = () => {
-  const context = useContext(GameContext)
-  if (!context) {
-    throw new Error('useGame must be used within a GameProvider')
-  }
-  return context
+const GameContext = createContext<GameContextType | undefined>(undefined)
+
+export const GameProvider = ({ children }: { children: React.ReactNode }) => {
+    const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(false)
+
+    return (
+        <GameContext.Provider value={{ isAppearanceModalOpen, setAppearanceModalOpen }}>
+            {children}
+        </GameContext.Provider>
+    )
+}
+
+export const useGameContext = () => {
+    const context = useContext(GameContext)
+    if (!context) {
+        throw new Error('useGameContext must be used within a GameProvider')
+    }
+    return context
 }
