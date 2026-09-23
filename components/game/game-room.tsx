@@ -32,7 +32,7 @@ const GameRoom = () => {
                             ${isSidebarOpen ? 'lg:w-[272px] md:w-1/2 w-full' : 'lg:w-[60px] w-full'}
                         `}
             >
-                <div className="w-full h-full flex flex-col gap-3">
+                <div className="w-full h-full flex flex-col gap-3 min-h-0">
                     {/* Toggle button with changing icon */}
                     <button onClick={toggleSidebar} className="text-[#869298] hover:text-[#F0F7F7] lg:hidden">
                         {isSidebarOpen ? <ChevronRight /> : <PiChatsCircle className="size-[25px]" />}
@@ -66,7 +66,11 @@ const GameRoom = () => {
                     </div>
 
                     {/* chat room */}
-                    {isSidebarOpen && <ChatRoom />}
+                    {isSidebarOpen && (
+                        <div className="flex-1 min-h-0 flex flex-col">
+                            <ChatRoom />
+                        </div>
+                    )}
 
                 </div>
             </aside>
