@@ -2,6 +2,7 @@
 import { Check, ChevronLeft, ChevronRight, CircleAlert, Flag, MoveLeft, MoveRight, Plus } from 'lucide-react'
 import React, { useState } from 'react'
 import { PiUsersThree } from 'react-icons/pi';
+import { Player } from '@/types/game';
 
 const Players = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -9,6 +10,11 @@ const Players = () => {
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
+
+    const players: Player[] = [
+        { id: '1', name: 'Aji', color: '#FFBE04' },
+        { id: '2', name: 'Signor', color: '#0E8AED' },
+    ];
 
     return (
         <>
@@ -52,8 +58,8 @@ const Players = () => {
                     `}>
                         {/* Example Player Item */}
                         <div className="flex items-center gap-2">
-                            <div className="size-[32px] rounded-full bg-[#FFBE04]" />
-                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>Aji <span className='text-[10px]'>(Me)</span></span>
+                            <div className="size-[32px] rounded-full" style={{ backgroundColor: players[0].color }} />
+                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>{players[0].name} <span className='text-[10px]'>(Me)</span></span>
                         </div>
 
                         <button type="button" className='w-[118px] h-[29px] border-[1px] border-[#003B3E] rounded-[20px] bg-transparent text-[#869298] hover:text-[#F0F7F7] self-end text-[10px] cursor-pointer'>Change appearance</button>
@@ -67,8 +73,8 @@ const Players = () => {
                     `}>
                         {/* Example Player Item */}
                         <div className="flex items-center gap-2">
-                            <div className="size-[32px] rounded-full bg-[#0E8AED]" />
-                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>Signor </span>
+                            <div className="size-[32px] rounded-full" style={{ backgroundColor: players[1].color }} />
+                            <span className='text-[#F0F7F7] font-medium font-dmSans text-[16px]'>{players[1].name} </span>
                         </div>
                     </div>
 

@@ -1,8 +1,16 @@
+export interface Player {
+  id: string;
+  name: string;
+  address?: string;
+  color: string;
+  avatar?: string;
+}
+
 export interface GameContextProps {
   isAppearanceModalOpen: boolean;
   setAppearanceModalOpen: (isOpen: boolean) => void;
-  players: any[]; // Replace 'any' with your Player type
-  setPlayers: (players: any[]) => void;
+  players: Player[];
+  setPlayers: (players: Player[]) => void;
   selectedColor: string;
   setSelectedColor: (color: string) => void;
   // Add other game states and functions here (e.g., currentTurn, properties, etc.)
