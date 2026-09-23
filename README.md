@@ -51,3 +51,6 @@ npm install
 
 <!-- handsoff-issue-217 -->
 - #217: Fix ChatRoom font class typo `font-dmSan` (22)
+
+<!-- handsoff-issue-218 -->
+- #218: Add aria-label to ChatRoom send icon button (23)
