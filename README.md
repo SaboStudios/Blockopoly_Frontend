@@ -70,6 +70,8 @@ cd tycoon-on-stellar-frontend
 
 ## Handsoff notes
 
+<!-- handsoff-issue-326 -->
+- #326: Fix ChatRoom font class typo `font-dmSan`
 <!-- handsoff-issue-322 -->
 - #322: GameSettings: merge duplicate canStart gates (wallet + room fields)
 
