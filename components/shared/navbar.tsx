@@ -154,39 +154,18 @@ const NavBar = () => {
                                                 width={200}
                                                 height={200}
                                                 quality={100}
-                                                priority
-                                                className="object-cover w-full h-full"
+                                                className="w-full h-full object-cover"
                                             />
                                         </div>
-                                        <span className="text-[14px] font-medium ml-2">
-                                            {account.slice(0, 4)}…{account.slice(-4)}
+                                        <span className="ml-2 text-[12px] font-[400] font-dmSans">
+                                            {account.slice(0, 6)}...{account.slice(-4)}
                                         </span>
                                     </div>
                                 </div>
-
-                                {/* disconnect btn */}
-                                <button
-                                    type="button"
-                                    onClick={handleWalletClick}
-                                    className="relative right-3 group w-[62px] h-[41px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
-                                >
-                                    <svg width="62" height="41" viewBox="0 0 62 41" fill="none" className="absolute top-0 left-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M62 34.5C62 37.8137 59.3137 40.5 56 40.5L6.16273 40.5C1.38034 40.5 -1.47997 35.1785 1.15847 31.1898L19.6798 3.1898C20.7908 1.51023 22.6703 0.5 24.684 0.5H56C59.3137 0.5 62 3.18629 62 6.5V34.5Z" fill="#003B3E"
-                                            stroke="#003B3E"
-                                            strokeWidth={1}
-                                        />
-                                    </svg>
-
-                                    <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] z-10">
-                                        <LogOut className="w-[16px] h-[16px]" />
-                                    </span>
-                                </button>
                             </div>
                         )
                     }
-
                 </div>
-
             </header>
 
             <WalletConnectModal
@@ -194,14 +173,13 @@ const NavBar = () => {
                 onClose={() => setIsConnectModalOpen(false)}
                 onSelect={handleWalletSelect}
             />
-
             <WalletDisconnectModal
                 isOpen={isDisconnectModalOpen}
                 onClose={() => setIsDisconnectModalOpen(false)}
                 onDisconnect={handleDisconnect}
             />
         </>
-    )
-}
+    );
+};
 
-export default NavBar
+export default NavBar;

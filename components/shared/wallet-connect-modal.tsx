@@ -16,12 +16,14 @@ interface WalletConnectModalProps {
 export default function WalletConnectModal({
     isOpen,
     onClose,
+    onSelect,
 }: WalletConnectModalProps) {
     const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
     const { connectors, connectAsync } = useWalletContext();
 
     const handleSelect = (walletId: string) => {
         setSelectedWallet(walletId);
+        onSelect(walletId);
     };
 
     const handleConfirm = async () => {
