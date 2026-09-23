@@ -1,3 +1,11 @@
+export interface Player {
+  id: string;
+  name: string;
+  address?: string;
+  color: string;
+  avatar?: string;
+}
+
 export interface GameContextProps {
   isAppearanceModalOpen: boolean;
   setAppearanceModalOpen: (isOpen: boolean) => void;

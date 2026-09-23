@@ -249,7 +249,6 @@ const GameSettings = () => {
                         </div>
                         <Switch id="randomize-order" />
                     </div>
-                </div>
 
                 {/* Primary CTA */}
                 <div className='w-full max-w-[792px] flex flex-col items-center gap-2 mt-10'>

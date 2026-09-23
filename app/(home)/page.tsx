@@ -4,6 +4,7 @@ import HowItWorks from "@/components/guest/HowItWorks";
 import JoinOurCommunity from "@/components/guest/JoinOurCommunity";
 import WhatIsBlockopoly from "@/components/guest/WhatIsBlockopoly";
 import Footer from "@/components/shared/Footer";
+import { getMetadata } from "@/utils/getMetadata";
 
 export const metadata: Metadata = {
   title: "Blockopoly",
