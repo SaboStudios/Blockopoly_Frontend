@@ -7,9 +7,12 @@ const GameContext = createContext<GameContextProps | undefined>(undefined)
 
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [players, setPlayers] = useState<Player[]>([])
+  const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(false)
 
   return (
-    <GameContext.Provider value={{ players, setPlayers }}>
+    <GameContext.Provider
+      value={{ players, setPlayers, isAppearanceModalOpen, setAppearanceModalOpen }}
+    >
       {children}
     </GameContext.Provider>
   )
