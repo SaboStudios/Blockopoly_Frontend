@@ -43,3 +43,8 @@ cd Blockopoly_Frontend
 bash
 npm install
 ```
+
+## Handsoff notes
+
+<!-- handsoff-issue-202 -->
+- #202: Extract GameBoard as client component if using interactive Play (07)
