@@ -47,9 +47,11 @@ const ScrollToTopBtn: React.FC = (): JSX.Element => {
                     <button
                         type="button"
                         onClick={scrollToTop}
+                        aria-label="Scroll back to top"
+                        title="Scroll back to top"
                         className="px-3.5 py-3.5 duration-200 transition-all text-white md:text-2xl text-base rounded-[8px] bg-gradient-to-br from-[#010F10] to-[#083234] cursor-pointer"
                     >
-                        <MoveUp />
+                        <MoveUp aria-hidden="true" />
                     </button>
                 )
             }

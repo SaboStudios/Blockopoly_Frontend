@@ -75,7 +75,9 @@ const HeroSection = () => {
                     />
                 </div>
 
-                <h1 className="block-text font-[900] font-orbitron lg:text-[116px] md:text-[98px] text-[54px] lg:leading-[120px] md:leading-[100px] leading-[60px] tracking-[-0.02em] uppercase text-[#17ffff] relative">
+                {/* Reserve vertical space for the hero title so the Orbitron font swap
+                    does not cause a visible layout shift (CLS) on load. */}
+                <h1 className="block-text font-[900] font-orbitron lg:text-[116px] md:text-[98px] text-[54px] lg:leading-[120px] md:leading-[100px] leading-[60px] tracking-[-0.02em] uppercase text-[#17ffff] relative min-h-[60px] md:min-h-[100px] lg:min-h-[120px]">
                     {t('hero.headline')}
                     <span className='absolute top-0 left-[69%] text-[#0FF0FC] font-dmSans font-[700] md:text-[27px] text-[18px] rotate-12 animate-pulse'>?</span>
                 </h1>
@@ -90,7 +92,7 @@ const HeroSection = () => {
 
                     <button
                         type="button"
-                        className="relative group w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                        className="relative group w-full sm:w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                     >
                         <svg
                             width="260"
@@ -98,6 +100,8 @@ const HeroSection = () => {
                             viewBox="0 0 260 52"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                            focusable="false"
                             className="absolute top-0 left-0 w-full h-full transform scale-x-[-1]"
                         >
                             <path
@@ -113,11 +117,11 @@ const HeroSection = () => {
                     </button>
 
                     {/* join/create room */}
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="w-full sm:w-auto flex flex-col sm:flex-row justify-center items-center mt-2 gap-2 sm:gap-0">
                         <button
                             type="button"
                             onClick={handleRouteToJoinRoom}
-                            className="relative left-2 group w-[140px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                            className="relative sm:left-2 group w-full sm:w-[140px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                         >
                             <svg
                                 width="140"
@@ -125,6 +129,8 @@ const HeroSection = () => {
                                 viewBox="0 0 140 40"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                focusable="false"
                                 className="absolute top-0 left-0 w-full h-full"
                             >
                                 <path
@@ -136,7 +142,7 @@ const HeroSection = () => {
                                 />
                             </svg>
                             <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[12px] font-dmSans font-medium z-10">
-                                <Dices className="mr-1.5 w-[16px] h-[16px]" />
+                                <Dices className="mr-1.5 w-[16px] h-[16px]" aria-hidden="true" />
                                 {t('hero.joinRoom')}
                             </span>
                         </button>
@@ -144,7 +150,7 @@ const HeroSection = () => {
                         <button
                             type="button"
                             onClick={handleRouteToPrivateRoom}
-                            className="relative group w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                            className="relative group w-full sm:w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                         >
                             <svg
                                 width="227"
@@ -152,7 +158,9 @@ const HeroSection = () => {
                                 viewBox="0 0 227 40"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="absolute top-0 left-0 w-full h-full"
+                                aria-hidden="true"
+                                focusable="false"
+                                className="absolute top-0 left-0 w-full h-full transform scale-x-[-1] scale-y-[-1]"
                             >
                                 <path
                                     d="M6 1H221C225.373 1 227.996 5.85486 225.601 9.5127L207.167 37.5127C206.151 39.0646 204.42 40 202.565 40H6C2.96244 40 0.5 37.5376 0.5 34.5V6.5C0.5 3.46243 2.96243 1 6 1Z"
@@ -163,7 +171,7 @@ const HeroSection = () => {
                                 />
                             </svg>
                             <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[12px] font-dmSans font-medium z-10">
-                                <KeyRound className="mr-1.5 w-[16px] h-[16px]" />
+                                <KeyRound className="mr-1.5 w-[16px] h-[16px]" aria-hidden="true" />
                                 {t('hero.createRoom')}
                             </span>
                         </button>

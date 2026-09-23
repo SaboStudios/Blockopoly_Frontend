@@ -17,7 +17,7 @@ const HowItWorks = () => {
     const slides = t('howItWorks.slides', slidesData)
 
     return (
-        <section className="relative w-full h-[856px] overflow-hidden flex flex-col items-center justify-center border-y-[1px] border-[#0FF0FC]/20">
+        <section className="relative w-full min-h-[856px] overflow-hidden flex flex-col items-center justify-center border-y-[1px] border-[#0FF0FC]/20">
             {/* Background Layers */}
             <div
                 className="absolute inset-0 z-0 transition-opacity duration-700 ease-in-out bg-cover bg-center bg-no-repeat"
@@ -79,13 +79,16 @@ const HowItWorks = () => {
 
 
 
-                <div className='w-full max-w-[620px] flex justify-between items-center gap-6 mt-6 md:px-6'>
+                <div className='w-full max-w-[620px] flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 mt-6 md:px-6'>
                     <div className="swiper-pagination hidden" />
                     {/* Dots Navigation */}
                     <div className=" flex gap-2 ">
                         {[0, 1, 2, 3].map((i) => (
                             <button
                                 key={i}
+                                type="button"
+                                aria-label={`Go to step ${i + 1}`}
+                                aria-current={currentSlide === i}
                                 onClick={() => {
                                     setCurrentSlide(i);
                                     swiperInstance?.slideTo(i)
@@ -97,7 +100,7 @@ const HowItWorks = () => {
 
                     <button
                         type="button"
-                        className="relative group w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                        className="relative group w-[260px] max-w-full h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                     >
                         <svg
                             width="260"
@@ -105,6 +108,8 @@ const HowItWorks = () => {
                             viewBox="0 0 260 52"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                            focusable="false"
                             className="absolute top-0 left-0 w-full h-full transform scale-x-[-1]"
                         >
                             <path
