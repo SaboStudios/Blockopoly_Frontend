@@ -48,3 +48,6 @@ npm install
 
 <!-- handsoff-issue-216 -->
 - #216: Wire ChatRoom send button to local message state (21)
+
+<!-- handsoff-issue-217 -->
+- #217: Fix ChatRoom font class typo `font-dmSan` (22)
