@@ -60,6 +60,7 @@ const ChatRoom = () => {
                 <button
                     className='size-[36px] rounded-[20px] bg-[#010F10] border-[1px] border-[#263238] flex items-center justify-center text-[#AFBAC0]'
                     onClick={handleSend}
+                    aria-label="Send message"
                 >
                     <Send className="w-5 h-5" />
                 </button>
