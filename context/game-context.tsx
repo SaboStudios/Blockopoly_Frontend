@@ -9,7 +9,11 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
   const [players, setPlayers] = useState<Player[]>([])
   const [isAppearanceModalOpen, setAppearanceModalOpen] = useState(false)
 
-  const canStart = players.length > 0 && players.every((player) => player.name.trim().length > 0 && player.color.trim().length > 0)
+  const canStart =
+    players.length > 0 &&
+    players.every(
+      (player) => player.name.trim().length > 0 && player.color.trim().length > 0
+    )
 
   return (
     <GameContext.Provider
