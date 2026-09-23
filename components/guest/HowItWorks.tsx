@@ -6,12 +6,15 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { slidesData } from '@/utils/slidesData'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const HowItWorks = () => {
+    const { t } = useTranslation()
     const [currentSlide, setCurrentSlide] = useState(0)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [swiperInstance, setSwiperInstance] = useState<any>(null)
 
+    const slides = t('howItWorks.slides', slidesData)
 
     return (
         <section className="relative w-full h-[856px] overflow-hidden flex flex-col items-center justify-center border-y-[1px] border-[#0FF0FC]/20">
@@ -37,8 +40,8 @@ const HowItWorks = () => {
             {/* Foreground content */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#010F1000] via-[#010F10] z-10 w-full px-4 flex flex-col items-center justify-center">
                 <div className=' w-full flex flex-col justify-center items-center gap-2 mb-6'>
-                    <h1 className="text-center text-[#F0F7F7] font-[900] md:text-[48px] text-[32px] font-orbitron leading-normal">How it works</h1>
-                    <p className='md:max-w-[60%]  w-full text-center text-[20px] font-[400] font-dmSans leading-[30px] text-[#F0F7F7]'>It&apos;s super simple how Blockopoly works. The flow has been designed to help you not to stress too much.</p>
+                    <h1 className="text-center text-[#F0F7F7] font-[900] md:text-[48px] text-[32px] font-orbitron leading-normal">{t('howItWorks.title', 'How it works')}</h1>
+                    <p className='md:max-w-[60%]  w-full text-center text-[20px] font-[400] font-dmSans leading-[30px] text-[#F0F7F7]'>{t('howItWorks.subtitle', "It's super simple how Blockopoly works. The flow has been designed to help you not to stress too much.")}</p>
                 </div>
 
 
@@ -54,7 +57,7 @@ const HowItWorks = () => {
                     pagination={{ clickable: true, el: '.swiper-pagination' }}
                 >
                     {
-                        slidesData.map((item, index) => (
+                        slides.map((item, index) => (
                             <SwiperSlide key={index} className={`keen-slider__slide w-[90%] sm:w-full h-[350px] relative md:p-6 p-3 rounded-[12px] overflow-hidden flex items-center justify-center transition-all duration-500 ${currentSlide !== index ? 'blur-[1.5px] opacity-40 scale-[0.95]' : 'opacity-100 blur-0 scale-100'
                                 }`}>
                                 <div className="w-full h-full bg-[#091F201F] border-[1px] border-[#55656D] rounded-[12px] custom-glow-blur p-6 md:p-10 flex flex-col justify-between items-center">
@@ -112,7 +115,7 @@ const HowItWorks = () => {
                             />
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center text-[#010F10] text-[18px] -tracking-[2%] font-orbitron font-[700] z-10">
-                            Let&apos;s Go!
+                            {t('howItWorks.cta', "Let's Go!")}
                         </span>
                     </button>
                 </div>
