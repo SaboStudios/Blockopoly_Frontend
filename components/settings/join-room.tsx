@@ -7,9 +7,36 @@ import { IoIosAddCircle } from 'react-icons/io'
 import { IoKey } from 'react-icons/io5'
 import { RxDotFilled } from 'react-icons/rx'
 
+const ROOM_CODE_PATTERN = /^[A-Za-z0-9]{4,8}$/
+
 const JoinRoom = () => {
 
     const router = useRouter()
+    const [roomCode, setRoomCode] = React.useState('')
+    const [error, setError] = React.useState('')
+
+    const validateRoomCode = (code: string) => {
+        const trimmed = code.trim()
+        if (!trimmed) {
+            return 'Please enter a room code.'
+        }
+        if (!ROOM_CODE_PATTERN.test(trimmed)) {
+            return 'Room code must be 4-8 letters or numbers.'
+        }
+        return ''
+    }
+
+    const handleJoinRoom = (e: React.FormEvent) => {
+        e.preventDefault()
+        const validationError = validateRoomCode(roomCode)
+        setError(validationError)
+        if (validationError) {
+            return
+        }
+        router.push(`/join-room/${roomCode.trim().toUpperCase()}`)
+    }
+
+    const isInvalid = Boolean(validateRoomCode(roomCode))
 
     return (
         <section className='w-full min-h-screen bg-settings bg-cover bg-fixed bg-center'>
@@ -76,6 +103,39 @@ const JoinRoom = () => {
                     </button>
                 </div>
 
+                {/* join by code */}
+                <form
+                    onSubmit={handleJoinRoom}
+                    className='w-full max-w-[792px] mt-10 flex flex-col gap-2'
+                >
+                    <div className='w-full flex flex-col sm:flex-row gap-3'>
+                        <input
+                            type="text"
+                            value={roomCode}
+                            onChange={(e) => {
+                                setRoomCode(e.target.value)
+                                if (error) setError('')
+                            }}
+                            placeholder="Enter room code"
+                            aria-label="Room code"
+                            aria-invalid={Boolean(error)}
+                            className="flex-1 h-[40px] px-4 rounded-[8px] bg-[#0E1415] border-[1px] border-[#003B3E] text-[#F0F7F7] font-dmSans text-[14px] outline-none focus:border-[#00F0FF]"
+                        />
+                        <button
+                            type="submit"
+                            disabled={isInvalid}
+                            className="h-[40px] px-6 rounded-[8px] bg-[#003B3E] text-[#00F0FF] font-dmSans font-medium text-[13px] capitalize transition-all duration-300 ease-in-out hover:border-[#00F0FF] disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Join Room
+                        </button>
+                    </div>
+                    {error && (
+                        <p role="alert" className="text-[#FF6B6B] text-[13px] font-dmSans">
+                            {error}
+                        </p>
+                    )}
+                </form>
+
                 {/* rooms */}
                 <div className='w-full max-w-[792px] mt-10 bg-[#010F10] rounded-[12px] border-[1px] border-[#003B3E] md:px-20 px-6 py-12 flex flex-col gap-4'>
 
@@ -135,37 +195,6 @@ const JoinRoom = () => {
                             <RxDotFilled className='w-5 h-5' />
                         </span>
                     </div>
-
-
-                    <div className="w-full h-[52px] flex  mt-8">
-                        <input type='text' placeholder='Input room code' className='w-full h-full px-4 text-[#73838B] border-[1px] border-[#0E282A] rounded-[12px] flex-1 outline-none focus:border-[#00F0FF]' />
-
-                        <button
-                            type="button"
-                            onClick={() => router.push('/game-settings')}
-                            className="relative group w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
-                        >
-                            <svg
-                                width="260"
-                                height="52"
-                                viewBox="0 0 260 52"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="absolute top-0 left-0 w-full h-full transform scale-x-[-1]"
-                            >
-                                <path
-                                    d="M10 1H250C254.373 1 256.996 6.85486 254.601 10.5127L236.167 49.5127C235.151 51.0646 233.42 52 231.565 52H10C6.96244 52 4.5 49.5376 4.5 46.5V9.5C4.5 6.46243 6.96243 4 10 4Z"
-                                    fill="#00F0FF"
-                                    stroke="#0E282A"
-                                    strokeWidth={1}
-                                />
-                            </svg>
-                            <span className="absolute inset-0 flex items-center justify-center text-[#010F10] capitalize text-[18px] -tracking-[2%] font-orbitron font-[700] z-10">
-                                Join Room
-                            </span>
-                        </button>
-                    </div>
-
                 </div>
             </main>
         </section>
