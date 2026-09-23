@@ -22,6 +22,7 @@ export default function WalletDisconnectModal({
     //router
     const router = useRouter();
 
+    // guards against double-submit while the disconnect is in flight
     const [isDisconnecting, setIsDisconnecting] = useState(false);
 
     const handleCancel = () => {
@@ -32,8 +33,8 @@ export default function WalletDisconnectModal({
     const handleDisconnect = () => {
         if (isDisconnecting) return;
         setIsDisconnecting(true);
-        router.push("/"); // ■ now safe to navigate
         onDisconnect();
+        router.push("/"); // ■ now safe to navigate
     };
 
     const modalVariants: Variants = {

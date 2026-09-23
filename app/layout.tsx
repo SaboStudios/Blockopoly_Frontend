@@ -4,7 +4,7 @@ import ScrollToTopBtn from "@/components/shared/scroll-to-top-btn";
 import { StarknetProvider } from "@/config/starknet-provider";
 import { WalletProvider } from "@/context/wallet-provider";
 import "@/styles/globals.css";
-import { getMetadata } from "@/utils/getMeatadata";
+import { getMetadata } from "@/utils/getMetadata";
 
 
 export const metadata = getMetadata({

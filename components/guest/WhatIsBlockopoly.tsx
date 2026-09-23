@@ -8,6 +8,8 @@ const WhatIsBlockopoly = () => {
                     viewBox="0 0 1200 400"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    focusable="false"
                     className="w-full h-auto"
                 >
                     <path
