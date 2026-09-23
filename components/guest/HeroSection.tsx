@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { Dices, KeyRound } from 'lucide-react'
 import { TypeAnimation } from 'react-type-animation';
 import { useRouter } from 'next/navigation'
+import { useTranslation } from '@/lib/i18n/useTranslation'
 
 const HeroSection = () => {
     const [gamerName, setGamerName] = useState('');
+    const { t } = useTranslation();
 
     const router = useRouter()
 
@@ -29,7 +31,7 @@ const HeroSection = () => {
             <div className="w-full h-full overflow-hidden">
                 <Image
                     src={herobg}
-                    alt="Hero Background"
+                    alt={t('hero.backgroundAlt')}
                     className="w-full h-full object-cover hero-bg-zoom"
                     width={1440}
                     height={1024}
@@ -43,7 +45,7 @@ const HeroSection = () => {
                 <h1
                     className="text-center uppercase font-kronaOne font-normal text-transparent big-hero-text w-full text-[40px] sm:text-[40px] md:text-[80px] lg:text-[135px] relative before:absolute before:content-[''] before:w-full before:h-full before:bg-gradient-to-b before:from-transparent lg:before:via-[#010F10]/80 before:to-[#010F10] before:top-0 before:left-0 before:z-10"
                 >
-                    BLOCKOPOLY
+                    {t('hero.brand')}
                 </h1>
             </div>
 
@@ -53,15 +55,15 @@ const HeroSection = () => {
                 <div className='flex justify-center items-center md:gap-6 gap-3 mt-20 md:mt-28 lg:mt-0'>
                     <TypeAnimation
                         sequence={[
-                            'Conquer',
+                            t('hero.type.conquer'),
                             1200,
-                            'Conquer • Build',
+                            t('hero.type.conquerBuild'),
                             1200,
-                            'Conquer • Build • Trade On',
+                            t('hero.type.conquerBuildTrade'),
                             1800,
-                            'Conquer • Build',
+                            t('hero.type.conquerBuild'),
                             1000,
-                            'Conquer',
+                            t('hero.type.conquer'),
                             1000,
                             '',
                             500,
@@ -73,22 +75,24 @@ const HeroSection = () => {
                     />
                 </div>
 
-                <h1 className="block-text font-[900] font-orbitron lg:text-[116px] md:text-[98px] text-[54px] lg:leading-[120px] md:leading-[100px] leading-[60px] tracking-[-0.02em] uppercase text-[#17ffff] relative">
-                    THE BLOCK
+                {/* Reserve vertical space for the hero title so the Orbitron font swap
+                    does not cause a visible layout shift (CLS) on load. */}
+                <h1 className="block-text font-[900] font-orbitron lg:text-[116px] md:text-[98px] text-[54px] lg:leading-[120px] md:leading-[100px] leading-[60px] tracking-[-0.02em] uppercase text-[#17ffff] relative min-h-[60px] md:min-h-[100px] lg:min-h-[120px]">
+                    {t('hero.headline')}
                     <span className='absolute top-0 left-[69%] text-[#0FF0FC] font-dmSans font-[700] md:text-[27px] text-[18px] rotate-12 animate-pulse'>?</span>
                 </h1>
 
-                <p className="w-full px-4 md:w-[70%] lg:w-[55%] text-center font-[400] md:text-[18px] text-[14px] font-dmSans text-[#F0F7F7] -tracking-[2%]">Step into Blockopoly — the Web3 twist on the classic game of strategy, ownership, and fortune. Collect tokens, complete quests, and become the ultimate blockchain tycoon.</p>
+                <p className="w-full px-4 md:w-[70%] lg:w-[55%] text-center font-[400] md:text-[18px] text-[14px] font-dmSans text-[#F0F7F7] -tracking-[2%]">{t('hero.description')}</p>
 
                 <div className="w-full flex flex-col justify-center items-center mt-3 gap-3">
 
                     <input type="text" name="name" id="name" value={gamerName}
-                        onChange={handleInputChange} required placeholder='input your name' className='w-[80%] md:w-[260px] h-[45px] bg-[#0E1415] rounded-[12px] border-[1px] border-[#003B3E] outline-none px-3 text-[#17ffff] font-orbitron font-[400] text-[16px] text-center placeholder:text-[#455A64] placeholder:font-dmSans placeholder:text-[16px]' />
+                        onChange={handleInputChange} required placeholder={t('hero.namePlaceholder')} className='w-[80%] md:w-[260px] h-[45px] bg-[#0E1415] rounded-[12px] border-[1px] border-[#003B3E] outline-none px-3 text-[#17ffff] font-orbitron font-[400] text-[16px] text-center placeholder:text-[#455A64] placeholder:font-dmSans placeholder:text-[16px]' />
 
 
                     <button
                         type="button"
-                        className="relative group w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                        className="relative group w-full sm:w-[260px] h-[52px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                     >
                         <svg
                             width="260"
@@ -96,6 +100,8 @@ const HeroSection = () => {
                             viewBox="0 0 260 52"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                            focusable="false"
                             className="absolute top-0 left-0 w-full h-full transform scale-x-[-1]"
                         >
                             <path
@@ -106,16 +112,16 @@ const HeroSection = () => {
                             />
                         </svg>
                         <span className="absolute inset-0 flex items-center justify-center text-[#010F10] text-[18px] -tracking-[2%] font-orbitron font-[700] z-10">
-                            Let&apos;s Go!
+                            {t('hero.cta')}
                         </span>
                     </button>
 
                     {/* join/create room */}
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="w-full sm:w-auto flex flex-col sm:flex-row justify-center items-center mt-2 gap-2 sm:gap-0">
                         <button
                             type="button"
                             onClick={handleRouteToJoinRoom}
-                            className="relative left-2 group w-[140px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                            className="relative sm:left-2 group w-full sm:w-[140px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                         >
                             <svg
                                 width="140"
@@ -123,6 +129,8 @@ const HeroSection = () => {
                                 viewBox="0 0 140 40"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                focusable="false"
                                 className="absolute top-0 left-0 w-full h-full"
                             >
                                 <path
@@ -134,15 +142,15 @@ const HeroSection = () => {
                                 />
                             </svg>
                             <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[12px] font-dmSans font-medium z-10">
-                                <Dices className="mr-1.5 w-[16px] h-[16px]" />
-                                Join Room
+                                <Dices className="mr-1.5 w-[16px] h-[16px]" aria-hidden="true" />
+                                {t('hero.joinRoom')}
                             </span>
                         </button>
 
                         <button
                             type="button"
                             onClick={handleRouteToPrivateRoom}
-                            className="relative group w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
+                            className="relative group w-full sm:w-[227px] h-[40px] bg-transparent border-none p-0 overflow-hidden cursor-pointer"
                         >
                             <svg
                                 width="227"
@@ -150,28 +158,28 @@ const HeroSection = () => {
                                 viewBox="0 0 227 40"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                                focusable="false"
                                 className="absolute top-0 left-0 w-full h-full transform scale-x-[-1] scale-y-[-1]"
                             >
                                 <path
                                     d="M6 1H221C225.373 1 227.996 5.85486 225.601 9.5127L207.167 37.5127C206.151 39.0646 204.42 40 202.565 40H6C2.96244 40 0.5 37.5376 0.5 34.5V6.5C0.5 3.46243 2.96243 1 6 1Z"
-                                    fill="#003B3E"
+                                    fill="#0E1415"
                                     stroke="#003B3E"
                                     strokeWidth={1}
                                     className='group-hover:stroke-[#00F0FF] transition-all duration-300 ease-in-out'
                                 />
                             </svg>
-                            <span className="absolute inset-0 flex items-center justify-center text-[#00F0FF] capitalize text-[12px] font-dmSans font-medium z-10">
-                                <KeyRound className="mr-1.5 w-[16px] h-[16px]" />
-                                Create A Private Game
+                            <span className="absolute inset-0 flex items-center justify-center text-[#0FF0FC] capitalize text-[12px] font-dmSans font-medium z-10">
+                                <KeyRound className="mr-1.5 w-[16px] h-[16px]" aria-hidden="true" />
+                                {t('hero.createRoom')}
                             </span>
                         </button>
                     </div>
-
                 </div>
-
             </main>
         </section>
-    );
+    )
 }
 
 export default HeroSection
