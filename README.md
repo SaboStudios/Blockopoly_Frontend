@@ -43,3 +43,8 @@ cd Blockopoly_Frontend
 bash
 npm install
 ```
+
+## Handsoff notes
+
+<!-- handsoff-issue-326 -->
+- #326: Fix ChatRoom font class typo `font-dmSan`
